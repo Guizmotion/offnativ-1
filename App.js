@@ -93,10 +93,7 @@
       >
       <Drawer.Navigator
       
-      
-      
-      
-      drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'red', width: DEVICE_WIDTH  }}  />}>
+        drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'red', width: DEVICE_WIDTH  }}  />}>
       
       
       
@@ -119,7 +116,8 @@
       </Drawer.Navigator>
       
       </NavigationContainer>
-      <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text>
+
+        {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
       </AuthContext.Provider>
       
       

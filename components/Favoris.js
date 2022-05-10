@@ -140,7 +140,7 @@ import {AuthContext}  from './services/Auth';
   }
   
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onLayout={onLayout}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top:'10%' }} onLayout={onLayout}>
       
       <ScrollView>
       
