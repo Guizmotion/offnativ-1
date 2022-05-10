@@ -432,6 +432,7 @@ onEndReached={({ distanceFromEnd }) => {
  setModalVisible(!modalVisible);
  
  }}>
+   <ScrollView>
  <View style=
  {{flex: 1, 
   height: '100%',
@@ -532,7 +533,7 @@ onEndReached={({ distanceFromEnd }) => {
       </View>
  
  </View>
-
+ </ScrollView>
  </Modal>
 
 
