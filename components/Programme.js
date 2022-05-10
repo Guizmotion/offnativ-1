@@ -352,6 +352,11 @@ return (
 
   <View style={{flexDirection: 'row', width: '80%',marginTop: 10}}>
     <View style={[styles.labelCard,styles.btnBig, styles.labelAchat]}>
+    <Pressable
+        onPress={() => navigation.navigate("RechercheModal")}
+        
+      >
+    
     <Image
           style={{
             resizeMode: "cover",
@@ -360,6 +365,9 @@ return (
           }}
           source={require("../assets/recherche.png")}
         />
+       
+   
+      </Pressable>
       <Text style={styles.textBigButton}> Affiner ma recherche</Text>
       </View>
     <View style={styles.btnBig}>

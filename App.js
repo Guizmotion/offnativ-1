@@ -21,6 +21,7 @@
   import Fondation from './components/Fondation';
   import Photo from './components/Photo';
   import Login from './components/Login';
+  import RechercheModal from './components/RechercheModal';
   //import Profile from './components/Profile';
   
   import {AuthContext}  from './components/services/Auth';
@@ -111,6 +112,7 @@
       
       <Drawer.Screen name="Photo" component={Photo}   />
       <Drawer.Screen name="Cart" component={Cart} options={{ drawerLabel: () => null, }}  />
+      <Drawer.Screen name="RechercheModal" component={RechercheModal} options={{ drawerLabel: () => null, }}  />
       
       
       </Drawer.Navigator>
