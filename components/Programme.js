@@ -487,7 +487,7 @@ onEndReached={({ distanceFromEnd }) => {
         <View style={styles.labelBigplace}><Text>{itemLieu}</Text></View>
       </View>
       <View style={{marginTop: '5%'}}>
-        <Text style={styles.titreFiche}>Nom spectacle {itemNom}</Text>
+        <Text style={styles.titreFiche}>{itemNom}</Text>
         <Text opacity={0.5} style={[styles.defautTextFiche]}>à 12h00 - Durée 1h25</Text>
       </View>
 
