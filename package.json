@@ -1,0 +1,48 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
+    "@react-native-async-storage/async-storage": "^1.17.3",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.8.0",
+    "@react-navigation/drawer": "^5.9.0",
+    "@react-navigation/material-bottom-tabs": "^5.2.16",
+    "@react-navigation/material-top-tabs": "^5.2.16",
+    "@react-navigation/native": "^5.7.3",
+    "@react-navigation/stack": "^5.9.0",
+    "axios": "^0.26.0",
+    "expo": "~43.0.2",
+    "expo-camera": "^12.1.2",
+    "expo-image-manipulator": "^10.2.1",
+    "expo-location": "^14.0.2",
+    "expo-media-library": "^14.0.1",
+    "expo-permissions": "^13.1.1",
+    "expo-status-bar": "~1.1.0",
+    "js-cookie": "^3.0.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
+    "react-native-elements": "^3.4.2",
+    "react-native-gesture-handler": "~1.7.0",
+    "react-native-paper": "^4.0.1",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.4",
+    "react-native-screens": "~2.10.1",
+    "react-native-tab-view": "^2.15.1",
+    "react-native-vector-icons": "7.1.0",
+    "react-native-web": "0.17.1",
+    "react-native-webview": "^11.17.2",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "private": true
+}

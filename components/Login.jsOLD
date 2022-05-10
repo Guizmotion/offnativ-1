@@ -1,0 +1,241 @@
+import React, { useEffect, useState , useContext } from "react";
+import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable,TouchableWithoutFeedback} from 'react-native';
+import axios from 'axios';
+
+import { NavigationContainer } from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { WebView } from 'react-native-webview';
+
+//import { isSignedIn, url } from "./services/Auth";
+
+/*
+import create from 'zustand'
+
+const useStore = create((set) => ({
+  token: 0,
+  changeToken: () => set((state) => ({ token: state.token })),
+  removeToken: () => set({ token: null }),
+}));
+*/
+
+
+
+
+export default function Login({ navigation}) {
+
+  
+
+  //
+  
+  /*
+  isSignedIn()
+  .then(res => {
+    //  this.changeLoaderStatus();
+    if(res){
+      console.log(res); //this is your token 
+    }else {
+      console.log("not logged in");
+    }
+  });*/
+  //const [token, setToken] = useState('');
+  /*
+  const [isloggedin,setLogged] = useState(null)
+  
+  const detectLogin= async ()=>{
+    const token = await AsyncStorage.getItem('token')
+    if(token){
+      setLogged(true)
+    }else{
+      setLogged(false)
+    }
+  }
+  useEffect(()=>{
+    detectLogin()
+  },[])
+  */
+  
+  /*
+  const setToken = (token) => {
+    return AsyncStorage.setItem('token', token);
+  };
+  
+  const getToken = () => {
+    return AsyncStorage.getItem('token');
+  };
+  */
+  
+  /*
+  // Default config options
+  const defaultOptions = {
+    baseURL: 'https://api.festivaloffavignon.com/',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  
+  // Create instance
+  let instance = axios.create(defaultOptions);
+  
+  // Set the AUTH token for any request
+  instance.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+  });
+  */
+  
+  
+  
+  
+  function authentification(a,b,navigation) {
+    
+    
+    
+    /*
+    AsyncStorage.getItem('isLogged').then((value) => {
+      if(value == 1) {
+        return navigation.navigate("Profil");
+      }else  {
+        AsyncStorage.setItem('isLogged', "");
+        AsyncStorage.setItem('email',  "");
+        AsyncStorage.setItem('password',  "");
+        AsyncStorage.setItem('token',  "");
+        AsyncStorage.setItem('nom', "");
+        
+        
+        
+      }
+    }
+    );*/
+    
+    axios.post('https://api.festivaloffavignon.com/token', {
+    email    : a,
+    password : '6876#ae57',// b,
+    device_id: "71b9555cfb0463ca",
+    device_name: "M2007J17G"
+    
+  }, {
+    headers: {
+      'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8',
+    } })
+    
+    .then(user => {
+      // AsyncStorage.clear();
+      // await  setToken(user.data.token);
+      /*
+      await AsyncStorage.setItem('person', JSON.stringify({age: 36 }));
+      await AsyncStorage.mergeItem('person', JSON.stringify({name: 'Chris'}))
+      let person = await AsyncStorage.getItem('person')
+      
+      */
+      
+      /*
+      AsyncStorage.getItem('token').then((value) => {
+        if(value !== null) {
+          AsyncStorage.mergeItem(JSON.stringify('token'), JSON.stringify(user.data.token) );
+        }else {
+          AsyncStorage.setItem('token', user.data.token);
+        }
+        
+      }
+      );
+      
+      try {
+        AsyncStorage.setItem('token', user.data.token);
+        
+        console.log('token added');
+        
+        
+      }
+      catch(exception) {
+        console.log(exception)
+      }
+      */
+
+      global.token = user.data.token;
+      global.isLogged = true;
+      console.log('token added');
+      
+      AsyncStorage.setItem('email', a);
+      AsyncStorage.setItem('password', b);
+      AsyncStorage.setItem('nom', user.data.profil.nom);
+      
+      
+      
+      
+
+     
+
+      navigation.navigate("Profil");
+      
+    }
+    
+    )
+    .catch((error) => {
+      if( error.response ){
+        console.log(error.response.data); // => the response payload 
+      }
+    });
+    
+    
+  }
+  
+  /*
+  const  token = async () => {
+    try {
+      return await AsyncStorage.getItem('token')
+    } catch(e) {
+      // read error
+    }
+    
+    console.log('Done.')
+    
+  }
+  
+  */    
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  
+  
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <Text style={{fontSize: 20}}>Token : {/*token*/}</Text>
+    <Text>Connectez vous</Text>
+    
+    <TextInput
+    style = {{borderBottomWidth : 1.0}}
+    placeholder="Email."
+    placeholderTextColor="#003f5c"
+    onChangeText={(email) => setEmail(email)}
+    
+    />
+    
+    <TextInput
+    style = {{borderBottomWidth : 1.0}}
+    placeholder="Password."
+    placeholderTextColor="#003f5c"
+    secureTextEntry={true}
+    onChangeText={(password) => setPassword(password)}
+    
+    />
+    
+    <Pressable
+    onPress={async () => await authentification(email,password,navigation)} 
+    
+    style={{ padding: 10, marginBottom: 10, marginTop: 10 }}
+    
+    
+    >
+    <Text >Se connecter</Text>
+    </Pressable>
+  
+    
+    </View>
+    
+    );
+    
+  }
+  
