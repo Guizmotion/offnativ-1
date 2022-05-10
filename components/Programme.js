@@ -488,7 +488,7 @@ onEndReached={({ distanceFromEnd }) => {
       </View>
       <View style={{marginTop: '5%'}}>
         <Text style={styles.titreFiche}>Nom spectacle {itemNom}</Text>
-        <Text style={[styles.defautTextFiche], { opacity: 0.5}}>à 12h00 - Durée 1h25</Text>
+        <Text opacity={0.5} style={[styles.defautTextFiche]}>à 12h00 - Durée 1h25</Text>
       </View>
 
       <View style={{marginTop: '5%', flexDirection: 'row'}}>
