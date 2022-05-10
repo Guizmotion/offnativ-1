@@ -25,16 +25,7 @@
   
   import {AuthContext}  from './components/services/Auth';
   
-  /*
   
-  AsyncStorage.setItem('email', a);
-  AsyncStorage.setItem('password', b);
-  AsyncStorage.setItem('nom', user.data.profil.nom);
-  user.data.profil
-  user.data.token
-  */
-  
-  //test
   
   const initialState = {
     isAuthenticated: false,
@@ -45,13 +36,12 @@
   const reducer = (state, action) => {
     switch (action.type) {
       case "LOGIN":
-      //  localStorage.setItem("user", JSON.stringify(action.payload.user));
-      //  localStorage.setItem("token", JSON.stringify(action.payload.token));
       
       
       AsyncStorage.setItem('user', JSON.stringify(action.payload.profil));
       AsyncStorage.setItem('token', JSON.stringify(action.payload.token));
-      console.log('test' + JSON.stringify(action.payload));
+      
+      console.log('user payload : ' + JSON.stringify(action.payload));
       
       
       
@@ -64,9 +54,11 @@
       
       
       case "LOGOUT":
-      //localStorage.clear();
+      
+      console.log('logout user');
+      
       AsyncStorage.clear();
-     
+      
       return {
         ...state,
         isAuthenticated: false,
