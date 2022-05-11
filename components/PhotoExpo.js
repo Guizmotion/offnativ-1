@@ -29,7 +29,7 @@ export default function PhotoExpo() {
     }
   }
 
-  // 儲存照片
+  
   const savePicture = async () => {
     // console.log("save picture")
     const response = await ImageManipulator.manipulateAsync(cpaturedPic, [], { base64: true });
@@ -45,7 +45,7 @@ export default function PhotoExpo() {
 
   }
 
-  //另一寫法
+  
   // async function takePicture() {
   //   if (camRef) {
   //     const data = await camRef.current.takePictureAsync()
@@ -79,12 +79,12 @@ export default function PhotoExpo() {
   if (hasPermission === null) {
     return <View />
   } else if (hasPermission === false) {
-    return <Text>沒有照相機的使用權限!!!</Text>
+    return <Text>Verifier vos permissions Photos !!!</Text>
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* 拍照區塊 */}
+      
       <Camera
         style={{ flex: 1, }}
         type={type}
@@ -102,7 +102,7 @@ export default function PhotoExpo() {
                 : Camera.Constants.Type.back
             }}
           >
-            {/* 前後鏡頭交換 的圖示按鈕 */}
+           
             {/* <Text style={{ fontSize: 20, marginBottom: 15, color: "#fff" }}> 前後鏡頭交換</Text> */}
             <Ionicons name="ios-camera-reverse-sharp" size={24} color="white" />
           </TouchableOpacity>
@@ -120,7 +120,7 @@ export default function PhotoExpo() {
         />
       </TouchableOpacity>
 
-      {/* 展示照片區 */}
+     
       {cpaturedPic &&
         <Modal
           animationType="slide"
@@ -129,7 +129,7 @@ export default function PhotoExpo() {
         >
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center", margin: 20 }}>
             <View style={{ margin: 10, flexDirection: "row" }}>
-              {/* 關閉的圖示按鈕 */}
+           
               <TouchableOpacity
                 style={{ margin: 10 }}
                 onPress={() => setOpen(false)}
@@ -141,7 +141,7 @@ export default function PhotoExpo() {
                 />
               </TouchableOpacity>
 
-              {/* 存檔的圖示按鈕 */}
+              
               <TouchableOpacity
                 style={{ margin: 10 }}
                 onPress={savePicture}
@@ -153,7 +153,7 @@ export default function PhotoExpo() {
                 />
               </TouchableOpacity>
             </View>
-            {/* 在畫面中秀出照片 */}
+           
             <Image
               style={{
                 width: "100%",
