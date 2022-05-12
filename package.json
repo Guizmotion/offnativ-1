@@ -44,5 +44,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "version_app_offnativ": "2.0.0"
 }

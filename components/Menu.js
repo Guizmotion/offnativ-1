@@ -29,6 +29,10 @@ import {AuthContext}  from './services/Auth';
 
 import styles from './styles/StyleGeneral';
 
+import { version_app_offnativ} from '../package.json';
+//var pkg = require('../package.json');
+//console.log(pkg.version_app_offnativ);
+
 
 
 const Menu = (props) => {
@@ -275,7 +279,9 @@ const Menu = (props) => {
       </Pressable>
       </View>
 
-      <Text style={[styles.smallTextNoir, styles.alignCenter]}>festivaloffavignon - V 1.01 - Mentions légales</Text>
+      <Text style={[styles.smallTextNoir, styles.alignCenter]}>
+        festivaloffavignon - V {version_app_offnativ} - Mentions légales
+        </Text>
       <View style={{width: '90%', height: '100%', margin: 0,marginTop: 10, marginLeft: '5%', marginRight: '5%', borderTopLeftRadius: 15, 
       overflow: 'hidden', borderTopRightRadius: 15, bottom: 0, backgroundColor: 'red' }}>
       <Image
