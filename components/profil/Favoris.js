@@ -27,6 +27,41 @@ import {AuthContext}  from '../services/Auth';
     const [listFavorites, setlistFavorites] = useState([]);
     const [token, setToken] = useState();
     
+
+
+async function rm_favorite(id, tok) {
+
+ await axios.delete('https://api.festivaloffavignon.com/favorite',{
+   
+    headers: {
+      'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8',
+      'token': tok,//state.token
+    },
+    data: {
+      sh_id: id
+      
+    }
+
+  })
+
+  .then(user => {
+
+    console.log(user.data);
+
+  }
+
+  ).catch((error) => {
+    if( error.response ){
+      console.log(error);
+        //console.log(error.response.data); // => the response payload
+    }
+  }
+  );
+
+
+}
+
+
     
     React.useEffect(() => {
       const unsubscribe = navigation.addListener('focus', () => {
@@ -73,12 +108,15 @@ import {AuthContext}  from '../services/Auth';
       {listFavorites.map(
         (item,i) => (
           
-         
           
-          <Text key={i}>
+         <View key={i}>
+          <Button title="DelFav" onPress={() => rm_favorite(item.replace('[','').replace(']',''),state.token)} />
+
+          <Text >
            Fav id : {item.replace('[','').replace(']','')}</Text>
           
-        
+           </View>
+          
           
           )
           
