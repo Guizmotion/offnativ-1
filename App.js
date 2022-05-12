@@ -13,7 +13,7 @@
   import Menu from './components/Menu';
   
   import ProfilMenu from './components/ProfilMenu';
-  import Favoris from './components/Favoris';
+  import Favoris from './components/profil/Favoris';
   import Archives from './components/Archives';
   import Actualites from './components/Actualites';
   import Carte from './components/Carte';
