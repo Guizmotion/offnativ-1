@@ -12,7 +12,7 @@
   import Cart from './components/Cart';
   import Menu from './components/Menu';
   
-  import Profil from './components/Profil';
+  import ProfilMenu from './components/ProfilMenu';
   import Favoris from './components/Favoris';
   import Archives from './components/Archives';
   import Actualites from './components/Actualites';
@@ -22,9 +22,19 @@
   import Photo from './components/Photo';
   import Login from './components/Login';
   import RechercheModal from './components/RechercheModal';
-  //import Profile from './components/Profile';
+  
+  
+  import ModifierProfil from './components/profil/ModifierProfil';
+  import PlacesSpectacles from './components/profil/PlacesSpectacles';
+  import CartesAbonnement from './components/profil/CartesAbonnement';
+  import Factures from './components/profil/Factures';
+
   
   import {AuthContext}  from './components/services/Auth';
+
+  import GlobalState from "./components/services/GlobalState";
+
+import CartPage from "./components/CartPage";
   
   
   
@@ -42,7 +52,8 @@
       AsyncStorage.setItem('user', JSON.stringify(action.payload.profil));
       AsyncStorage.setItem('token', JSON.stringify(action.payload.token));
       
-      console.log('user payload : ' + JSON.stringify(action.payload));
+      
+      console.log('user payload : ' + JSON.stringify(action.payload.profil));
       
       
       
@@ -88,16 +99,16 @@
         dispatch
       }}
       >
-      
+      <GlobalState>
       <NavigationContainer
       
       >
       <Drawer.Navigator
       
-        drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'red', width: DEVICE_WIDTH  }}  />}>
+        drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'transparent', width: DEVICE_WIDTH , height: '100%' }}  />}>
       
-      
-      
+      {/*<Drawer.Screen name="Cart" component={Cart} /> options={{ drawerLabel: () => null, }}  />*/}
+     
       <Drawer.Screen name="Programme" component={Programme}   />
       <Drawer.Screen name="Actualites" component={Actualites}   />
       <Drawer.Screen name="Carte" component={Carte} />
@@ -105,20 +116,25 @@
       <Drawer.Screen name="Fondation" component={Fondation} />
       <Drawer.Screen name="Archives" component={Archives} />
       <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="Profil" component={Profil} />
+      <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
       <Drawer.Screen name="Favoris" component={Favoris} />
-      {/* <Drawer.Screen name="Profile" component={Profile} /> */}
+      <Drawer.Screen name="CartPage" component={CartPage}   />
+     
       
-      
+      <Drawer.Screen name="ModifierProfil" component={ModifierProfil}   />
+  
+      <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles}   />
+      <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement}   />
+      <Drawer.Screen name="Factures" component={Factures}   />
       <Drawer.Screen name="Photo" component={Photo}   />
-      <Drawer.Screen name="Cart" component={Cart} options={{ drawerLabel: () => null, }}  />
+
       <Drawer.Screen name="RechercheModal" component={RechercheModal} options={{ drawerLabel: () => null, }}  />
       
       
       </Drawer.Navigator>
       
       </NavigationContainer>
-
+      </GlobalState>
         {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
       </AuthContext.Provider>
       

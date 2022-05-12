@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable,TouchableWithoutFeedback} from 'react-native';
-import axios from 'axios';
+import {Linking,Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable,TouchableWithoutFeedback} from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 
 import {AuthContext}  from './services/Auth';
 
 
-export default function Profil({ navigation}) {
+export default function ProfilMenu({ navigation}) {
   
   
   const { state, dispatch } = React.useContext(AuthContext);
@@ -66,14 +62,14 @@ export default function Profil({ navigation}) {
       
       
       
-      <Button title="Mon profil"  />
+      <Button title="Mon profil" onPress={ () => { navigation.navigate('ModifierProfil');  }}  />
       <Button title="Mes favoris" onPress={favoris} />
 
-      <Button title="Mon panier"  />
-      <Button title="Mes places de spectacles"  />
-      <Button title="Mes cartes d'abonnement"  />
-      <Button title="Mes factures"  />
-      <Button title="Programme PDF"  />
+      <Button title="Mon panier"  onPress={ () => { navigation.navigate('CartPage');  }} />
+      <Button title="Mes places de spectacles" onPress={ () => { navigation.navigate('PlacesSpectacles');  }}  />
+      <Button title="Mes cartes d'abonnement" onPress={ () => { navigation.navigate('CartesAbonnement');  }}   />
+      <Button title="Mes factures" onPress={ () => { navigation.navigate('Factures');  }}   />
+      <Button title="Programme PDF" onPress={() => Linking.openURL('https://appli.ovh/off/pdf-tcra/test.pdf')}  />
 
 
       

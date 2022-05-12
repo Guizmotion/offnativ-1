@@ -10,15 +10,15 @@ import Loader from "./Loader";
 
 export default function Fondation({ navigation}) {
 
-    const jsCode = "document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
+    const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
   
     return (  
     
      
     <WebView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginTop: 20 }}
     source={{ uri: 'https://www.festivaloffavignon.com/fondation-afc/' }}
-    style={{ marginTop: 20 }}
+    
     javaScriptEnabled={true}
     domStorageEnabled={true}
     startInLoadingState={true}

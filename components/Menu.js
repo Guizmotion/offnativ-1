@@ -64,7 +64,7 @@ const Menu = (props) => {
      
       if(state.isAuthenticated){
         
-        return props.navigation.navigate("Profil");
+        return props.navigation.navigate("ProfilMenu");
       }else{
         
         return props.navigation.navigate("Login");
@@ -80,8 +80,8 @@ const Menu = (props) => {
     
     return (
       <DrawerContentScrollView {...props}>
-      <SafeAreaView style={{flex: 1,justifyContent: 'space-between', flexDirection: 'column', height: '100%' }} >
-      <View style={{padding: '5%', width: '100%', height: '100%',justifyContent: 'space-between' }}>
+      <SafeAreaView  >
+      <View style={{flex: 1, padding: '5%', width: '100%',justifyContent: 'space-between', height: '100%' }}>
       {/*Top Large Image */}
       
       
@@ -108,6 +108,7 @@ const Menu = (props) => {
       />
       
       {/*   <DrawerItemList {...props} /> */}
+   
       
       <View style={{marginTop: -15, width: '90%'}}>
       <Pressable
@@ -149,6 +150,8 @@ const Menu = (props) => {
       label="Actualités"
       onPress={() => props.navigation.navigate('Actualites')}
       />
+
+     
       
       <DrawerItem
       style={styles.lienMenu}
@@ -168,12 +171,14 @@ const Menu = (props) => {
       onPress={() => props.navigation.navigate('Archives')}
       />
       {/*    
-        <DrawerItem
-        style={styles.lienMenu}
-        label="Test"
-        onPress={() => props.navigation.navigate('Profile')}
-        />
         
+        
+
+         <DrawerItem
+      style={styles.lienMenu}
+      label="Panier"
+      onPress={() => props.navigation.navigate('CartPage')}
+      />
         
         <DrawerItem
         style={styles.lienMenu}
@@ -200,8 +205,19 @@ const Menu = (props) => {
       
       
       
+      <View style={{  flex: 1,    justifyContent: 'flex-end' }} >
+       
       
-      <View style={{flex: 1, flexDirection: 'row', width: '70%', marginLeft: '15%', justifyContent: 'space-between'}}>
+      
+      
+   
+ 
+      </View>
+      <View style={{  flex: 1,    justifyContent: 'flex-end',marginTop:230 }} >
+        
+
+         
+      <View style={{ flexDirection: 'row', width: '70%', marginLeft: '15%', justifyContent: 'space-between'}}>
       <Pressable
       onPress={async () => {
         await share();
@@ -258,12 +274,9 @@ const Menu = (props) => {
       />
       </Pressable>
       </View>
-      
-      
-      
-      
+
       <Text style={[styles.smallTextNoir, styles.alignCenter]}>festivaloffavignon - V 1.01 - Mentions légales</Text>
-      <View style={{width: '90%', height: '11%', margin: 0,marginTop: 10, marginLeft: '5%', marginRight: '5%', borderTopLeftRadius: 15, 
+      <View style={{width: '90%', height: '100%', margin: 0,marginTop: 10, marginLeft: '5%', marginRight: '5%', borderTopLeftRadius: 15, 
       overflow: 'hidden', borderTopRightRadius: 15, bottom: 0, backgroundColor: 'red' }}>
       <Image
       style={{
@@ -275,6 +288,14 @@ const Menu = (props) => {
       />
       </View>
       </View>
+
+      
+
+      </View>
+
+      
+
+     
       </SafeAreaView>
       
       </DrawerContentScrollView>

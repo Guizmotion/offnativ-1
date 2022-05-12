@@ -12,7 +12,12 @@ import {AuthContext}  from './services/Auth';
 
 export const Login = ({ navigation}) => {
 
-  const { dispatch } = React.useContext(AuthContext);
+  
+
+  
+  
+
+  const { state,dispatch } = React.useContext(AuthContext);
   const initialState = {
     email: "",
     password: "",
@@ -23,6 +28,106 @@ const [data, setData] = React.useState(initialState);
 
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
+
+
+
+
+
+
+
+
+/***connect auto 
+
+useEffect(async () => {
+   
+
+if( state.isAuthenticated === false ){
+
+  try {
+    let userEmail = await AsyncStorage.getItem("email");
+    //let data = JSON.parse(userData);
+    console.log(userEmail);
+
+
+    try {
+      let userPwd = await AsyncStorage.getItem("password");
+      //let data = JSON.parse(userData);
+      console.log(userPwd);
+
+      if(userEmail !== null && userPwd !== null ) {
+
+
+        setEmail(userEmail);
+        setPassword(userPwd );
+        
+              axios.post('https://api.festivaloffavignon.com/token', {
+                email    : data.email,//'perodo@gmail.com',
+                password : data.password,//'6876#ae57',// b,
+                
+                device_id: "71b9555cfb0463ca",
+                device_name: "M2007J17G"
+                
+              }, {
+                headers: {
+                  'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8',
+                } })
+        
+                  .then(user => {
+            
+                  
+                    dispatch({
+                      type: "LOGIN",
+                      payload: user.data
+                  });
+                 // console.log(user.data);
+                 navigation.navigate("ProfilMenu");
+                })
+               
+                 
+                  .catch(error => {
+                    console.log('connect nok ' + userEmail);
+                    console.log(error);
+            
+                    setData({
+                      ...data,
+                      isSubmitting: false,
+                      errorMessage: null,//error.message || error.statusText
+                    });
+                  });
+          
+          
+              }
+      
+        
+
+
+
+        
+        
+        
+
+      
+    
+    } catch (error) {
+      console.log("mauvais mot de passe", error);
+    }
+
+} catch (error) {
+  console.log("mauvais email", error);
+}
+
+
+} 
+
+
+
+
+}, []);
+
+
+/****** fin connect auto */
+
+
 
 
 const handleInputChange = event => {
@@ -52,8 +157,9 @@ const handleFormSubmit = event => {
     })*/
     //.data.token
     axios.post('https://api.festivaloffavignon.com/token', {
-    email    : 'perodo@gmail.com',
-    password : '6876#ae57',// b,
+    email    : email,//'perodo@gmail.com',//JSON.stringify(data.email),//'perodo@gmail.com',
+    password :'6876#ae57',// password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
+    
     device_id: "71b9555cfb0463ca",
     device_name: "M2007J17G"
     
@@ -76,12 +182,18 @@ const handleFormSubmit = event => {
         })
       })*/
       .then(user => {
+
+      AsyncStorage.setItem('email', JSON.stringify(email));
+      AsyncStorage.setItem('password', JSON.stringify(password));
+      
+
+
         dispatch({
           type: "LOGIN",
           payload: user.data
       });
      // console.log(user.data);
-     navigation.navigate("Profil");
+     navigation.navigate("ProfilMenu");
     })
    
      

@@ -11,6 +11,8 @@ import WebView from "react-native-webview";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext}  from './services/Auth';
 
+import {ShopContext}  from "./services/ShopContext";
+
 const baseUrl = 'https://appli.ovh/off/app/';
 const url_programme=baseUrl+'api2022.php?a=1';
 
@@ -19,6 +21,7 @@ const url_programme=baseUrl+'api2022.php?a=1';
 export default function Programme({ navigation}) {
  
   const { state, dispatch } = React.useContext(AuthContext);
+  const context = React.useContext(ShopContext);
 /*
 
 
@@ -88,7 +91,9 @@ useEffect(() => {
 }, []);
 
 
-
+useEffect(() => {
+  console.log('context cart length:' + context.cart.length);
+}, []);
 
 
 function add_favorite(id) {
@@ -122,6 +127,8 @@ function add_favorite(id) {
 
 
 }
+
+
 
 function rm_favorite(id) {
 
@@ -267,6 +274,27 @@ let item_nom = '';
 const renderData = (item) => {
 
  return(
+
+<View>
+  {state.isAuthenticated && (
+      
+    <Button title="Fav" onPress={() => add_favorite(item.id)} />
+
+    )}
+     {state.isAuthenticated && (
+    
+ 
+    <Button title="DelFav" onPress={() => rm_favorite(item.id)} />
+  
+    )}
+
+<Button title="panier" 
+
+onPress={context.addProductToCart.bind(this, item)} 
+
+/>
+
+
  <TouchableWithoutFeedback 
  delayPressIn={10}
  onPress={fillModal.bind(this,item.id,item.nom,item.description,item.date,item.lieu,item.image)}
@@ -304,21 +332,13 @@ const renderData = (item) => {
  </View>
  </View>
 
- {state.isAuthenticated && (
-      
-      <Button title="Fav" onPress={() => add_favorite(item.id)} />
-  
-      )}
-       {state.isAuthenticated && (
-      
-   
-      <Button title="DelFav" onPress={() => rm_favorite(item.id)} />
-    
-      )}
+
+                     
+                   
  
 </Card> 
 </TouchableWithoutFeedback>
- 
+</View>
  )}
 {/*  <Button title="DelFav" onPress={() => rm_favorite(item.id)} /> */}
     
