@@ -22,19 +22,16 @@
   import Photo from './components/Photo';
   import Login from './components/Login';
   import RechercheModal from './components/RechercheModal';
-  
-  
   import ModifierProfil from './components/profil/ModifierProfil';
   import PlacesSpectacles from './components/profil/PlacesSpectacles';
   import CartesAbonnement from './components/profil/CartesAbonnement';
   import Factures from './components/profil/Factures';
-
+  import CartPage from "./components/CartPage";
   
   import {AuthContext}  from './components/services/Auth';
-
   import GlobalState from "./components/services/GlobalState";
-
-import CartPage from "./components/CartPage";
+  
+  
   
   
   
@@ -105,10 +102,10 @@ import CartPage from "./components/CartPage";
       >
       <Drawer.Navigator
       
-        drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'transparent', width: DEVICE_WIDTH , height: '100%' }}  />}>
+      drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'transparent', width: DEVICE_WIDTH , height: '100%' }}  />}>
       
       {/*<Drawer.Screen name="Cart" component={Cart} /> options={{ drawerLabel: () => null, }}  />*/}
-     
+      
       <Drawer.Screen name="Programme" component={Programme}   />
       <Drawer.Screen name="Actualites" component={Actualites}   />
       <Drawer.Screen name="Carte" component={Carte} />
@@ -119,15 +116,15 @@ import CartPage from "./components/CartPage";
       <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
       <Drawer.Screen name="Favoris" component={Favoris} />
       <Drawer.Screen name="CartPage" component={CartPage}   />
-     
+      
       
       <Drawer.Screen name="ModifierProfil" component={ModifierProfil}   />
-  
+      
       <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles}   />
       <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement}   />
       <Drawer.Screen name="Factures" component={Factures}   />
       <Drawer.Screen name="Photo" component={Photo}   />
-
+      
       <Drawer.Screen name="RechercheModal" component={RechercheModal} options={{ drawerLabel: () => null, }}  />
       
       
@@ -135,7 +132,7 @@ import CartPage from "./components/CartPage";
       
       </NavigationContainer>
       </GlobalState>
-        {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
+      {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
       </AuthContext.Provider>
       
       
