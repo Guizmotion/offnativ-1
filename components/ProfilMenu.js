@@ -3,6 +3,8 @@ import {Linking,Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet,
 
 import { useRoute } from '@react-navigation/native';
 
+import axios from 'axios';
+
 import {AuthContext}  from './services/Auth';
 
 
@@ -50,6 +52,33 @@ export default function ProfilMenu({ navigation}) {
     navigation.navigate("Favoris");
   }
   
+  useEffect(() => {
+    
+    
+    axios.get('https://api.festivaloffavignon.com/favorite', {
+        headers: {
+          'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8',
+          'token': state.token
+        } 
+        
+      }).then((response) => {
+  
+  
+        console.log('query fav: '+response.data.favoris);
+        
+        dispatch({
+          type: "ADD_FAVORITES",
+          payload: response.data
+        });
+        
+        
+        
+      });
+        console.log("favs loaded!");
+
+
+  }, []);
+
   
   
   return (

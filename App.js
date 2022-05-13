@@ -30,7 +30,7 @@
   
   import {AuthContext}  from './components/services/Auth';
   import GlobalState from "./components/services/GlobalState";
-  
+ 
   
   
   
@@ -39,10 +39,24 @@
     isAuthenticated: false,
     user: null,
     token: null,
+    favorites: [1,2],
   };
   
   const reducer = (state, action) => {
     switch (action.type) {
+      
+      case 'GET_FAVORITES':
+
+        return {
+          ...state,
+          favorites: action.payload,
+        };
+      case 'SET_FAVORITE':
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload],
+        };
+
       case "LOGIN":
       
       
@@ -58,7 +72,8 @@
         ...state,
         isAuthenticated: true,
         user: action.payload.profil,
-        token: action.payload.token
+        token: action.payload.token,
+       
       };
       
       
@@ -77,6 +92,8 @@
       return state;
     }
   };
+
+ 
   
   const DEVICE_WIDTH = Dimensions.get('screen').width - 115;
   
@@ -87,7 +104,9 @@
     
     const [state, dispatch] = React.useReducer(reducer, initialState);
     
-    
+   
+   
+  
     return (
       
       <AuthContext.Provider
@@ -97,6 +116,8 @@
       }}
       >
       <GlobalState>
+      
+     
       <NavigationContainer
       
       >
@@ -131,6 +152,7 @@
       </Drawer.Navigator>
       
       </NavigationContainer>
+      
       </GlobalState>
       {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
       </AuthContext.Provider>
