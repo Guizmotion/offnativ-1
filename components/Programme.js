@@ -347,13 +347,13 @@ return (
             <Button title="DelFav" onPress={() => rm_favorite(item.id, state.token)} />
             
             )}
-            {state.isAuthenticated && (
+            {/*state.isAuthenticated && (
               <Button title="panier" 
               
               onPress={context.addProductToCart.bind(this, item)} 
               
               />
-              )}
+            )*/}
               
               
               <TouchableWithoutFeedback 
@@ -373,7 +373,7 @@ return (
               <View style={[styles.labelCard, styles.labelPlace]}><Text  style={styles.smallTextNoir}>{item.salle}</Text></View>
               <View style={[styles.labelCard, styles.labelAchat
               , show_ticket_off ? styles.hideElement : null
-              ]}><Text  style={styles.smallText}> Achat sur Ticket'Off : {item.ticket_off}</Text></View>
+              ]}><Text  style={styles.smallText}> Achat sur Ticket'Off </Text></View>
               </View> 
               
               
