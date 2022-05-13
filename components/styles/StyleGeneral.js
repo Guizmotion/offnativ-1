@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+
+  hideElement: {
+    display: "none"
+  },
+
+  
     centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -315,5 +321,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
       },
+
 
     });
