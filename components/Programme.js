@@ -458,7 +458,7 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
         />
         
         
-        <View style={[styles.favorisBtn],{display:state.isAuthenticated ? 'flex' : 'none'}} >
+        <View style={ [styles.favorisBtn ], {display: state.isAuthenticated ? 'flex' : 'none'}} >
         
         {!state.favorites.includes(Number(item.id))&&
           (
