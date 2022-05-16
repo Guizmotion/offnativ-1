@@ -31,6 +31,7 @@ import styles from "./styles/StyleGeneral";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import Loader from "./Loader";
+import ListStyleSpectacle from "./recherche/ListStyleSpectacle";
 
 const validationSchema = Yup.object().shape({});
 const baseUrl = "https://appli.ovh/off/app/";
@@ -251,8 +252,19 @@ export default function RechercheModal({ navigation }) {
                                                         autoCapitalize="none"
                                                         placeholder="Style de pièce..."
                                                         onChangeText={(text) => setFieldValue("style", text)}
+                                                       
                                                         value={values["style"]}
                                                         />
+
+                                                      
+                                                       
+                                                </View>
+                                                <View>
+<Button
+title="liste auteurs"
+ onPress={() => navigation.navigate('ListStyleSpectacle') }
+ />
+                                                        
                                                        
                                                 </View>
                                                 <View style={styles.Separateur} />

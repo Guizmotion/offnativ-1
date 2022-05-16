@@ -187,7 +187,7 @@ export default function Programme({ navigation}) {
   
   
   useEffect(() => {
-    console.log('context cart length:' + context.cart.length);
+    console.log('context cart length from Programme : :' + context.cart.length);
   }, []);
   
   
@@ -316,70 +316,6 @@ function fillModal(item){
   console.log(item.nom);
   
 
-
-
-  /*
-
-
-
-  const [itemTitre_spectacle, setItemTitre_spectacle] = useState([]); 
-  const [itemAuteur_prenom, setItemAuteur_prenom] = useState([]);
-  const [itemNom, setItemNom] = useState([]);
-
-  const [itemTicket_off, setItemTickets_off] = useState([]);
-  const [itemHoraire, setItemHoraire] = useState([]);
-  const [itemImage, setItemImage] = useState([]);
-  const [itemDuree, setItemDuree] = useState([]);
-
-  const [itemType_public, setItemType_public] = useState([]);
-  const [itemCategorie, setItemCategorie] = useState([]);
-  const [itemLieu, setItemLieu] = useState([]);
-  const [itemDescription, setItemDescription] = useState([]);
-  const [itemStyle, setItemStyle] = useState([]);
-  const [itemSalle, setItemSalle] = useState([]);
-  const [itemTheatre, setItemTheatre] = useState([]);
-  const [itemDeja_joue, setItemDeja_joue] = useState([]);
-  const [itemNon_francophones, setItemNon_francophones] = useState([]);
-  const [itemPlein_air, setItemPlein_air] = useState([]);
-  const [itemClim, setItemClim] = useState([]);
-  const [itemEspeces, setItemEspeces] = useState([]);
-  const [itemCheques, setItemCheques] = useState([]);
-  const [itemCb, setItemCb] = useState([]);
-  const [itemAcces_handicape, setItemAcces_handicape] = useState([]); 
-
-
-  const [itemTel_reservation, setItemTel_reservation] = useState([]);
-  const [itemCompagnie, setItemCompagnie] = useState([]);
-  const [itemAdresse, setItemAdresse] = useState([]);
-  const [itemCp, setItemCp] = useState([]);
-  const [itemVille, setItemVille] = useState([]);
-  const [itemPays, setItemPays] = useState([]);
-  const [itemSite_web, setItemSite_web] = useState([]);
-
-  const [itemBande_annonce, setItemBande_annonce] = useState([]);
-  const [itemTarif_reduit_precisions, setItemTarif_reduit_precisions] = useState([]);
-  const [itemAge, setItemAge] = useState([]);
-  const [itemDates_representations, setItemDates_representations] = useState([]);
-  const [itemTarif, setItemTarif] = useState([]);
-  const [itemTarif_adh, setItemTarif_adh] = useState([]);
-  const [itemTarif_enfant, setItemTarif_enfant] = useState([]);
-  const [itemUrl, setItemUrl] = useState([]);
-  const [itemUrl_fav, setItemUrl_fav] = useState([]);
-  const [itemUrl_rmfav, setItemUrl_rmfav] = useState([]);
-
-  const [itemDates, setItemDates] = useState([]);
-  const [itemT_Rouge, setItemT_Rouge] = useState([]);
-  const [itemT_jaune, setItemT_jaune] = useState([]);
-  const [itemT_bleu, setItemT_bleu] = useState([]);
-  const [itemT_vert, setItemT_vert] = useState([]);
-  const [itemT_turquoise, setItemT_turquoise] = useState([]);
-  const [itemCharg_diff, setItemCharg_diff] = useState([]);
-  const [itemTelephone, setItemTelephone] = useState([]);
-  const [itemCourriel, setItemCourriel] = useState([]);
-  const [itemStructure, setItemStructure] = useState([]);
-  const [itemCharg_diff_addresse, setItemCharg_diff_addresse] = useState([]);
-
-  */
   setItemId(item.id);
   setItemTitre_spectacle(item.titre_spectacle);
   setItemAuteur_prenom(item.auteur_prenom);

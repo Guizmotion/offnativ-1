@@ -22,6 +22,9 @@
   import Photo from './components/Photo';
   import Login from './components/Login';
   import RechercheModal from './components/RechercheModal';
+import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
+
+
   import ModifierProfil from './components/profil/ModifierProfil';
   import PlacesSpectacles from './components/profil/PlacesSpectacles';
   import CartesAbonnement from './components/profil/CartesAbonnement';
@@ -164,6 +167,12 @@
             component={RechercheModal}
             options={{ drawerLabel: () => null }}
           />
+<Drawer.Screen
+name="ListStyleSpectacle"
+component={ListStyleSpectacle}
+options={{ drawerLabel: () => null }}
+/>
+
       
       </Drawer.Navigator>
       
