@@ -411,18 +411,26 @@ const renderData = (item) => {
   
   
   
+  console.log('itemId: ' + item.id);
+  console.log('state favs' + state.favorites);
   
-  
-  
+ // let chek = state.favorites.find(c => c.id === item.id);
+//console.log(state.favorites.includes(Number(item.id)));
+
+
   return(
     
     <View>
-    {state.isAuthenticated && (
+    {state.isAuthenticated && 
+    !state.favorites.includes(Number(item.id))&&
+    (
       
       <Button title="Fav" onPress={() => add_favorite(item.id, state.token)} />
       
       )}
-      {state.isAuthenticated && (
+      {state.isAuthenticated && 
+      state.favorites.includes(Number(item.id)) &&
+      (
         
         
         <Button title="DelFav" onPress={() => rm_favorite(item.id, state.token)} />
