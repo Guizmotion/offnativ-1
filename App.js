@@ -25,6 +25,7 @@
   import ModifierProfil from './components/profil/ModifierProfil';
   import PlacesSpectacles from './components/profil/PlacesSpectacles';
   import CartesAbonnement from './components/profil/CartesAbonnement';
+  import CreerCarteAbonnement from './components/profil/CreerCarteAbonnement';
   import Factures from './components/profil/Factures';
   import CartPage from "./components/CartPage";
   
@@ -40,11 +41,17 @@
     user: null,
     token: null,
     favorites: [1,2],
+    programme: [],
+    carteAbonnement: [],
   };
   
   const reducer = (state, action) => {
     switch (action.type) {
       
+      case "addData":
+        return { ...state, programme: action.payload };
+
+
       case 'GET_FAVORITES':
 
         return {
@@ -56,6 +63,11 @@
           ...state,
           favorites: [...state.favorites, action.payload],
         };
+      case 'SET_CARTE_ABONNEMENT':
+          return {
+            ...state,
+            carteAbonnement: [...state.carteAbonnement, action.payload],
+          };
 
       case "LOGIN":
       
@@ -143,11 +155,15 @@
       
       <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles}   />
       <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement}   />
+      <Drawer.Screen name="CreerCarteAbonnement" component={CreerCarteAbonnement}   />
       <Drawer.Screen name="Factures" component={Factures}   />
       <Drawer.Screen name="Photo" component={Photo}   />
       
-      <Drawer.Screen name="RechercheModal" component={RechercheModal} options={{ drawerLabel: () => null, }}  />
-      
+      <Drawer.Screen
+            name="RechercheModal"
+            component={RechercheModal}
+            options={{ drawerLabel: () => null }}
+          />
       
       </Drawer.Navigator>
       
