@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Example showcasing Drawer Navigator from one screen to another using React Navigation 5\n\n"
+    "description": "proto app\n\n"
   }
 }

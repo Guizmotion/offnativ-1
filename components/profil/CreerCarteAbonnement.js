@@ -16,34 +16,38 @@ import styles from "../styles/StyleGeneral";
   )}
   */
   
-  export default function CartesAbonnement({ navigation}) {
+  export default function CreerCarteAbonnement({ navigation}) {
     
-    
+
     const handleSubmit = () => {
-      
-      navigation.navigate('CreerCarteAbonnement');
       console.log("submit");
     };
-    
-    
+
+
     const { state, dispatch } = React.useContext(AuthContext);
-    
+
+    const nom = (value) => {
+        setNom(value)
+    }
+
+    const prenom = useState('');
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top:'10%' }}>
-      
-      
-      
-      
-      
-      <Text style={{fontSize: 20}}>Mes cartes achetés</Text>
-      <Text style={{fontSize: 20}}>Mes brouillons</Text>
-      <Text style={{fontSize: 20}}>Mes autres cartes</Text>
-      <Text style={{fontSize: 20}}>Associer une carte</Text>
-      
-      
-      
-      <Pressable
-      onPress={() => navigation.navigate('CreerCarteAbonnement')}
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top:'10%' }}>
+        
+        
+          <Text style={{fontSize: 20}}>creer carte</Text>
+          <TextInput style={styles.input} placeholder="Prénom" onChangeText={(text) => prenom.setState(text)}/>
+        
+            <TextInput style={styles.input} placeholder="Nom" onChangeText={(text) => nom.setState(text)}/>
+
+
+        
+          
+          
+
+          <Pressable
+      onPress={() => navigation.navigate('Photo')}
       
       
       >
@@ -53,13 +57,12 @@ import styles from "../styles/StyleGeneral";
       >
       <Text style={styles.textBigButton}>
       
-      Acheter une nouvelle carte
+      Suivant
       </Text>
       </View>
       </Pressable>
-      
-      
-      </View>
-      );
-      
-    }
+        
+        </View>
+    );
+    
+}

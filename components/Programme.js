@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useRef } from "react";
-import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable,TouchableWithoutFeedback} from 'react-native';
+import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable
+  ,TouchableWithoutFeedback, RefreshControl} from 'react-native';
 import axios from 'axios';
 import { ActivityIndicator, ToastAndroid } from 'react-native';
 import { Image as ImgLazy } from 'react-native-elements';
@@ -13,11 +14,70 @@ import {AuthContext}  from './services/Auth';
 
 import {ShopContext}  from "./services/ShopContext";
 import {FavorisContext}  from "./services/FavorisContext";
+import Loader from "./Loader";
+import { ADD_PRODUCT } from "./services/reducers";
 
 const baseUrl = 'https://appli.ovh/off/app/';
 const url_programme = baseUrl+'api2022.php?a=1';
 
 
+
+/*
+
+"id":"28895",
+"acces_handicape":"Oui",
+"titre_spectacle":"Le TOMA 2021 sur les ondes !",
+"auteur_prenom":" ",
+"nom":" ",
+"ticket_off":"Non",
+"horaire":"00h00",
+"image":"https:\/\/www.festivaloffavignon.com\/resources\/off\/visuels\/2021\/spectacle\/web2\/spectacle_28895.jpg",
+"duree":"24h00",
+"type_public":"Tout public",
+"categorie":"événement",
+"lieu":"CHAPELLE DU VERBE INCARNÉ",
+"description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
+"style":"Web TV",
+"salle":"Salle Edouard Glissant",
+"theatre":"",
+"deja_joue":"Non",
+"non_francophones":"Non",
+"plein_air":"Non",
+"clim":"Oui",
+"especes":"Non",
+"cheques":"Non",
+"cb":"Non",
+"tel_reservation":"+33 (0)4 90 14 07 49",
+"compagnie":"Théâtre de la Chapelle du Verbe Incarné",
+"adresse":"21G, rue des lices (en face du n°60)",
+"cp":"84000",
+"ville":"Avignon",
+"pays":"France",
+"site_web":"www.verbeincarne.fr",
+"bande_annonce":"",
+"tarif_reduit_precisions":"",
+"age":"",
+"dates_representations":"du 9 au 28 juillet - 24h\/24",
+"tarif":"0",
+"tarif_adh":"0",
+"tarif_enfant":"0",
+"url":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-s28895\/",
+"url_fav":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-af28895",
+"url_rmfav":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-rf28895",
+"titre":"",
+"dates":"09\/07\/2021-00h00|10\/07\/2021-00h00|11\/07\/2021-00h00|13\/07\/2021-00h00|14\/07\/2021-00h00|16\/07\/2021-00h00|17\/07\/2021-00h00|18\/07\/2021-00h00|20\/07\/2021-00h00|21\/07\/2021-00h00|23\/07\/2021-00h00|24\/07\/2021-00h00|26\/07\/2021-00h00|27\/07\/2021-00h00|28\/07\/2021-00h00|19\/07\/2021-00h00|25\/07\/2021-00h00|12\/07\/2021-00h00|15\/07\/2021-00h00|22\/07\/2021-00h00",
+"t_Rouge":"0",
+"t_jaune":"0",
+"t_bleu":"0",
+"t_vert":"0",
+"t_turquoise":"0",
+"charg_diff":"",
+"telephone":"000000000",
+"courriel":"toma@verbeincarne.fr",
+"structure":"ADOC",
+"charg_diff_addresse":""
+
+*/
 
 export default function Programme({ navigation}) {
   
@@ -26,6 +86,7 @@ export default function Programme({ navigation}) {
   const context = React.useContext(ShopContext);
   
   // initialize data state variable as an empty array
+  
   const [data, setData] = useState([]);
   const [input, setInput] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,6 +96,10 @@ export default function Programme({ navigation}) {
   const [itemDate, setItemDate] = useState([]);
   const [itemLieu, setItemLieu] = useState([]);
   const [itemImage, setItemImage] = useState([]);
+  const [itemDuree, setItemDuree] = useState([]);
+
+
+
   const [itemId, setItemId] = useState([]);  
   const [filter, setFilter] = useState("all");
   const [categories, setCategories] = useState("all");
@@ -43,7 +108,8 @@ export default function Programme({ navigation}) {
   
   
   
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   
   
   const ITEM_HEIGHT = 35; // fixed height of item component
@@ -57,21 +123,14 @@ export default function Programme({ navigation}) {
   
   
   
-  
-  // make the fetch the first time your component mounts
   useEffect(() => {
-    
-    
-    
-    axios.get(url_programme).then(response => {
-      setData(response.data);
-      //console.log(state.favorites);
-
+    setIsLoading(true);
+    axios.get(url_programme).then((response) => {
+      // setData(response.data);
+      dispatch({ type: "addData", payload: response.data });
+      setIsLoading(false);
     });
-
   }, []);
-  
-  
   
   
   useEffect(() => {
@@ -168,6 +227,30 @@ export default function Programme({ navigation}) {
   
 }
 
+
+function addTicketToCartState(id){
+  console.log("addTicketToCartState");
+  console.log(id);
+  //context.cart.addTicketToCart(id);
+
+  let produit = {
+    id: id,
+    title: "ticket test",
+    quantity: 1,
+    price: 3
+  };
+
+  
+
+  dispatch({
+    type: "ADD_PRODUCT",
+    payload: produit
+  });
+
+  console.log(context.cart);
+ 
+}
+
 function clearModal() {
   setVisible( true );
   setItemNom(null);
@@ -178,6 +261,8 @@ function clearModal() {
   setItemId(null);
 }
 
+
+{/*
 function fillModal(id,nom,description,date,lieu,image){
   
   
@@ -202,17 +287,37 @@ function fillModal(id,nom,description,date,lieu,image){
   setModalVisible(true);
   
   
+}*/}
+
+
+function fillModal(item){
+  
+  console.log(item.nom);
+  
+  setItemNom(item.nom);
+  
+  setItemDescription(item.description);
+  setItemDate(item.date);
+  setItemLieu(item.lieu);
+  setItemImage(item.image);
+  setItemId(item.id);
+  setItemDuree(item.duree);
+  console.log('d'+item.duree);
+  
+  setModalVisible(true);
+  
+  
 }
 
 
 const filteredData = searchText
-? data.filter((x) =>
-x.description.toLowerCase().includes(searchText.toLowerCase()) ||
-x.nom.toLowerCase().includes(searchText.toLowerCase()) ||
-x.lieu.toLowerCase().includes(searchText.toLowerCase())
-
-)
-: data;
+? state.programme.filter(
+    (x) =>
+      x.description.toLowerCase().includes(searchText.toLowerCase()) ||
+      x.nom.toLowerCase().includes(searchText.toLowerCase()) ||
+      x.lieu.toLowerCase().includes(searchText.toLowerCase())
+  )
+: state.programme;
 
 
 
@@ -261,14 +366,26 @@ const renderData = (item) => {
           onPress={context.addProductToCart.bind(this, item)} 
           
           />
-        )*/}
+        )
+        
+        
+                onPress={fillModal.bind(
+            this,
+            item
+
+            
+            
+            )}
+
+        */}
         
         
         <TouchableWithoutFeedback 
         delayPressIn={10}
-        onPress={fillModal.bind(this,item.id,item.nom,item.description,item.date,item.lieu,item.image)}
+        onPress={() => fillModal(item)}
+      
         >
-        
+      
         
         <Card style = {styles.cardList}>
         
@@ -317,15 +434,15 @@ const renderData = (item) => {
         {/*  <Button title="DelFav" onPress={() => rm_favorite(item.id)} /> */}
         
         /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN LISTE PROGRAMME GLOBAL  */
-        
+        //[styles.headView ], 
         /* HEADER PROGRAMME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
         
         return (
           <View >
           
+          {isLoading && <Loader />}
           
-          
-          <View style={styles.headView}>
+          <View style={[styles.headView,{ display:isLoading ? 'none' : 'flex'}]} >
           
           <Pressable
           onPress={() => navigation.openDrawer()}
@@ -359,10 +476,15 @@ const renderData = (item) => {
           }}
           source={require("../assets/recherche.png")}
           />
-          
-          
           </Pressable>
-          <Text style={styles.textBigButton}> Affiner ma recherche</Text>
+          <Pressable
+          onPress={() => navigation.navigate("RechercheModal")}
+          style={{
+            marginLeft: '15%',
+           
+            
+          }}
+          ><Text style={styles.textBigButton}> Affiner ma recherche </Text></Pressable>
           </View>
           <View style={styles.btnBig}>
           <Image
@@ -370,6 +492,7 @@ const renderData = (item) => {
             resizeMode: "cover",
             height: 25,
             width: 25,
+            
           }}
           source={require("../assets/filtre.png")}
           />
@@ -390,7 +513,7 @@ const renderData = (item) => {
           
           
           maxToRenderPerBatch={7}
-          initialNumToRender="7"
+          initialNumToRender="5"
           
           onEndReached={({ distanceFromEnd }) => {
             if (distanceFromEnd < 0) return;
@@ -409,8 +532,17 @@ const renderData = (item) => {
           renderItem = {({item}) => {
             return renderData(item)
           }}
+
+        
+
+
           />
-          
+           {/* } refreshControl={
+            <RefreshControl
+              refreshing={() => setIsLoading(false)}
+              onRefresh={() =>setIsLoading(true)}
+            />
+          } */}
           {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN LISTE PROGRAMME APPEL */}
           
           {/* FICHE PROGRAMME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
@@ -483,7 +615,7 @@ const renderData = (item) => {
           </View>
           <View style={{marginTop: '5%'}}>
           <Text style={styles.titreFiche}>{itemNom}</Text>
-          <Text opacity={0.5} style={[styles.defautTextFiche]}>à 12h00 - Durée 1h25</Text>
+          <Text opacity={0.5} style={[styles.defautTextFiche]}>à 12h00 - Durée {itemDuree} </Text>
           </View>
           
           <View style={{marginTop: '5%', flexDirection: 'row'}}>
@@ -514,6 +646,13 @@ const renderData = (item) => {
           </View>
           
           <View  style={{marginTop: '5%'}}>
+          <TouchableOpacity
+                  onPress={() => addTicketToCartState(itemId)}
+                  style={styles.labelCard, styles.labelAchat}
+                  >
+         <Text > Acheter sur Ticket'Off</Text>
+           
+            </TouchableOpacity>
           <Text style={{textAlign:'left'}}>{itemDescription}</Text>
           <Text style={{textAlign:'left'}}>{itemDescription}</Text>
           <Text style={{textAlign:'left'}}>{itemDescription}</Text>
@@ -522,9 +661,18 @@ const renderData = (item) => {
           </View>
           
           </View>
+          
           <View style={{justifyContent: "flex-end", flex: 1}}>
-          <View style={[styles.labelCard, styles.labelAchat, styles.btnFixed]}><Text style={styles.textBigButton}> Acheter sur Ticket'Off</Text></View>
+
+          <TouchableOpacity
+                  onPress={() => addTicketToCartState(itemId)}
+                  >
+          <View style={[styles.labelCard, styles.labelAchat, styles.btnFixed]}>
+            <Text style={styles.textBigButton}> Acheter sur Ticket'Off</Text>
+            </View>
+            </TouchableOpacity>
           </View>
+          
           
           </View>
           </ScrollView>
