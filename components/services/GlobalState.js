@@ -11,7 +11,7 @@ const GlobalState = props => {
     { id: "p3", title: "Used plastic bottle", price: 0.99 },
     { id: "p4", title: "Half-dried plant", price: 2.99 },
     { id: "p9", title: "28995Gaming Mouse", price: 29.99 },
-    { id: "28995", title: "28995Gaming Mouse", price: 29.99 },
+    { id: "28073", title: "28995Gaming Mouse", price: 29.99 },
   ];
   // const [cart, setCart] = useState([]);
   const [cartState, dispatch] = useReducer(shopReducer, { cart: [

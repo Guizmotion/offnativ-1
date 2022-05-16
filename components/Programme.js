@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from "react";
-import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable
+import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable
   ,TouchableWithoutFeedback, RefreshControl} from 'react-native';
 import axios from 'axios';
 import { ActivityIndicator, ToastAndroid } from 'react-native';
@@ -91,16 +91,69 @@ export default function Programme({ navigation}) {
   const [input, setInput] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [visible, setVisible] = useState(true);
+
+  /*
+  
+  */
+  const [itemId, setItemId] = useState([]); 
+
+  const [itemAcces_handicape, setItemAcces_handicape] = useState([]); 
+  const [itemTitre_spectacle, setItemTitre_spectacle] = useState([]); 
+  const [itemAuteur_prenom, setItemAuteur_prenom] = useState([]);
   const [itemNom, setItemNom] = useState([]);
-  const [itemDescription, setItemDescription] = useState([]);
-  const [itemDate, setItemDate] = useState([]);
-  const [itemLieu, setItemLieu] = useState([]);
+
+  const [itemTicket_off, setItemTickets_off] = useState([]);
+  const [itemHoraire, setItemHoraire] = useState([]);
   const [itemImage, setItemImage] = useState([]);
   const [itemDuree, setItemDuree] = useState([]);
 
+  const [itemType_public, setItemType_public] = useState([]);
+  const [itemCategorie, setItemCategorie] = useState([]);
+  const [itemLieu, setItemLieu] = useState([]);
+  const [itemDescription, setItemDescription] = useState([]);
+  const [itemStyle, setItemStyle] = useState([]);
+  const [itemSalle, setItemSalle] = useState([]);
+  const [itemTheatre, setItemTheatre] = useState([]);
+  const [itemDeja_joue, setItemDeja_joue] = useState([]);
+  const [itemNon_francophones, setItemNon_francophones] = useState([]);
+  const [itemPlein_air, setItemPlein_air] = useState([]);
+  const [itemClim, setItemClim] = useState([]);
+  const [itemEspeces, setItemEspeces] = useState([]);
+  const [itemCheques, setItemCheques] = useState([]);
+  const [itemCb, setItemCb] = useState([]);
+  const [itemTel_reservation, setItemTel_reservation] = useState([]);
+  const [itemCompagnie, setItemCompagnie] = useState([]);
+  const [itemAdresse, setItemAdresse] = useState([]);
+  const [itemCp, setItemCp] = useState([]);
+  const [itemVille, setItemVille] = useState([]);
+  const [itemPays, setItemPays] = useState([]);
+  const [itemSite_web, setItemSite_web] = useState([]);
+  const [itemBande_annonce, setItemBande_annonce] = useState([]);
+  const [itemTarif_reduit_precisions, setItemTarif_reduit_precisions] = useState([]);
+  const [itemAge, setItemAge] = useState([]);
+  const [itemDates_representations, setItemDates_representations] = useState([]);
+  const [itemTarif, setItemTarif] = useState([]);
+  const [itemTarif_adh, setItemTarif_adh] = useState([]);
+  const [itemTarif_enfant, setItemTarif_enfant] = useState([]);
+  const [itemUrl, setItemUrl] = useState([]);
+  const [itemUrl_fav, setItemUrl_fav] = useState([]);
+  const [itemUrl_rmfav, setItemUrl_rmfav] = useState([]);
+  const [itemTitre, setItemTitre] = useState([]);
+  const [itemDates, setItemDates] = useState([]);
+  const [itemT_Rouge, setItemT_Rouge] = useState([]);
+  const [itemT_jaune, setItemT_jaune] = useState([]);
+  const [itemT_bleu, setItemT_bleu] = useState([]);
+  const [itemT_vert, setItemT_vert] = useState([]);
+  const [itemT_turquoise, setItemT_turquoise] = useState([]);
+  const [itemCharg_diff, setItemCharg_diff] = useState([]);
+  const [itemTelephone, setItemTelephone] = useState([]);
+  const [itemCourriel, setItemCourriel] = useState([]);
+  const [itemStructure, setItemStructure] = useState([]);
+  const [itemCharg_diff_addresse, setItemCharg_diff_addresse] = useState([]);
+
+  
 
 
-  const [itemId, setItemId] = useState([]);  
   const [filter, setFilter] = useState("all");
   const [categories, setCategories] = useState("all");
   const [searchText, setSearchText] = useState();
@@ -232,78 +285,157 @@ function addTicketToCartState(id){
   console.log("addTicketToCartState");
   console.log(id);
   //context.cart.addTicketToCart(id);
+/*
+ const product = {
+  "id": "p2",
+  "price": 9.99,
+  "quantity": 70,
+  "title": "moliere spectacle 1",
+};*/
+ 
+const product ={ id: id, 
+  title: "shakespear spectacle 1",
+   price: 29.99,
+  quantity: 1
 
-  let produit = {
-    id: id,
-    title: "ticket test",
-    quantity: 1,
-    price: 3
-  };
-
+};
   
 
-  dispatch({
-    type: "ADD_PRODUCT",
-    payload: produit
-  });
+  context.addProductToCart(product);
 
   console.log(context.cart);
  
 }
 
-function clearModal() {
-  setVisible( true );
-  setItemNom(null);
-  setItemDescription(null);
-  setItemDate(null);
-  setItemLieu(null);
-  setItemImage(null);
-  setItemId(null);
-}
 
 
-{/*
-function fillModal(id,nom,description,date,lieu,image){
-  
-  
-  
-  // clearModal();
-  
-  //setLoaderVisible( !loaderVisible );
-  
-  
-  
-  
-  setItemNom(nom);
-  
-  setItemDescription(description);
-  setItemDate(date);
-  setItemLieu(lieu);
-  setItemImage(image);
-  setItemId(id);
-  //add_favorite(id) ;
-  
-  
-  setModalVisible(true);
-  
-  
-}*/}
 
 
 function fillModal(item){
   
   console.log(item.nom);
   
-  setItemNom(item.nom);
-  
-  setItemDescription(item.description);
-  setItemDate(item.date);
-  setItemLieu(item.lieu);
-  setItemImage(item.image);
+
+
+
+  /*
+
+
+
+  const [itemTitre_spectacle, setItemTitre_spectacle] = useState([]); 
+  const [itemAuteur_prenom, setItemAuteur_prenom] = useState([]);
+  const [itemNom, setItemNom] = useState([]);
+
+  const [itemTicket_off, setItemTickets_off] = useState([]);
+  const [itemHoraire, setItemHoraire] = useState([]);
+  const [itemImage, setItemImage] = useState([]);
+  const [itemDuree, setItemDuree] = useState([]);
+
+  const [itemType_public, setItemType_public] = useState([]);
+  const [itemCategorie, setItemCategorie] = useState([]);
+  const [itemLieu, setItemLieu] = useState([]);
+  const [itemDescription, setItemDescription] = useState([]);
+  const [itemStyle, setItemStyle] = useState([]);
+  const [itemSalle, setItemSalle] = useState([]);
+  const [itemTheatre, setItemTheatre] = useState([]);
+  const [itemDeja_joue, setItemDeja_joue] = useState([]);
+  const [itemNon_francophones, setItemNon_francophones] = useState([]);
+  const [itemPlein_air, setItemPlein_air] = useState([]);
+  const [itemClim, setItemClim] = useState([]);
+  const [itemEspeces, setItemEspeces] = useState([]);
+  const [itemCheques, setItemCheques] = useState([]);
+  const [itemCb, setItemCb] = useState([]);
+  const [itemAcces_handicape, setItemAcces_handicape] = useState([]); 
+
+
+  const [itemTel_reservation, setItemTel_reservation] = useState([]);
+  const [itemCompagnie, setItemCompagnie] = useState([]);
+  const [itemAdresse, setItemAdresse] = useState([]);
+  const [itemCp, setItemCp] = useState([]);
+  const [itemVille, setItemVille] = useState([]);
+  const [itemPays, setItemPays] = useState([]);
+  const [itemSite_web, setItemSite_web] = useState([]);
+
+  const [itemBande_annonce, setItemBande_annonce] = useState([]);
+  const [itemTarif_reduit_precisions, setItemTarif_reduit_precisions] = useState([]);
+  const [itemAge, setItemAge] = useState([]);
+  const [itemDates_representations, setItemDates_representations] = useState([]);
+  const [itemTarif, setItemTarif] = useState([]);
+  const [itemTarif_adh, setItemTarif_adh] = useState([]);
+  const [itemTarif_enfant, setItemTarif_enfant] = useState([]);
+  const [itemUrl, setItemUrl] = useState([]);
+  const [itemUrl_fav, setItemUrl_fav] = useState([]);
+  const [itemUrl_rmfav, setItemUrl_rmfav] = useState([]);
+
+  const [itemDates, setItemDates] = useState([]);
+  const [itemT_Rouge, setItemT_Rouge] = useState([]);
+  const [itemT_jaune, setItemT_jaune] = useState([]);
+  const [itemT_bleu, setItemT_bleu] = useState([]);
+  const [itemT_vert, setItemT_vert] = useState([]);
+  const [itemT_turquoise, setItemT_turquoise] = useState([]);
+  const [itemCharg_diff, setItemCharg_diff] = useState([]);
+  const [itemTelephone, setItemTelephone] = useState([]);
+  const [itemCourriel, setItemCourriel] = useState([]);
+  const [itemStructure, setItemStructure] = useState([]);
+  const [itemCharg_diff_addresse, setItemCharg_diff_addresse] = useState([]);
+
+  */
   setItemId(item.id);
+  setItemTitre_spectacle(item.titre_spectacle);
+  setItemAuteur_prenom(item.auteur_prenom);
+  setItemNom(item.nom);
+  setItemTickets_off(item.tickets_off);
+  setItemHoraire(item.horaire);
+  setItemImage(item.image);
   setItemDuree(item.duree);
-  console.log('d'+item.duree);
-  
+  setItemType_public(item.type_public);
+  setItemCategorie(item.categorie);
+  setItemLieu(item.lieu);
+  setItemDescription(item.description);
+  setItemStyle(item.style);
+  setItemSalle(item.salle);
+  setItemTheatre(item.theatre);
+  setItemDeja_joue(item.deja_joue);
+  setItemNon_francophones(item.non_francophones);
+  setItemPlein_air(item.plein_air);
+  setItemClim(item.clim);
+  setItemEspeces(item.especes);
+  setItemCheques(item.cheques);
+  setItemCb(item.cb);
+  setItemAcces_handicape(item.acces_handicape);
+  setItemTel_reservation(item.tel_reservation);
+  setItemCompagnie(item.compagnie);
+  setItemAdresse(item.adresse);
+  setItemCp(item.cp);
+  setItemVille(item.ville);
+  setItemPays(item.pays);
+  setItemSite_web(item.site_web);
+  setItemBande_annonce(item.bande_annonce);
+  setItemTarif_reduit_precisions(item.tarif_reduit_precisions);
+  setItemAge(item.age);
+  setItemDates_representations(item.dates_representations);
+  setItemTarif(item.tarif);
+  setItemTarif_adh(item.tarif_adh);
+  setItemTarif_enfant(item.tarif_enfant);
+  setItemUrl(item.url);
+  setItemUrl_fav(item.url_fav);
+  setItemUrl_rmfav(item.url_rmfav);
+  setItemDates(item.dates);
+  setItemT_Rouge(item.t_Rouge);
+  setItemT_jaune(item.t_jaune);
+  setItemT_bleu(item.t_bleu);
+  setItemT_vert(item.t_vert);
+  setItemT_turquoise(item.t_turquoise);
+  setItemCharg_diff(item.charg_diff);
+  setItemTelephone(item.telephone);
+  setItemCourriel(item.courriel);
+  setItemStructure(item.structure);
+  setItemCharg_diff_addresse(item.charg_diff_addresse);
+
+
+
+
+ 
   setModalVisible(true);
   
   
@@ -614,38 +746,103 @@ const renderData = (item) => {
           <View style={styles.labelBigplace}><Text>{itemLieu}</Text></View>
           </View>
           <View style={{marginTop: '5%'}}>
-          <Text style={styles.titreFiche}>{itemNom}</Text>
-          <Text opacity={0.5} style={[styles.defautTextFiche]}>à 12h00 - Durée {itemDuree} </Text>
+          <Text style={styles.titreFiche}>{itemTitre_spectacle}</Text>
+          <Text>{itemDates_representations}</Text>
+          <Text opacity={0.5} style={[styles.defautTextFiche]}>{/*à {itemHoraire} - */}Durée {itemDuree} </Text>
+          <Text opacity={0.5} style={[styles.defautTextFiche]}>Salle : {itemTheatre} {itemSalle}</Text>
+          <Text opacity={0.5} style={[styles.defautTextFiche]}>{itemAuteur_prenom} {itemNom}</Text>
+         {/* <Text>{itemDates}</Text> */ }
+          
           </View>
           
           <View style={{marginTop: '5%', flexDirection: 'row'}}>
-          <View style={styles.labelCard}><Text style={styles.smallText}> Nouveau au festival</Text></View>
-          <View style={styles.labelCard}><Text  style={styles.smallText}> Climatisation</Text></View>
-          <View style={styles.labelCard}><Text  style={styles.smallText}> Accès PMR</Text></View>
+          
+          <View style={styles.labelCard}><Text style={styles.smallText}>{itemCategorie}</Text></View>
+          <View style={styles.labelCard}><Text style={styles.smallText}>{itemStyle}}</Text></View>
+
+
+            {itemDeja_joue === "Non" &&  <View style={styles.labelCard}><Text style={styles.smallText}> Nouveau au festival</Text></View>}
+            {itemClim === "Oui" && <View style={styles.labelCard}><Text style={styles.smallText}> Climatisation</Text></View>}
+            {itemAcces_handicape === "Oui" && <View style={styles.labelCard}><Text  style={styles.smallText}> Accès handicapé</Text></View>}
+
+
+            <Text>Plein air : {itemPlein_air}</Text>
+
+            <Text>Non francophone : {itemNon_francophones}</Text>
+          
+
+
+            <Text>cb : {itemCb}</Text>
+ 
+            <Text>especes : {itemEspeces}</Text>
+
+           
+             
+            
+
+
+<Text>{itemTel_reservation}</Text>
+         
           </View>
           
           <View style={styles.blocGris}>
+          <Button title="Site web" onPress={ ()=>{ Linking.openURL('http://'+itemSite_web)}} />
+            <Button title="Bande annonce" onPress={ ()=>{ Linking.openURL(itemBande_annonce)}} />
+            </View>
+          <View style={styles.blocGris}>
+         
           <View style={{width: '25%', alignItems: "center", justifyContent: "space-between"}}>
           <Text  style={styles.smallTextNoir}> Abonné</Text>
-          <Text  style={[styles.titreFiche, styles.alignCenter]}>14 €</Text>
+          <Text  style={[styles.titreFiche, styles.alignCenter]}>{ itemTarif_adh} €</Text>
           </View> 
           <View style={{width: '25%', alignItems: "center", justifyContent: "space-between"}}>
           <Text  style={styles.smallTextNoir}> Plein tarif</Text>
-          <Text  style={[styles.titreFiche, styles.alignCenter]}>14 €</Text>
+          <Text  style={[styles.titreFiche, styles.alignCenter]}>{itemTarif} €</Text>
           </View> 
+
+          {itemTarif_enfant > 0 && 
           <View style={{width: '25%', alignItems: "center", justifyContent: "space-between"}}>
           <Text  style={styles.smallTextNoir}> enfant</Text>
           <Text  style={styles.smallTextNoir}> (- de 12 ans)</Text>
-          <Text style={[styles.titreFiche, styles.alignCenter]}>14 €</Text>
+          <Text style={[styles.titreFiche, styles.alignCenter]}>{itemTarif_enfant} €</Text>
           </View> 
+          }
           <View style={{width: '25%', alignItems: "center", justifyContent: "space-between"}}>
-          <Text  style={[styles.smallTextNoir, styles.alignCenter]}> Réduit</Text>
+          <Text  style={[styles.smallTextNoir, styles.alignCenter]}> Réduit {itemTarif_reduit_precisions}</Text>
           <Text  style={[styles.smallTextNoir, styles.alignCenter]}> (chômeur, étudiant, -18)</Text>
-          <Text style={[styles.titreFiche, styles.alignCenter]}>14 €</Text>
+          <Text style={[styles.titreFiche, styles.alignCenter]}>{itemTarif_adh} €</Text>
+          
           </View> 
+{/*}
+          <Text>{itemT_Rouge}</Text>
+          <Text>{itemT_bleu}</Text>
+          <Text>{itemT_vert}</Text>
+          <Text>{itemT_jaune}</Text>
+          <Text>{itemT_turquoise}</Text>
+          */}
           </View>
+
+         
+          <View style={styles.blocGris}>
+
+          <Text>{itemCompagnie}, {itemAdresse}</Text>
+          <Text>{itemCp} {itemVille} </Text>
+          <Text>{itemPays}</Text>
+
+          <Text>{itemStructure}</Text>
+          <Text>{itemCharg_diff}</Text>
+          <Text>{itemCharg_diff_addresse}</Text>
+     
+          <Text>{itemCourriel}</Text>
+          <Text>{itemTelephone}</Text>
+          
+          </View>
+
+
+
           
           <View  style={{marginTop: '5%'}}>
+          <Text>{itemTicket_off}</Text>
           <TouchableOpacity
                   onPress={() => addTicketToCartState(itemId)}
                   style={styles.labelCard, styles.labelAchat}
@@ -654,9 +851,8 @@ const renderData = (item) => {
            
             </TouchableOpacity>
           <Text style={{textAlign:'left'}}>{itemDescription}</Text>
-          <Text style={{textAlign:'left'}}>{itemDescription}</Text>
-          <Text style={{textAlign:'left'}}>{itemDescription}</Text>
-          <Text >{itemDate}</Text>
+          
+         
           <Text >{itemLieu}</Text>
           </View>
           
