@@ -694,7 +694,7 @@ const renderData = (item) => {
           <View style={{marginTop: '5%', flexDirection: 'row'}}>
           
           <View style={styles.labelCard}><Text style={styles.smallText}>{itemCategorie}</Text></View>
-          <View style={styles.labelCard}><Text style={styles.smallText}>{itemStyle}}</Text></View>
+          <View style={styles.labelCard}><Text style={styles.smallText}>{itemStyle}</Text></View>
 
 
             {itemDeja_joue === "Non" &&  <View style={styles.labelCard}><Text style={styles.smallText}> Nouveau au festival</Text></View>}
