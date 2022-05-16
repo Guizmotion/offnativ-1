@@ -158,7 +158,8 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
     const [categories, setCategories] = useState("all");
     const [searchText, setSearchText] = useState();
     
-    
+    const [refreshing, setRefreshing] = useState(false);
+
     
     
     const [isLoading, setIsLoading] = useState(false);
@@ -460,6 +461,10 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
         
         <View style={ [styles.favorisBtn ], {display: state.isAuthenticated ? 'flex' : 'none'}} >
         
+
+       
+
+
         {!state.favorites.includes(Number(item.id))&&
           (
             
@@ -567,6 +572,17 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
                   </View>
                   </View>
                   
+                    {/* icon panier */}
+                  
+                  <Image
+            style={{
+              resizeMode: "cover",
+              height: 20,
+              width: 20,
+             
+            }}
+            source={require("../assets/snack-icon.png")}
+            />
                   </View>
                   
                   
@@ -574,6 +590,8 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
                   {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN HEADER PROGRAMME */}
                   
                   {/* LISTE PROGRAMME APPEL >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+
+
                   <FlatList
                   data={filteredData}
                   removeClippedSubviews={true}
@@ -588,10 +606,6 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
                     
                   }}
                   
-                  
-                  
-                  
-                  
                   keyExtractor={(item, index) => {
                     // console.log("index", index)
                     return index.toString();
@@ -601,16 +615,14 @@ import {Image, Text,TextInput, Linking, DrawerContentScrollView, View, StyleShee
                     return renderData(item)
                   }}
                   
-                  
-                  
-                  
-                  />
-                  {/* } refreshControl={
+                  refreshControl={
                     <RefreshControl
-                    refreshing={() => setIsLoading(false)}
-                    onRefresh={() =>setIsLoading(true)}
+                    refreshing={refreshing}
+                    onRefresh={() => dispatch({ type: "addData", payload: filteredData })}
                     />
-                  } */}
+                  } 
+
+                  />
                   {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN LISTE PROGRAMME APPEL */}
                   
                   {/* FICHE PROGRAMME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
