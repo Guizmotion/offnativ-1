@@ -43,7 +43,7 @@ import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
     isAuthenticated: false,
     user: null,
     token: null,
-    favorites: [1,2],
+    favorites: [],//[27722,29126,28685,28895,27916,27977,28749,28194,28770,28832,28942],
     programme: [],
     carteAbonnement: [],
   };

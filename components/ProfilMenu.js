@@ -68,6 +68,7 @@ export default function ProfilMenu({ navigation}) {
         
         dispatch({
           type: "ADD_FAVORITES",
+          //SET_FAVORITE
           payload: response.data
         });
         
