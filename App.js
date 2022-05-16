@@ -140,40 +140,38 @@ import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
       
       drawerContent={(props) => <Menu  {...props}  style={{ backgroundColor: 'transparent', width: DEVICE_WIDTH , height: '100%' }}  />}>
       
-      {/*<Drawer.Screen name="Cart" component={Cart} /> options={{ drawerLabel: () => null, }}  />*/}
-      
+     
       <Drawer.Screen name="Programme" component={Programme}   />
+      <Drawer.Screen
+      name="RechercheModal"
+      component={RechercheModal}
+      options={{ drawerLabel: () => null }}
+      />
+      <Drawer.Screen
+      name="ListStyleSpectacle"
+      component={ListStyleSpectacle}
+      options={{ drawerLabel: () => null }}
+      />
+
+
       <Drawer.Screen name="Actualites" component={Actualites}   />
       <Drawer.Screen name="Carte" component={Carte} />
       <Drawer.Screen name="Annonces" component={Annonces} />
       <Drawer.Screen name="Fondation" component={Fondation} />
       <Drawer.Screen name="Archives" component={Archives} />
+
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
       <Drawer.Screen name="Favoris" component={Favoris} />
-      <Drawer.Screen name="CartPage" component={CartPage}   />
-      
-      
-      <Drawer.Screen name="ModifierProfil" component={ModifierProfil}   />
-      
+      <Drawer.Screen name="ModifierProfil" component={ModifierProfil}   />   
       <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles}   />
       <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement}   />
       <Drawer.Screen name="CreerCarteAbonnement" component={CreerCarteAbonnement}   />
       <Drawer.Screen name="Factures" component={Factures}   />
       <Drawer.Screen name="Photo" component={Photo}   />
+      <Drawer.Screen name="CartPage" component={CartPage}   />
       
-      <Drawer.Screen
-            name="RechercheModal"
-            component={RechercheModal}
-            options={{ drawerLabel: () => null }}
-          />
-<Drawer.Screen
-name="ListStyleSpectacle"
-component={ListStyleSpectacle}
-options={{ drawerLabel: () => null }}
-/>
 
-      
       </Drawer.Navigator>
       
       </NavigationContainer>

@@ -781,7 +781,7 @@ const renderData = (item) => {
           <Text>{itemTicket_off}</Text>
           <TouchableOpacity
                   onPress={() => addTicketToCartState(itemId)}
-                  style={styles.labelCard, styles.labelAchat}
+                  style={ styles.labelAchat}
                   >
          <Text > Acheter sur Ticket'Off</Text>
            
