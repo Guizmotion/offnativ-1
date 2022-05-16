@@ -261,7 +261,7 @@ export default function RechercheModal({ navigation }) {
                                                 </View>
                                                 <View>
 <Button
-title="liste auteurs"
+title="liste Style"
  onPress={() => navigation.navigate('ListStyleSpectacle') }
  />
                                                         
