@@ -29,6 +29,7 @@
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.3",
+    "pushwoosh-react-native-plugin": "^6.1.14",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

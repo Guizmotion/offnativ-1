@@ -34,11 +34,22 @@ import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
   
   import {AuthContext}  from './components/services/Auth';
   import GlobalState from "./components/services/GlobalState";
- 
-  
-  
-  
-  
+
+  /*
+import Pushwoosh from 'pushwoosh-react-native-plugin';
+
+Pushwoosh.init({ 
+  "pw_appid" : "7C01E-BF488" , 
+  "project_number" : "900103250614" ,
+  "pw_notification_handling" : "CUSTOM"
+});
+
+Pushwoosh.register();
+*/
+
+
+
+
   const initialState = {
     isAuthenticated: false,
     user: null,
@@ -122,6 +133,8 @@ import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
    
    
   
+
+  
     return (
       
       <AuthContext.Provider
@@ -188,4 +201,6 @@ import ListStyleSpectacle from './components/recherche/ListStyleSpectacle';
     
     
     export default App;
+
+    
     
