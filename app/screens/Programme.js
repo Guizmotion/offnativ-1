@@ -418,44 +418,32 @@ export default function Programme({ navigation }) {
           delayPressIn={10}
           onPress={() => fillModal(item)}
         >
-          <Card style={styles.cardList}>
+       <Card style={styles.cardList}>
             <View style={styles.blocContent}>
-              <Text  ellipsizeMode='tail' numberOfLines={1} style={styles.Titre}>{item.titre_spectacle}</Text>
-              <Text style={[styles.defautText, styles.ParagraphBold]}>
-                {item.dates_representations}
-              </Text>
-              <Text style={styles.defautText}>- Durée {item.duree}</Text>
-              {/* <Text style={styles.defautText}>-  Horaire {item.horaire} </Text> */}
-              <View style={styles.labelCard}>
-                <Text style={styles.smallText}>{item.style} </Text>
+              <Text ellipsizeMode='tail' numberOfLines={1}  style={styles.Titre}>{item.titre_spectacle}</Text>
+
+              <View style={{flexDirection:'row', flexWrap:'nowrap',alignItems: 'flex-start', width: '95%',alignSelf: "flex-start",}}>
+                <Text style={[styles.defautText]}>Durée {item.duree} - <Text style={[styles.defautText, styles.ParagraphBold]}>
+                  {item.dates_representations}</Text></Text>  
               </View>
 
-              <View style={styles.labelCard}>
-                <Text style={styles.smallText}>{item.type_public} </Text>
-              </View>
-              <View style={styles.labelCard}>
-                <Text style={styles.smallText}>{item.categorie} </Text>
-              </View>
-              <View style={[styles.labelCard, styles.labelPlace]}>
-                <Text style={styles.smallTextNoir}  ellipsizeMode='tail' numberOfLines={1}>
-                  {item.lieu} {item.salle}
-                </Text>
-              </View>
-              <View
-                style={[
-                  styles.labelCard,
-                  styles.labelAchat,
-                  show_ticket_off ? styles.hideElement : null,
-                ]}
-              >
-                <Text style={styles.smallText}> Achat sur Ticket'Off </Text>
-              </View>
+
+
+              <View style={{flexDirection:'row', flexWrap:'wrap',alignSelf: "flex-start"}}>
+        <View style={styles.labelCard}><Text  style={styles.smallText}>{item.type_public  } </Text></View>
+        <View style={styles.labelCard}><Text  style={styles.smallText}>{item.categorie  } </Text></View>
+        <View style={[styles.labelCard, styles.labelPlace]}>
+          <Text ellipsizeMode='tail' numberOfLines={1} style={styles.smallTextNoir}>{item.lieu} {/*item.salle*/}</Text>
+        </View>
+        <View style={[styles.labelCard, styles.labelAchat
+          , show_ticket_off ? styles.hideElement : null
+        ]}><Text  style={styles.smallText}> Achat sur Ticket'Off </Text></View></View>
             </View>
 
             <View style={styles.blocImage}>
               <ImgLazy
                 source={{ uri: item.image }}
-                style={{ width: 120, height: 160 }}
+                style={{width: 130, height: 180}}
                 PlaceholderContent={<ActivityIndicator />}
               />
 
