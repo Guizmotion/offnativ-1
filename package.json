@@ -49,7 +49,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@types/react": "~17.0.21"
   },
   "private": true,
   "version_app_offnativ": "2.0.0"
