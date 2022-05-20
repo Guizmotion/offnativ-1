@@ -420,7 +420,7 @@ export default function Programme({ navigation }) {
         >
           <Card style={styles.cardList}>
             <View style={styles.blocContent}>
-              <Text style={styles.Titre}>{item.titre_spectacle}</Text>
+              <Text  ellipsizeMode='tail' numberOfLines={1} style={styles.Titre}>{item.titre_spectacle}</Text>
               <Text style={[styles.defautText, styles.ParagraphBold]}>
                 {item.dates_representations}
               </Text>
@@ -437,7 +437,7 @@ export default function Programme({ navigation }) {
                 <Text style={styles.smallText}>{item.categorie} </Text>
               </View>
               <View style={[styles.labelCard, styles.labelPlace]}>
-                <Text style={styles.smallTextNoir}>
+                <Text style={styles.smallTextNoir}  ellipsizeMode='tail' numberOfLines={1}>
                   {item.lieu} {item.salle}
                 </Text>
               </View>
