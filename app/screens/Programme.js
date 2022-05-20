@@ -16,6 +16,7 @@ import {
   Pressable,
   TouchableWithoutFeedback,
   RefreshControl,
+  Share
 } from "react-native";
 import axios from "axios";
 import { ActivityIndicator, ToastAndroid } from "react-native";
@@ -182,6 +183,31 @@ export default function Programme({ navigation }) {
       index,
     };
   };
+
+  const shareData = async () => {
+    try {
+        await Share.share({
+            message:
+            itemTitre_spectacle + ', ' + 
+
+         //  + '  , lieu : ' + 
+           
+
+         ', Lieu : ' + itemLieu + ' ' + 
+
+           // itemSalle + ' ' + 
+          //  itemTheatre + ' ' + 
+            ', tel resa : ' + itemTel_reservation + ' ' + 
+            ', tarif : ' + itemTarif + ' Eur ' 
+          //  ', lien web : ' + itemUrl 
+            
+            
+            ,
+        });
+    } catch (error) {
+        alert(error.message);
+    }
+};
 
   useEffect(() => {
     setIsLoading(true);
@@ -363,6 +389,9 @@ export default function Programme({ navigation }) {
 
   let item_nom = "";
 
+
+  
+
   /* LISTE PROGRAMME GLOBAL >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
   const renderData = (item) => {
@@ -493,7 +522,7 @@ export default function Programme({ navigation }) {
             <Pressable
               onPress={() => navigation.navigate("RechercheModal")}
               style={{
-                marginLeft: "15%",
+                marginLeft: "25%",
               }}
             >
               <Text style={styles.textBigButton}> Affiner ma recherche </Text>
@@ -511,16 +540,7 @@ export default function Programme({ navigation }) {
           </View>
         </View>
 
-        {/* icon panier */}
-
-        <Image
-          style={{
-            resizeMode: "cover",
-            height: 20,
-            width: 20,
-          }}
-          source={require("../assets/snack-icon.png")}
-        />
+        
       </View>
 
       {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN HEADER PROGRAMME */}
@@ -623,7 +643,9 @@ export default function Programme({ navigation }) {
                   source={require("../assets/picto1.png")}
                   />
                   </View>
-                  <View style={styles.labelBigplace}><Text>{itemLieu}</Text></View>
+                  <View style={styles.labelBigplace}><Text>{itemLieu}</Text>
+                  
+                  </View>
                   </View>
                   <View style={{marginTop: '5%'}}>
                   <Text style={styles.titreFiche}>{itemTitre_spectacle}</Text>
@@ -646,7 +668,7 @@ export default function Programme({ navigation }) {
                   
                   {itemNon_francophones === "Oui" &&  <View  style={styles.labelCard}><Text  style={styles.smallText}>Non francophone</Text></View>}
                   
-                  
+                  <Button onPress={shareData} title="Envoyer à un ami" />
                   </View>
                   
 
