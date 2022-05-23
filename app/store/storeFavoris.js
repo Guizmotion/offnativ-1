@@ -71,11 +71,12 @@ const reducer = (stateFavoris, action) => {
                 //    type: "SELECT_FAVORIS",
                 //    payload: ud,
                 stateFavoris.SpectaclesSelected[ud] = true;
+
                   });
             //   console.log(action.payload);
                  return {
                      ...stateFavoris,
-                     SpectaclesSelected: [...stateFavoris.SpectaclesSelected, action.payload],
+                     SpectaclesSelected: {...stateFavoris.SpectaclesSelected}
                  };
 
 
