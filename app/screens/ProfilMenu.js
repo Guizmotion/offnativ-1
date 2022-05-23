@@ -76,6 +76,12 @@ export default function ProfilMenu({ navigation }) {
           payload: response.data.favoris,
         });
 
+        dispatchFavoris({
+          type: "SELECT_FAVORITES",
+          //SET_FAVORITE
+          payload: response.data.favoris,
+        });
+
 
         // map
        //response.data.favoris.map((ud) => {
