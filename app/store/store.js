@@ -19,6 +19,8 @@ export const StoreContext = createContext(initialState);
 
 const reducer = (state, action) => {
 
+  //console.log('current fav' + state.favorites);
+
   switch (action.type) {
  /*   case "ADD_STYLES_RECHERCHES":
      
@@ -76,16 +78,7 @@ const reducer = (state, action) => {
     case "addData":
       return { ...state, programme: action.payload };
 
-    case "GET_FAVORITES":
-      return {
-        ...state,
-        favorites: action.payload,
-      };
-    case "SET_FAVORITE":
-      return {
-        ...state,
-        favorites: [...state.favorites, action.payload],
-      };
+
     case "SET_CARTE_ABONNEMENT":
       return {
         ...state,

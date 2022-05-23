@@ -29,6 +29,7 @@ import { Card } from "react-native-paper";
 import styles from "../config/styles/StyleGeneral";
 
 import { StoreContext } from "../store/store";
+import { FavorisContext } from "../store/storeFavoris";
 
 
 
@@ -36,6 +37,8 @@ import { StoreContext } from "../store/store";
       
     
     const { state, dispatch } = React.useContext(StoreContext);
+    const {stateFavoris, dispatchFavoris} = React.useContext(FavorisContext);
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const [itemId, setItemId] = useState([]);
@@ -98,30 +101,105 @@ import { StoreContext } from "../store/store";
     const [itemCharg_diff_addresse, setItemCharg_diff_addresse] = useState([]);
 
 
-    async function getFavorites(tok) {
-        var myHeaders = new Headers();
-        myHeaders.append("api-key", "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8");
-        myHeaders.append("token", tok); // "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvZmYtand0IiwidG9rZW5faWQiOiI5MWQ3MjBhYS1kOTZhLTRjZmEtYWVkNS03OGZkZTBiOWVjNTYiLCJ1c2VyX2lkIjo2MjQwMSwiaWF0IjoxNjUyMzYyMzU0LCJleHAiOjE2NTQ5NTQzNTR9.LOWg61EohuE3379lnoPMxDi5E-za0GPAiy_9ILxa9m-rujDYQNSPu0uthL9zt67scXVV0vfe8OfSWKKv4QSwXEWI70h3mhjHolcBo6dspuojqfDSpocv1s1AGF5hc3XOST8_p1NFhZacO5Eje6-6iPItCh4c2OBwP6MkeJe7PDI");
-        //myHeaders.append("Cookie", ".ASPXANONYMOUS=C5AaxfWW2AEkAAAAMjZlMGI5YzUtMzZhNC00ZmI3LWJhOWUtYjcxMzEwNjJmMWZmJnHD8r3JRaHoMX5AiBpQOd6w5NNFbICO7Y56PMvrWz81");
+    const [isFavorite,setIsFavorite] = useState(false);
+
+
+
+
+
+const add_favorite =  (item) => {
+   //console.log("add_favorite" + item);
+   
+   setTimeout(() => {
+
+   dispatchFavoris({
+    type: "SELECT_FAVORIS",
+    payload: item,
+  });
+
+    ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
+ 
+    }, 10);
+   
+      
+    var id= item;
+    var data = '{\r\n"sh_id": ' + id + "\r\n}";
     
-        var raw = "";
+    var config = {
+      method: "post",
+      url: "https://api.festivaloffavignon.com/favorite",
+      headers: {
+        "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
+        token: state.token,
+         "Content-Type": "text/plain",
+       },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+       
+          dispatchFavoris({
+            type: "ADD_FAVORIS",
+            payload: item,
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
     
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
-    
-        return await fetch(
-          "https://api.festivaloffavignon.com/favorite",
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
-      }
-    
+
+    };
+
+    const rm_favorite =  (item) => {
+
+        setTimeout(() => {
+
+            dispatchFavoris({
+             type: "UNSELECT_FAVORIS",
+             payload: item,
+           });
+         
+             ToastAndroid.show("Retrait d'un favori en cours...",ToastAndroid.SHORT);
+          
+             }, 10);
+     
+
+let id = item;
+        axios
+        .delete("https://api.festivaloffavignon.com/favorite", {
+          headers: {
+            "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
+            token: state.token
+          },
+          data: {
+            sh_id: id,
+          },
+        })
+  
+        .then((user) => {
+          //console.log(user.data);
+          //item.setIsFavorite(false);
+         
+         dispatchFavoris({
+            type: "DELETE_FAVORIS",
+            payload: item,
+            });
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error);
+            //console.log(error.response.data); // => the response payload
+          }
+        });
+       
+         
+            };
+
+/*
       async function add_favorite(id, tok) {
         console.log(id);
         console.log(tok);
@@ -148,6 +226,7 @@ import { StoreContext } from "../store/store";
             console.log(error);
           });
       }
+
     
       async function rm_favorite(id, tok) {
         await axios
@@ -171,7 +250,7 @@ import { StoreContext } from "../store/store";
             }
           });
       }
-    
+    */
 
   const shareData = async () => {
     try {
@@ -265,12 +344,29 @@ import { StoreContext } from "../store/store";
       show_ticket_off = true;
     }
 
-   
+  
 
+       
+
+useEffect(() => {
+
+ 
+    if( stateFavoris.SpectaclesSelected[item.id] ){
+        setIsFavorite(true);
+
+
+    }else{
+        setIsFavorite(false);
+    }
+
+    }, [stateFavoris]);
+
+      
+    
     return (
       <View>
         <TouchableWithoutFeedback
-          delayPressIn={10}
+         // delayPressIn={10}
           onPress={() => fillModal(item)}
         >
          
@@ -320,7 +416,7 @@ import { StoreContext } from "../store/store";
          //   [styles.favorisBtn],
             { 
               
-              display: state.isAuthenticated ? "flex" : "none" ,
+             // display: state.isAuthenticated ? "flex" : "none" ,
               position:'absolute',
               top : 140,
               left: 0,
@@ -332,12 +428,11 @@ import { StoreContext } from "../store/store";
                 }
               >
 
-
-                {!state.favorites.includes(Number(item.id)) && (
+                {!isFavorite && state.isAuthenticated && (
                  <Pressable
                  activeOpacity={false}
                  underlayColor="#DDDDDD"
-                 onPress={() => alert('Pressed!')}>  
+                 onPress={() => add_favorite(item.id)} >
                
                    
 
@@ -354,24 +449,14 @@ import { StoreContext } from "../store/store";
                   </Pressable>
                   
                 )}
-                {/*} 
+               
 
 
-   <Pressable
-                  onPress={() => add_favorite(item.id, state.token)} >
-
+                {isFavorite && state.isAuthenticated && (
+                 
+                 
                  <Pressable
-  activeOpacity={false}
-  underlayColor="#DDDDDD"
-  onPress={() => alert('Pressed!')}>
-                 <Pressable
-                  onPress={() => add_favorite(item.id, state.token)} >
-                
-                <Button title="Fav" onPress={() => add_favorite(item.id, state.token)} /> */}
-
-                {state.favorites.includes(Number(item.id)) && (
-                  <Pressable
-                  onPress={() => rm_favorite(item.id, state.token)} >
+                  onPress={() => rm_favorite(item.id)} >
                   <Image
                     style={{
                       resizeMode: "cover",
@@ -382,7 +467,12 @@ import { StoreContext } from "../store/store";
                   />
                   </Pressable>
                 )}
+
+                
               </View>
+
+
+
               <Modal
                    animationType={'slide'}
                    hardwareAccelerated={true}
@@ -445,8 +535,28 @@ import { StoreContext } from "../store/store";
                   }}
                   source={require("../assets/picto1.png")}
                   />
+   
+
+{itemCb === "Oui" && <Image
+                  style={{
+                    resizeMode: "cover",
+                    height: 35,
+                    width: 35,
+                    alignItems: 'flex-start',
+                  }}
+                  source={require("../assets/money.png")}
+                  />}
+
+
+
+
                   </View>
-                  <View style={styles.labelBigplace}><Text>{itemLieu}</Text>
+                  <View style={styles.labelBigplace}>
+                  <Text>
+    {itemCategorie}
+
+    </Text>
+                      <Text>{itemLieu}</Text>
                   
                   </View>
                   </View>
@@ -646,3 +756,62 @@ import { StoreContext } from "../store/store";
   }
 
   export default ProgrammeCard;
+
+
+
+/*
+  
+  "id":"28895",
+  "acces_handicape":"Oui",
+  "titre_spectacle":"Le TOMA 2021 sur les ondes !",
+  "auteur_prenom":" ",
+  "nom":" ",
+  "ticket_off":"Non",
+  "horaire":"00h00",
+  "image":"https:\/\/www.festivaloffavignon.com\/resources\/off\/visuels\/2021\/spectacle\/web2\/spectacle_28895.jpg",
+  "duree":"24h00",
+  "type_public":"Tout public",
+  "categorie":"événement",
+  "lieu":"CHAPELLE DU VERBE INCARNÉ",
+  "description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
+  "style":"Web TV",
+  "salle":"Salle Edouard Glissant",
+  "theatre":"",
+  "deja_joue":"Non",
+  "non_francophones":"Non",
+  "plein_air":"Non",
+  "clim":"Oui",
+  "especes":"Non",
+  "cheques":"Non",
+  "cb":"Non",
+  "tel_reservation":"+33 (0)4 90 14 07 49",
+  "compagnie":"Théâtre de la Chapelle du Verbe Incarné",
+  "adresse":"21G, rue des lices (en face du n°60)",
+  "cp":"84000",
+  "ville":"Avignon",
+  "pays":"France",
+  "site_web":"www.verbeincarne.fr",
+  "bande_annonce":"",
+  "tarif_reduit_precisions":"",
+  "age":"",
+  "dates_representations":"du 9 au 28 juillet - 24h\/24",
+  "tarif":"0",
+  "tarif_adh":"0",
+  "tarif_enfant":"0",
+  "url":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-s28895\/",
+  "url_fav":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-af28895",
+  "url_rmfav":"https:\/\/www.festivaloffavignon.com\/programme\/2021\/le-toma-2021-sur-les-ondes-rf28895",
+  "titre":"",
+  "dates":"09\/07\/2021-00h00|10\/07\/2021-00h00|11\/07\/2021-00h00|13\/07\/2021-00h00|14\/07\/2021-00h00|16\/07\/2021-00h00|17\/07\/2021-00h00|18\/07\/2021-00h00|20\/07\/2021-00h00|21\/07\/2021-00h00|23\/07\/2021-00h00|24\/07\/2021-00h00|26\/07\/2021-00h00|27\/07\/2021-00h00|28\/07\/2021-00h00|19\/07\/2021-00h00|25\/07\/2021-00h00|12\/07\/2021-00h00|15\/07\/2021-00h00|22\/07\/2021-00h00",
+  "t_Rouge":"0",
+  "t_jaune":"0",
+  "t_bleu":"0",
+  "t_vert":"0",
+  "t_turquoise":"0",
+  "charg_diff":"",
+  "telephone":"000000000",
+  "courriel":"toma@verbeincarne.fr",
+  "structure":"ADOC",
+  "charg_diff_addresse":""
+  
+  */

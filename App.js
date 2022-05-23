@@ -6,6 +6,7 @@ import GlobalState from "./app/store/GlobalState";
 import AppNavigator from "./app/navigation/AppNavigator";
 import { StoreContainer } from "./app/store/store";
 import { RechercheContainer } from "./app/store/storeRecherche";
+import {FavorisContainer} from './app/store/storeFavoris';
 
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
       <GlobalState>
         <NavigationContainer>
          <RechercheContainer>
+         <FavorisContainer>
           <AppNavigator />
+         </FavorisContainer>
           </RechercheContainer>
         </NavigationContainer>
       </GlobalState>

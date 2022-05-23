@@ -24,9 +24,12 @@ import styles from "../config/styles/StyleGeneral";
 import axios from "axios";
 
 import { StoreContext } from "../store/store";
+import { FavorisContext } from "../store/storeFavoris";
 
 export default function ProfilMenu({ navigation }) {
   const { state, dispatch } = React.useContext(StoreContext);
+  const {stateFavoris, dispatchFavoris} = React.useContext(FavorisContext);
+
 
   const route = useRoute();
 
@@ -52,6 +55,8 @@ export default function ProfilMenu({ navigation }) {
     navigation.navigate("Favoris");
   };
 
+
+
   useEffect(() => {
     axios
       .get("https://api.festivaloffavignon.com/favorite", {
@@ -63,13 +68,29 @@ export default function ProfilMenu({ navigation }) {
       .then((response) => {
         console.log("query fav: " + response.data.favoris);
 
-        dispatch({
-          type: "ADD_FAVORITES",
+       
+
+        dispatchFavoris({
+          type: "SET_FAVORITES",
           //SET_FAVORITE
-          payload: response.data,
+          payload: response.data.favoris,
         });
+
+
+        // map
+        response.data.favoris.map((ud) => {
+          dispatchFavoris({
+            type: "SELECT_FAVORIS",
+            payload: ud,
+          });
+});
+       
+
+
       });
     console.log("favs loaded!");
+
+
   }, []);
 
   return (
