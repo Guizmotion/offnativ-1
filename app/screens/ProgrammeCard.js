@@ -31,7 +31,7 @@ import styles from "../config/styles/StyleGeneral";
 import { StoreContext } from "../store/store";
 import { FavorisContext } from "../store/storeFavoris";
 
-
+import Loader from "./Loader";
 
   const ProgrammeCard = ({item}) => {
       
@@ -402,7 +402,7 @@ useEffect(() => {
                    height: 180,
                    
                   }}
-                PlaceholderContent={<ActivityIndicator />}
+                PlaceholderContent={<Loader />}
               />
 
 
@@ -508,7 +508,7 @@ useEffect(() => {
                   
                   <View style={styles.imageFiche}>
                   <ImgLazy 
-                  PlaceholderContent={<ActivityIndicator />}
+                  PlaceholderContent={<Loader />}
                   source={{uri: itemImage}} style={{width: '100%', height: 300,resizeMode: "cover"}}/>
                   </View>
                   {/* DEBUT BLOC CONTENU BLANC */}

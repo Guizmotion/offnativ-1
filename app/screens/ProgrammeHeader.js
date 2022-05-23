@@ -40,6 +40,10 @@ const ProgrammeHeader = () => {
   
   
   const navigation = useNavigation();
+
+  const filtrerProgramme = (filter) => {
+    setFilter(filter);
+  };
   
   
   return (
@@ -78,6 +82,13 @@ const ProgrammeHeader = () => {
   </Pressable>
   </View>
   <View style={styles.btnBig}>
+
+  <Pressable
+  onPress={() => filtrerProgramme()}
+  style={{
+    marginLeft: "25%",
+  }}
+  >
   <Image
   style={{
     resizeMode: "cover",
@@ -86,6 +97,7 @@ const ProgrammeHeader = () => {
   }}
   source={require("../assets/filtre.png")}
   />
+    </Pressable>
   </View>
   </View>
   

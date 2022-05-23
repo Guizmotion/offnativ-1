@@ -21,7 +21,6 @@ function App() {
           </RechercheContainer>
         </NavigationContainer>
       </GlobalState>
-      {/* <Text>{!state.isAuthenticated ? 'off' : 'on'}</Text> */}
     </StoreContainer>
   );
 }
