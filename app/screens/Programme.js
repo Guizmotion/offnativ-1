@@ -80,6 +80,8 @@ export default function Programme({ navigation }) {
     
  
       
+
+    
       return (
         <View>
         {isLoading && <Loader />}
@@ -90,10 +92,12 @@ export default function Programme({ navigation }) {
         <FlatList
         
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
-        
+      
         data={filteredData}
         removeClippedSubviews={true}
         
+        
+       // updateCellsBatchingPeriod={5} 
         maxToRenderPerBatch={5}
         initialNumToRender={5}
         
@@ -104,8 +108,7 @@ export default function Programme({ navigation }) {
           // console.log("index", index)
           return index.toString();
         }}
-        
-        
+       
         
         renderItem={({ item }) => {
           // return renderData(item);
