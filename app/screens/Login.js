@@ -38,7 +38,24 @@ export const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+/*
+  const getEmail = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('email');
+      const value = JSON.parse(valueString);
+      console.log(valueString + 'test');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ */
+
   /***connect auto 
+   * 
+   * 
+   * 
+   * 
+   * 
   
   useEffect(async () => {
     
@@ -217,6 +234,8 @@ console.log(state.favorites);
         });
       });
   };
+
+  //
   return (
     <View style={{ flex: 1, alignItems: 'center', padding: 30, paddingTop: 50 }}>
   

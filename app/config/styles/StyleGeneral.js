@@ -74,7 +74,8 @@ export default StyleSheet.create({
     },
     blocImage: {
        width: '30%',
-       flex: 2, 
+     // flex: 2, 
+  
        position: 'absolute',
        marginTop: -15,
        marginBottom: 10,
@@ -144,23 +145,18 @@ export default StyleSheet.create({
        fontSize: 8,
     },
     headView: {
-   
-   //  padding: 20,
-  //   paddingTop: 40,
      width: '100%',
-     backgroundColor: '#fff',
-     shadowOpacity: 1,
-     shadowColor: "black",
+     flexDirection: "row",
+     alignItems: 'flex-end',
+     right: 0,
+     borderBottomWidth: 0
    },
     titrePage: {
      fontSize: 20,
      fontWeight: "bold",
-       alignSelf: "flex-end",
-       flexWrap: "wrap",
-       right:0,
-       flexDirection: "row",
+       width: '100%',
+       textAlign: 'right'
     },
-
     
     favorisBtn: {
      width: 30,
@@ -171,7 +167,9 @@ export default StyleSheet.create({
      right: 10,
      backgroundColor: '#fff',
      borderRadius: 30,
-     padding: 5,
+     padding: 10,
+     zIndex: 5000,
+     flex: 2
     },
     openMenu: {
      position: "absolute",
@@ -411,6 +409,9 @@ export default StyleSheet.create({
       },
       colorBlack: {
         color: '#231f20',
+      },
+      headerLeft: {
+        paddingLeft: 15,
       },
 
 
