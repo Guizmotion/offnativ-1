@@ -109,7 +109,8 @@ import { FavorisContext } from "../store/storeFavoris";
 
 const add_favorite =  (item) => {
    //console.log("add_favorite" + item);
-   
+   ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
+ 
    setTimeout(() => {
 
    dispatchFavoris({
@@ -117,11 +118,10 @@ const add_favorite =  (item) => {
     payload: item,
   });
 
-    ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
- 
+    
     }, 10);
    
-      
+    setTimeout(() => { 
     var id= item;
     var data = '{\r\n"sh_id": ' + id + "\r\n}";
     
@@ -150,12 +150,13 @@ const add_favorite =  (item) => {
       });
 
 
-    
+    }, 20); 
 
     };
 
     const rm_favorite =  (item) => {
-
+        ToastAndroid.show("Retrait d'un favori en cours...",ToastAndroid.SHORT);
+          
         setTimeout(() => {
 
             dispatchFavoris({
@@ -163,11 +164,10 @@ const add_favorite =  (item) => {
              payload: item,
            });
          
-             ToastAndroid.show("Retrait d'un favori en cours...",ToastAndroid.SHORT);
-          
+            
              }, 10);
      
-
+             setTimeout(() => {
 let id = item;
         axios
         .delete("https://api.festivaloffavignon.com/favorite", {
@@ -196,7 +196,7 @@ let id = item;
           }
         });
        
-         
+    }, 20);  
             };
 
 /*

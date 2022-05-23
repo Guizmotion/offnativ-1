@@ -39,6 +39,7 @@ import { StoreContext } from "../store/store";
 
 //import LikeButton from "../components/LikeButton";
 import ProgrammeCard from "./ProgrammeCard";
+import ProgrammeHeader from "./ProgrammeHeader";
 
 const baseUrl = "https://appli.ovh/off/app/";
 const url_programme = baseUrl + "api2022.php?a=1";
@@ -85,6 +86,7 @@ export default function Programme({ navigation }) {
 
 
 
+
   const filteredData = searchText
     ? state.programme.filter(
         (x) =>
@@ -95,66 +97,32 @@ export default function Programme({ navigation }) {
     : state.programme;
 
   let item_nom = "";
-
+  const renderHeader = () => {
+    return <Text style={{
+      marginHorizontal: 0,
+      marginVertical: 100,
+    fontSize: 22, fontWeight: 'bold'}}>Header</Text>;
+  };
 
   
-  /* HEADER PROGRAMME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
+  
   return (
     <View>
       {isLoading && <Loader />}
 
-      <View style={[{shadowOpacity: 0.5,zIndex:10,
-       shadowRadius: 5,backgroundColor: '#fff', padding: 10,
-       paddingTop: 0, display: isLoading ? "none" : "flex" }]}>
-
-        <View style={{ flexDirection: "row", width: "80%", marginTop: 0 }}>
-          <View style={[styles.labelCard, styles.btnBig, styles.labelAchat]}>
-            <Pressable onPress={() => navigation.navigate("RechercheModal")}>
-              <Image
-                style={{
-                  resizeMode: "cover",
-                  height: 25,
-                  width: 25,
-                }}
-                source={require("../assets/recherche.png")}
-              />
-            </Pressable>
-            <Pressable
-              onPress={() => navigation.navigate("RechercheModal")}
-              style={{
-                marginLeft: "25%",
-              }}
-            >
-              <Text style={styles.textBigButton}> Affiner ma recherche </Text>
-            </Pressable>
-          </View>
-          <View style={styles.btnBig}>
-            <Image
-              style={{
-                resizeMode: "cover",
-                height: 25,
-                width: 25,
-              }}
-              source={require("../assets/filtre.png")}
-            />
-          </View>
-        </View>
-
-        
-      </View>
-
-      {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN HEADER PROGRAMME */}
-
-      {/* LISTE PROGRAMME APPEL >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+      
+      <ProgrammeHeader />
 
       <FlatList
+
+    //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
+
         data={filteredData}
         removeClippedSubviews={true}
-        //getItemLayout={getItemLayout}
+        
+        maxToRenderPerBatch={5}
+        initialNumToRender={5}
 
-        maxToRenderPerBatch={7}
-        initialNumToRender="5"
         onEndReached={({ distanceFromEnd }) => {
           if (distanceFromEnd < 0) return;
         }}
@@ -162,18 +130,24 @@ export default function Programme({ navigation }) {
           // console.log("index", index)
           return index.toString();
         }}
+
+        
+
         renderItem={({ item }) => {
          // return renderData(item);
          return <ProgrammeCard item={item} />
         }}
+
+
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() =>
               dispatch({ type: "addData", payload: filteredData })
-            }
-          />
+            } />
         }
+
+
       />
       {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FIN LISTE PROGRAMME APPEL */}
 
