@@ -67,7 +67,8 @@ const Menu = (props) => {
         <View
           style={{
             flex: 1,
-            padding: "5%",
+          //  padding: "5%",
+          paddingLeft: "5%",
             width: "100%",
             justifyContent: "space-between",
             height: "100%",
@@ -247,14 +248,14 @@ const Menu = (props) => {
                 width: "90%",
                 height: 'auto',
                 margin: 0,
-                marginTop: 10,
+                marginTop: 20,
                 marginLeft: "5%",
-                marginRight: "5%",
+               // marginRight: "5%",
                 borderTopLeftRadius: 15,
                 overflow: "hidden",
                 borderTopRightRadius: 15,
                 bottom: 0,
-                backgroundColor: "red",
+               // backgroundColor: "red",
                 
               }}
             >
