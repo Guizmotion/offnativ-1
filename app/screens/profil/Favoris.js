@@ -17,6 +17,11 @@ import {
   Pressable,
   TouchableWithoutFeedback,
 } from "react-native";
+
+import { ListItem } from 'react-native-elements'
+
+
+
 import axios from "axios";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -26,94 +31,67 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
 import { StoreContext } from "../../store/store";
 
-/*
-{state.isAuthenticated && (
-  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
-  
-  )}
-  */
+import { FavorisContext } from "../../store/storeFavoris";
+import ProgrammeCard from "../ProgrammeCard";
+
 
 export default function Favoris({ navigation }) {
   const { state, dispatch } = React.useContext(StoreContext);
+  const {stateFavoris, dispatchFavoris} = React.useContext(FavorisContext);
 
   const route = useRoute();
   const [listFavorites, setlistFavorites] = useState([]);
   const [token, setToken] = useState();
 
-  async function rm_favorite(id, tok) {
-    await axios
-      .delete("https://api.festivaloffavignon.com/favorite", {
-        headers: {
-          "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-          token: tok, //state.token
-        },
-        data: {
-          sh_id: id,
-        },
-      })
+  //const filteredData = state.programme;
 
-      .then((user) => {
-        console.log(user.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error);
-          //console.log(error.response.data); // => the response payload
-        }
-      });
-  }
+  const filteredData = state.programme.filter(
+    (x) =>
+    stateFavoris.SpectaclesSelected[x.id] === true
+    )
+   ;
+    
+   // const memoizedValue = useMemo(() => renderItem, [state.programme]);
+      
+   
+    
+      return (
+        <View>
+        
+       
+        <FlatList
+        
+        //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
+      
+        data={filteredData }
+        
+        removeClippedSubviews={true}
+        // updateCellsBatchingPeriod={5} 
+        maxToRenderPerBatch={12}
+        initialNumToRender={4}
+       // getItemLayout={() => getItemLayout() }
+        
+        onEndReached={({ distanceFromEnd }) => {
+          if (distanceFromEnd < 0) return;
+        }}
 
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      axios
-        .get("https://api.festivaloffavignon.com/favorite", {
-          headers: {
-            "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-            token: state.token,
-          },
-        })
-        .then((response) => {
-          console.log("query fav: " + response.data);
-
-          let mynewarray = JSON.stringify(response.data.favoris).split(",");
-
-          setlistFavorites(mynewarray);
-          console.log(listFavorites);
-        });
-      console.log("view has loaded!");
-    });
-
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return unsubscribe;
-  }, [navigation]);
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        top: "10%",
-      }}
-    >
-      <ScrollView>
-        {listFavorites.map((item, i) => (
-          <View key={i}>
-            <Button
-              title="DelFav"
-              onPress={() =>
-                rm_favorite(item.replace("[", "").replace("]", ""), state.token)
-              }
-            />
-
-            <Text>Fav id : {item.replace("[", "").replace("]", "")}</Text>
-          </View>
-        ))}
-
-        <TouchableOpacity></TouchableOpacity>
-      </ScrollView>
-    </View>
-  );
-
-  //[row]
-}
+        keyExtractor={(item, index) => {
+          // console.log("index", index)
+          return index.toString();
+        }}
+       
+        
+        
+        renderItem={({ item }) => {
+          // return renderData(item);
+          return <ProgrammeCard item={item} />
+        }}
+        
+        
+       
+        
+        
+        />
+        </View>
+        );
+      }
