@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef,useMemo } from "react";
+import {RecyclerListView, LayoutProvider, DataProvider} from "recyclerlistview";
+
 import {
   Image,
   Text,
-  
+  Dimensions,
   View,
   
   FlatList,
@@ -69,6 +71,8 @@ export default function Programme({ navigation }) {
   const getItemLayout = (data, index) => (
     { length: 100, offset: 100 * index, index }
   )
+
+ 
   
   
   const filteredData = searchText
@@ -79,19 +83,104 @@ export default function Programme({ navigation }) {
     x.lieu.toLowerCase().includes(searchText.toLowerCase())
     )
     : state.programme;
+
+
+
+
+    let { width } = Dimensions.get("window");
+
+    //Create the data provider and provide method which takes in two rows of data and return if those two are different or not.
+    let dataProvider = new DataProvider((r1, r2) => {
+        return r1 !== r2;
+    });
+
+    //Create the layout provider
+    //First method: Given an index return the type of item e.g ListItemType1, ListItemType2 in case you have variety of items in your list/grid
+    //Second: Given a type and object set the height and width for that type on given object
+    //If you need data based check you can access your data provider here
+    //You'll need data in most cases, we don't provide it by default to enable things like data virtualization in the future
+    //NOTE: For complex lists LayoutProvider will also be complex it would then make sense to move it to a different file
     
-   // const memoizedValue = useMemo(() => renderItem, [state.programme]);
-      
+    const ViewTypes = {
+      FULL: 0,
+      HALF_LEFT: 1,
+      HALF_RIGHT: 2
+  }
+
+
+    const layoutProvider = new LayoutProvider(
+        index => {
+            if (index % 3 === 0) {
+                return ViewTypes.FULL;
+            } else if (index % 3 === 1) {
+                return ViewTypes.HALF_LEFT;
+            } else {
+                return ViewTypes.HALF_RIGHT;
+            }
+        },
+        (type, dim) => {
+            switch (type) {
+                case ViewTypes.HALF_LEFT:
+                    dim.width = width / 2 - 0.0001;
+                    dim.height = 160;
+                    break;
+                case ViewTypes.HALF_RIGHT:
+                    dim.width = width / 2;
+                    dim.height = 160;
+                    break;
+                case ViewTypes.FULL:
+                    dim.width = width;
+                    dim.height = 140;
+                    break;
+                default:
+                    dim.width = 0;
+                    dim.height = 0;
+            }
+        }
+    );
+
 
     
-      return (
-        <View>
+    
+   // const memoizedValue = useMemo(() => renderItem, [state.programme]);
+     /* 
+   const layoutProvider = new LayoutProvider(() => {
+    const type = 'NORMAL';
+    return type;
+  }, (type: any , dim: { width: number; height: number; }) => {
+    switch (type) {
+      case 'NORMAL': 
+        dim.width = SCREEN_WIDTH;
+        dim.height = 125;
+        break;
+      default: 
+        dim.width = 0;
+        dim.height = 0;
+        break;
+    }
+  });
+   */ 
+     return (
+        <View
+        style={{flex:1}}
+        >
         {isLoading && <Loader />}
         
         
         <ProgrammeHeader />
         
-        <FlatList
+        <RecyclerListView 
+  
+        rowRenderer={({ item }) => {
+          // return renderData(item);
+          return <ProgrammeCard item={item} />
+        }}
+       // dataProvider={filteredData}
+       dataProvider={dataProvider.cloneWithRows(state.programme)}                       
+        layoutProvider={layoutProvider}
+        
+                              />
+      {/*  <FlatList
         
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
       
@@ -99,8 +188,8 @@ export default function Programme({ navigation }) {
         
         removeClippedSubviews={true}
         // updateCellsBatchingPeriod={5} 
-        maxToRenderPerBatch={12}
-        initialNumToRender={4}
+        maxToRenderPerBatch={15}
+        initialNumToRender={5}
        // getItemLayout={() => getItemLayout() }
         
         onEndReached={({ distanceFromEnd }) => {
@@ -130,6 +219,8 @@ export default function Programme({ navigation }) {
         
         
         />
+
+      */}
         </View>
         );
       }

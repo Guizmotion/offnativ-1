@@ -33,6 +33,10 @@ import { FavorisContext } from "../store/storeFavoris";
 
 import Loader from "./Loader";
 
+
+
+
+
   const ProgrammeCard = ({item}) => {
       
     
@@ -365,7 +369,8 @@ useEffect(() => {
     
     return (
       <View>
-        <TouchableWithoutFeedback
+        <TouchableOpacity
+       // <TouchableWithoutFeedback
          // delayPressIn={10}
           onPress={() => fillModal(item)}
         >
@@ -408,7 +413,7 @@ useEffect(() => {
 
             </View>
           </Card>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         
         <View
@@ -547,15 +552,15 @@ useEffect(() => {
                   source={require("../assets/money.png")}
                   />}
 
+{/*}
+<Text>
+    {itemCategorie}
 
-
+    </Text> */}
 
                   </View>
                   <View style={styles.labelBigplace}>
-                  <Text>
-    {itemCategorie}
-
-    </Text>
+                 
                       <Text>{itemLieu}</Text>
                   
                   </View>
