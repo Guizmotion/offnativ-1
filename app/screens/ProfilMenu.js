@@ -100,7 +100,7 @@ export default function ProfilMenu({ navigation }) {
 }, []);
 
 return (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
+  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingLeft: 30,paddingRight: 30 }}>
   {/*
   {state.isAuthenticated && (
     <Text style={{fontSize: 20}}>Bonjour {state.user.prenom}</Text>
@@ -145,9 +145,9 @@ return (
   </View>
   
   <View style={{width: '100%', flexDirection: 'row'}}>
-    <Pressable 
-    onPress={() => { navigation.navigate('CartPage'); }}
-    style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
+  <Pressable 
+  onPress={() => { navigation.navigate('CartPage'); }}
+  style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-panier.png")} />
   <Text style={{alignItems:'center'}}>Mon panier</Text>
@@ -158,37 +158,37 @@ return (
   <View style={styles.SeparateurSmall}></View>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-    onPress={() => { navigation.navigate('PlacesSpectacles'); }}
-    style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
+  onPress={() => { navigation.navigate('PlacesSpectacles'); }}
+  style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-ticketoff.png")} />
-   <Text style={{alignItems:'center'}}> Mes places de spectacles</Text>
+  <Text style={{alignItems:'center'}}> Mes places de spectacles</Text>
   <Image style={{resizeMode: "cover",height: 35,width: 35,position: 'absolute', right:0}} 
   source={require("../assets/next.png")} />
   </Pressable>
   </View>
-
+  
   <View style={styles.SeparateurSmall}></View>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-    onPress={() => { navigation.navigate('CartesAbonnement'); }}
-    style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
-
-
+  onPress={() => { navigation.navigate('CartesAbonnement'); }}
+  style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
+  
+  
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-carte.png")} />
- <Text style={{alignItems:'center'}}> Mes cartes d'abonnement</Text>
+  <Text style={{alignItems:'center'}}> Mes cartes d'abonnement</Text>
   <Image style={{resizeMode: "cover",height: 35,width: 35,position: 'absolute', right:0}} 
   source={require("../assets/next.png")} />
-
+  
   </Pressable>
   </View>
   <View style={styles.SeparateurSmall}></View>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
- onPress={ () => { navigation.navigate('Factures');  }}
-    style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
-
+  onPress={ () => { navigation.navigate('Factures');  }}
+  style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
+  
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-factures.png")} />
   <Text style={{alignItems:'center'}}>Mes factures</Text>
@@ -204,13 +204,13 @@ return (
   <View style={[styles.blocGris, styles.flexColumn]}>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-onPress={() => Linking.openURL('https://appli.ovh/off/pdf-tcra/test.pdf')}  
-    style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
-
+  onPress={() => Linking.openURL('https://appli.ovh/off/pdf-tcra/test.pdf')}  
+  style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
+  
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-pdf.png")} />
-   <Text style={{alignItems:'center'}}>Programme PDF</Text>
- 
+  <Text style={{alignItems:'center'}}>Programme PDF</Text>
+  
   <Image style={{resizeMode: "cover",height: 35,width: 35,position: 'absolute', right:0}} 
   source={require("../assets/next.png")} />
   </Pressable>
