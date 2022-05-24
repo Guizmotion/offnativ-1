@@ -28,6 +28,7 @@
     "expo-status-bar": "~1.1.0",
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "pushwoosh-react-native-plugin": "^6.1.14",
     "react": "17.0.1",

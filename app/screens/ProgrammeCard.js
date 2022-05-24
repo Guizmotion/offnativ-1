@@ -348,49 +348,48 @@ let id = item;
     if (item.ticket_off === "Non") {
       show_ticket_off = true;
     }
-
-  const getCategorieIcon = (categorie) => {
-    let source = require("../assets/picto1.png");
-// .spectaclemusical:before {background-image: url(../img/picto2.svg)}
-    if (categorie === "danse") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "humour / café-théâtre") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "théâtre") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "spectacle musical") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "mime") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "pluridisciplinaire") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "cirque") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "poesie") {
-      source = require("../assets/picto1.png");
-    } else if (categorie === "évènement") {
-      source = require("../assets/picto1.png");
-    }
-
-    return source;
-  };
-      
-
-  const getPublicIcon = (type_public) => {
-    let source = require("../assets/picto1.png");
-    if (type_public === "public") {
-      source = require("../assets/picto1.png");
-    } else if (type_public === "adulte") {
-      source = require("../assets/picto1.png");
-    } else if (type_public === "enfant") {
-      source = require("../assets/picto1.png");
-    } else if (type_public === "famille") {
-      source = require("../assets/picto1.png");
-    }
-
-    return source;
-  };
-      
+  
+    const getCategorieIcon = (categorie) => {
+      let source = require("../assets/styles/theatre.png");
+  // .spectaclemusical:before {background-image: url(../img/picto2.svg)}
+      if (categorie === "danse") {
+        source = require("../assets/styles/danse.png");
+      } else if (categorie === "humour / café-théâtre") {
+        source = require("../assets/styles/theatre.png");
+      } else if (categorie === "théâtre") {
+        source = require("../assets/styles/theatre.png");
+      } else if (categorie === "spectacle musical") {
+        source = require("../assets/styles/musical.png");
+      } else if (categorie === "mime") {
+        source = require("../assets/styles/mime.png");
+      } else if (categorie === "pluridisciplinaire") {
+        source = require("../assets/styles/pluridisciplinaire.png");
+      } else if (categorie === "cirque") {
+        source = require("../assets/styles/cirque.png");
+      } else if (categorie === "poesie") {
+        source = require("../assets/styles/poesie.png");
+      } else if (categorie === "évènement") {
+        source = require("../assets/styles/evenement.png");
+      }
+  
+      return source;
+    };
+        
+  
+    const getPublicIcon = (type_public) => {
+      let source = require("../assets/styles/famille.png");
+      if (type_public === "public") {
+        source = require("../assets/styles/enfant.png");
+      } else if (type_public === "adulte") {
+        source = require("../assets/styles/adulte.png");
+      } else if (type_public === "enfant") {
+        source = require("../assets/styles/famille.png");
+      } else if (type_public === "famille") {
+        source = require("../assets/picto1.png");
+      }
+  
+      return source;
+    };
 
        
 
@@ -467,15 +466,19 @@ useEffect(() => {
         </TouchableOpacity>
 
         
-        <View
+      
+<View
           style={(
          //   [styles.favorisBtn],
             { 
               
              // display: state.isAuthenticated ? "flex" : "none" ,
               position:'absolute',
-              top : 140,
-              left: 0,
+              bottom : 20,
+              left: 30,
+              backgroundColor: '#fff',
+              padding: 10,
+              borderRadius: 20,
              // zIndex: 600000000,
               
 

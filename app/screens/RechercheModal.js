@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
+
+import {  Overlay } from 'react-native-elements';
+
 import {
   Image,
 
@@ -19,8 +22,7 @@ import {
 import axios from "axios";
 import RNPickerSelect from "react-native-picker-select";
 import { ActivityIndicator, ToastAndroid } from "react-native";
-import { Image as ImgLazy } from "react-native-elements";
-import { Detail } from "./Detail";
+
 import { Card } from "react-native-paper";
 import { Field, Formik } from "formik";
 import * as Yup from "yup";
@@ -38,7 +40,7 @@ import { Tooltip, Text } from 'react-native-elements';
 
 const validationSchema = Yup.object().shape({});
 const baseUrl = "https://appli.ovh/off/app/";
-const url_programme = baseUrl + "api2022.php?a=1";
+const url_programme = baseUrl + "api2022.php?a=1&limit=";
 
 export default function RechercheModal({ navigation }) {
   //console.log("recherche");
@@ -62,6 +64,7 @@ export default function RechercheModal({ navigation }) {
   const { state, dispatch } = React.useContext(StoreContext);
   const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [limite, setLimite] = useState(false);
   
   const resetForm = () => {
     //setIsLoading(false);
@@ -96,16 +99,27 @@ export default function RechercheModal({ navigation }) {
   useEffect(() => {
     
     setNb_Styles(stateRecherche.StylesRecherches.length);
+
+   // setNb_Styles(stateRecherche.limite);
     
     
   }, [stateRecherche]);
   
+
+
   
   
   const handleSubmit = async (values, { resetForm }) => {
     let data = [];
     
     setIsLoading(true);
+
+   // dispatchRecherche({
+   //   type: "ADD_LIMITE",
+   //   payload: limite,
+   // });
+
+
     await axios.get(url_programme).then(async (response) => {
       data = response.data;
     });
@@ -165,101 +179,101 @@ export default function RechercheModal({ navigation }) {
                   /*   (values.horaire
                     ? moment(item.horaire, "h:mm a").format("HH:mm") === values.horaire
                     : true) && */
-                    (
-                      
-                      (switchMatin == true
-                        ? item.horaire.includes('05h') : true
-                        ) || 
-                        (switchMatin == true
-                          ? item.horaire.includes('06h') : true
-                          ) || 
-                          (switchMatin == true
-                            ? item.horaire.includes('07h') : true
-                            ) || 
-                            (switchMatin == true
-                              ? item.horaire.includes('08h') : true
-                              ) || 
-                              (switchMatin == true
-                                ? item.horaire.includes('09h') : true
-                                ) || 
-                                (switchMatin == true
-                                  ? item.horaire.includes('10h') : true
-                                  ) || 
-                                  (switchMatin == true
-                                    ? item.horaire.includes('11h') : true
-                                    ) 
-                                    
-                                    ) || (
-                                      
-                                      
-                                      (switchApresMidi == true
-                                        ? item.horaire.includes('12h') : true
-                                        ) || 
-                                        (switchApresMidi == true
-                                          ? item.horaire .includes('13h') : true
-                                          ) || 
-                                          (switchApresMidi == true
-                                            ? item.horaire.includes('14h') : true
-                                            ) || 
-                                            (switchApresMidi == true
-                                              ? item.horaire.includes('15h' ) : true
-                                              ) || 
-                                              (switchApresMidi == true
-                                                ? item.horaire .includes('16h') : true
-                                                ) || 
-                                                (switchApresMidi == true
-                                                  ? item.horaire.includes('17h') : true
-                                                  ) 
-                                                  
-                                                  
-                                                  ) || (
-                                                    
-                                                    (switchSoir == true
-                                                      ? item.horaire.includes('18h') : true
-                                                      ) ||
-                                                      (switchSoir == true
-                                                        ? item.horaire.includes('19h') : true
-                                                        ) ||
-                                                        (switchSoir == true
-                                                          ? item.horaire.includes('20h') : true
-                                                          ) ||
-                                                          (switchSoir == true
-                                                            ? item.horaire.includes('21h') : true
-                                                            ) ||
-                                                            (switchSoir == true
-                                                              ? item.horaire.includes('22h') : true
-                                                              ) ||
-                                                              (switchSoir == true
-                                                                ? item.horaire.includes('23h' ): true
-                                                                ) 
-                                                                
-                                                                ) &&
-                                                                
-                                                                
-                                                                (values.date ? item.dates.includes(values.date) : true) &&
-                                                                (values.acces_handicape && values.acces_handicape == true
-                                                                  ? item.acces_handicape == "Oui"
-                                                                  : true) &&
-                                                                  (values.acces_handicape && values.acces_handicape == false
-                                                                    ? item.acces_handicape == "Non"
-                                                                    : true) &&
-                                                                    (values.ticket_off && values.ticket_off == true
-                                                                      ? item.ticket_off == "Oui"
-                                                                      : true) &&
-                                                                      (values.ticket_off && values.ticket_off == false
-                                                                        ? item.ticket_off == "Non"
-                                                                        : true)
-                                                                        ); /*&&
-                                                                        (values.deja_joue && values.deja_joue == true
-                                                                          ? item.deja_joue == "Non"
-                                                                          : true)
-                                                                          ;*/
-                                                                          
-                                                                          dispatch({ type: "addData", payload: fil });
-                                                                          setIsLoading(false);
-                                                                          
-                                                                          navigation.goBack();
-                                                                        };
+(
+
+(switchMatin == true
+? item.horaire.includes('05h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('06h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('07h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('08h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('09h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('10h') : true
+) || 
+(switchMatin == true
+? item.horaire.includes('11h') : true
+) 
+
+) || (
+
+
+(switchApresMidi == true
+? item.horaire.includes('12h') : true
+) || 
+(switchApresMidi == true
+? item.horaire .includes('13h') : true
+) || 
+(switchApresMidi == true
+? item.horaire.includes('14h') : true
+) || 
+(switchApresMidi == true
+? item.horaire.includes('15h' ) : true
+) || 
+(switchApresMidi == true
+? item.horaire .includes('16h') : true
+) || 
+(switchApresMidi == true
+? item.horaire.includes('17h') : true
+) 
+
+
+) || (
+
+(switchSoir == true
+? item.horaire.includes('18h') : true
+) ||
+(switchSoir == true
+  ? item.horaire.includes('19h') : true
+  ) ||
+  (switchSoir == true
+    ? item.horaire.includes('20h') : true
+    ) ||
+    (switchSoir == true
+      ? item.horaire.includes('21h') : true
+      ) ||
+      (switchSoir == true
+        ? item.horaire.includes('22h') : true
+        ) ||
+        (switchSoir == true
+          ? item.horaire.includes('23h' ): true
+          ) 
+          
+          ) &&
+          
+          
+          (values.date ? item.dates.includes(values.date) : true) &&
+          (values.acces_handicape && values.acces_handicape == true
+            ? item.acces_handicape == "Oui"
+            : true) &&
+            (values.acces_handicape && values.acces_handicape == false
+              ? item.acces_handicape == "Non"
+              : true) &&
+              (values.ticket_off && values.ticket_off == true
+                ? item.ticket_off == "Oui"
+                : true) &&
+                (values.ticket_off && values.ticket_off == false
+                  ? item.ticket_off == "Non"
+                  : true)
+                  ); /*&&
+                  (values.deja_joue && values.deja_joue == true
+                    ? item.deja_joue == "Non"
+                    : true)
+                    ;*/
+                    
+                    dispatch({ type: "addData", payload: fil });
+                    setIsLoading(false);
+                    
+                    navigation.goBack();
+                  };
                                                                         
                                                                         
                                                                         
@@ -267,6 +281,12 @@ export default function RechercheModal({ navigation }) {
                                                                           <View style={{ width: "100%", backgroundColor: "#fff"}}>
                                                                           <ScrollView>
                                                                           {isLoading && <Loader />}
+
+
+
+ 
+ 
+
                                                                           <View style={{  display: isLoading ? "none" : "flex" }}>
                                                                           
                                                                           <Formik
@@ -309,6 +329,7 @@ export default function RechercheModal({ navigation }) {
                                                                             </Text>
                                                                             </View>
                                                                             </TouchableOpacity>
+                                                                          
                                                                             <View style={styles.Separateur} />
                                                                             <View style={{ padding: 0, flexDirection: "row", width: "100%" }}>
                                                                             <TextInput
@@ -716,6 +737,10 @@ export default function RechercheModal({ navigation }) {
                                                                       {/* <View style={styles.Separateur} /> */}
                                                                       
                                                                       <View style={{ justifyContent: "flex-end", }} >
+
+                                                                     
+
+                                                                        
                                                                       <Button type="reset" onPress={resetForm} title="effacer" />
                                                                       
                                                                       <TouchableOpacity

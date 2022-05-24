@@ -154,18 +154,13 @@ export default function ListStyleSpectacle({ navigation}) {
     //  padding: 10, 
      width: 300,
       backgroundColor: "#fff", 
-     // position: 'absolute', 
-    //  right: 0, 
       height: '70%',
       top: '11%',
       borderBottomLeftRadius: 30,
       borderTopLeftRadius: 30,
-    //  zIndex:999,
       shadowOpacity: 0.1,
       shadowColor: "black",
       shadowRadius: 5,
-    //  paddingTop: 20,
-     // flexDirection: "column",
       justifyContent: 'space-between',
       alignItems: 'flex-start',
       flexWrap: 'nowrap',
@@ -174,14 +169,11 @@ export default function ListStyleSpectacle({ navigation}) {
 
     
     indexLetterStyle={{
-     // padding: 10,
       fontSize: 16,
       height: 30,
    
       
       fontWeight: 'bold',
-     // fontSize: 12,
-     // height: 20,
       backgroundColor: 'rgba(0,0,0,0)',
     }}
     
@@ -226,9 +218,7 @@ export default function ListStyleSpectacle({ navigation}) {
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: 10, 
-            borderBottomWidth: 1,
-            borderBottomColor: '#ccc',
-            backgroundColor: statut ? '#d86f5f' : '#f2f2f2' 
+            backgroundColor: statut ? '#f26522' : 'rgba(255,255,255,0)' 
           }}
           
           

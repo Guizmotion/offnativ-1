@@ -18,17 +18,23 @@ import { FavorisContext } from "../store/FavorisContext";
 import Loader from "./Loader";
 import { ADD_PRODUCT } from "../store/reducers";
 import { StoreContext } from "../store/store";
+import { RechercheContext } from "../store/storeRecherche";
 
 //import LikeButton from "../components/LikeButton";
 import ProgrammeCard from "./ProgrammeCard";
 import ProgrammeHeader from "./ProgrammeHeader";
 
+import {  Button, Overlay } from 'react-native-elements';
+
+
 const baseUrl = "https://appli.ovh/off/app/";
-const url_programme = baseUrl + "api2022.php?a=1";
+const url_programme = baseUrl + "api2022.php?a=1&limit=";
 
 
 export default function Programme({ navigation }) {
   const { state, dispatch } = React.useContext(StoreContext);
+
+  const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
   const context = React.useContext(ShopContext);
   
   // initialize data state variable as an empty array
@@ -36,7 +42,7 @@ export default function Programme({ navigation }) {
   const [data, setData] = useState([]);
   const [input, setInput] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [visible, setVisible] = useState(true);
+  //const [visible, setVisible] = useState(true);
   
   
   const [filter, setFilter] = useState("all");
@@ -47,16 +53,18 @@ export default function Programme({ navigation }) {
   
   const [isLoading, setIsLoading] = useState(false);
   
+  const [visible, setVisible] = useState(false);
   
+
   
   useEffect(() => {
     setIsLoading(true);
-    axios.get(url_programme).then((response) => {
+    axios.get(url_programme + stateRecherche.limite ).then((response) => {
       // setData(response.data);
       dispatch({ type: "addData", payload: response.data });
       setIsLoading(false);
     });
-  }, []);
+  }, [stateRecherche]);
   
   
   /*
@@ -71,14 +79,14 @@ export default function Programme({ navigation }) {
   )
   
   
-  const filteredData = searchText
+  const filteredData = state.programme;/*searchText
   ? state.programme.filter(
     (x) =>
     x.description.toLowerCase().includes(searchText.toLowerCase()) ||
     x.nom.toLowerCase().includes(searchText.toLowerCase()) ||
     x.lieu.toLowerCase().includes(searchText.toLowerCase())
     )
-    : state.programme;
+    : state.programme;*/
     
    // const memoizedValue = useMemo(() => renderItem, [state.programme]);
       
@@ -90,6 +98,8 @@ export default function Programme({ navigation }) {
         
         
         <ProgrammeHeader />
+         
+   
         
         <FlatList
         

@@ -7,6 +7,7 @@ const initialRechercheState = {
     StylesRecherchesSelected: {},
     AuteursRecherches: [],
     AuteursRecherchesSelected: {},
+    limite: 100,
 };
 
 
@@ -17,6 +18,16 @@ export const RechercheContext = createContext(initialRechercheState);
 const reducer = (stateRecherche, action) => {
     
     switch (action.type) {
+
+        case "SET_LIMITE":
+
+            return {
+                ...stateRecherche,
+                
+                limite: action.payload,
+               
+            };
+
         case "ADD_STYLES_RECHERCHES":
 
         return {

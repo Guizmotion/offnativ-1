@@ -21,28 +21,41 @@ import {
 } from "react-native";
 import axios from "axios";
 
-import { ActivityIndicator, ToastAndroid } from "react-native";
-import { Image as ImgLazy, Icon } from "react-native-elements";
-
-import { Detail } from "./Detail";
-import { Card } from "react-native-paper";
+import {Overlay} from 'react-native-elements';
 import styles from "../config/styles/StyleGeneral";
 
 import { StoreContext } from "../store/store";
-import { FavorisContext } from "../store/storeFavoris";
+import { RechercheContext } from "../store/storeRecherche";
 
 import { useNavigation } from '@react-navigation/native';
+import {debounce, _} from 'lodash';
+
 
 
 
 const ProgrammeHeader = () => {
+  const {state, dispatch} = React.useContext(StoreContext);
+  const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
+  const [visible, setVisible] = useState(false);
   
-  
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const setLimite= (limite) => {
+    dispatchRecherche({ type: "SET_LIMITE", payload: limite });
+  }
   
   const navigation = useNavigation();
 
-  const filtrerProgramme = (filter) => {
-    setFilter(filter);
+  const filtrerProgramme = (col,orderby) => {
+    let programme = state.programme;
+    
+    let result = _.orderBy(programme, col, orderby);
+    
+    dispatch({ type: "addData", payload: result });
+
+   // console.log(result);
   };
   
   
@@ -60,9 +73,11 @@ const ProgrammeHeader = () => {
     
   }>
   
-  <View style={{ flexDirection: "row", width: "80%", marginTop: 0 }}>
+  <View style={{ flexDirection: "row", width: "90%", margin: '5%', marginTop: 0, marginBottom: 5 }}>
+  <View>
   <View style={[styles.labelCard, styles.btnBig, styles.labelAchat]}>
-  <Pressable onPress={() => navigation.navigate("RechercheModal")}>
+
+  <Pressable onPress={() => navigation.navigate("RechercheModal")} style={{paddingRight: 15, paddingLeft: 15}}  >
   <Image
   style={{
     resizeMode: "cover",
@@ -74,20 +89,16 @@ const ProgrammeHeader = () => {
   </Pressable>
   <Pressable
   onPress={() => navigation.navigate("RechercheModal")}
-  style={{
-    marginLeft: "25%",
-  }}
   >
   <Text style={styles.textBigButton}> Affiner ma recherche </Text>
   </Pressable>
   </View>
-  <View style={styles.btnBig}>
+  </View>
+  <View style={{width:'15%', flexDirection: 'row', marginLeft: '10%'}}>
 
   <Pressable
-  onPress={() => filtrerProgramme()}
-  style={{
-    marginLeft: "25%",
-  }}
+ onPress={toggleOverlay} 
+  style={[styles.labelCard, styles.btnBig]}
   >
   <Image
   style={{
@@ -100,6 +111,111 @@ const ProgrammeHeader = () => {
     </Pressable>
   </View>
   </View>
+
+ 
+  <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+    <Text>Limite de résultats :</Text>
+   
+    <TextInput
+      style={{
+        //resizeMode: "cover",
+        height: 35,
+        width: 125,
+        borderColor: "#000",
+      }}
+      onChangeText={(text) => setLimite(text)}
+
+      keyboardType="number-pad"
+      placeholder="nb resultats"
+    
+      maxLength={2000} 
+
+      value={stateRecherche.limite.toString()}
+    />
+
+    <Button
+      title="Trier par ordre alphabétique A-Z"
+
+      onPress={() => {
+        filtrerProgramme("titre_spectacle", "asc");
+        toggleOverlay();
+      }}
+    />
+        <Button
+      title="Trier par ordre alphabétique Z-A"
+
+      onPress={() => {
+        filtrerProgramme("titre_spectacle", "desc");
+        toggleOverlay();
+      }}
+    />
+            <Button
+      title="Trier par horaire ascendant"
+
+      onPress={() => {
+        filtrerProgramme("horaire", "asc");
+        toggleOverlay();
+      }}
+    />
+                <Button
+      title="Trier par horaire descendant"
+
+      onPress={() => {
+        filtrerProgramme("horaire", "desc");
+        toggleOverlay();
+      }}
+    />  
+
+    <Button
+      title="Trier par durée ascendant"
+
+      onPress={() => {
+        filtrerProgramme("duree", "asc");
+        toggleOverlay();
+      }}
+    />
+
+    <Button
+
+      title="Trier par durée descendante"
+
+      onPress={() => {
+        filtrerProgramme("duree", "desc");
+        toggleOverlay();
+      }}
+    />
+
+    <Button
+
+      title="Trier par prix ascendant"
+
+      onPress={() => {
+        filtrerProgramme("tarif", "asc");
+        toggleOverlay();
+      }}
+    />
+
+    <Button
+
+      
+      title="Trier par prix descendant"
+
+      onPress={() => {
+        filtrerProgramme("tarif", "desc");
+        toggleOverlay();
+      }}
+
+    />
+
+  
+
+
+
+
+
+    
+   
+  </Overlay>
   
   
   </View>
@@ -127,7 +243,7 @@ export default ProgrammeHeader;
 "type_public":"Tout public",
 "categorie":"événement",
 "lieu":"CHAPELLE DU VERBE INCARNÉ",
-"description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
+"description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes�) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cœur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
 "style":"Web TV",
 "salle":"Salle Edouard Glissant",
 "theatre":"",
