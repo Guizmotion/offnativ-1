@@ -348,14 +348,55 @@ let id = item;
       show_ticket_off = true;
     }
 
-  
+  const getCategorieIcon = (categorie) => {
+    let source = require("../assets/picto1.png");
+// .spectaclemusical:before {background-image: url(../img/picto2.svg)}
+    if (categorie === "danse") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "humour / café-théâtre") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "théâtre") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "spectacle musical") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "mime") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "pluridisciplinaire") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "cirque") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "poesie") {
+      source = require("../assets/picto1.png");
+    } else if (categorie === "évènement") {
+      source = require("../assets/picto1.png");
+    }
+
+    return source;
+  };
+      
+
+  const getPublicIcon = (type_public) => {
+    let source = require("../assets/picto1.png");
+    if (type_public === "public") {
+      source = require("../assets/picto1.png");
+    } else if (type_public === "adulte") {
+      source = require("../assets/picto1.png");
+    } else if (type_public === "enfant") {
+      source = require("../assets/picto1.png");
+    } else if (type_public === "famille") {
+      source = require("../assets/picto1.png");
+    }
+
+    return source;
+  };
+      
 
        
 
 useEffect(() => {
 
  
-    if( stateFavoris.SpectaclesSelected[item.id] ){
+    if( state.isAuthenticated && stateFavoris.SpectaclesSelected[item.id] ){
         setIsFavorite(true);
 
 
@@ -481,7 +522,7 @@ useEffect(() => {
               <Modal
                    animationType={'slide'}
                    hardwareAccelerated={true}
-                   transparent={true}
+                   transparent={false}
                    visible={modalVisible}
                    style={{ margin: 0 }}
                    onRequestClose={() => {
@@ -527,7 +568,8 @@ useEffect(() => {
                     width: 35,
                     alignItems: 'flex-start',
                   }}
-                  source={require("../assets/public2.png")}
+                //  source={require("../assets/public2.png")}
+                source={getPublicIcon(item.type_public)}
                   />
                   </View>
                   <View style={styles.iconStyle}>
@@ -538,9 +580,12 @@ useEffect(() => {
                     width: 35,
                     alignItems: 'flex-start',
                   }}
-                  source={require("../assets/picto1.png")}
+                 // source={require("../assets/picto1.png")}
+                  source={getCategorieIcon(item.categorie)}
                   />
-   
+
+
+  
 
 {itemCb === "Oui" && <Image
                   style={{

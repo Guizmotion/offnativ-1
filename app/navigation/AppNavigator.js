@@ -61,6 +61,43 @@ const AppNavigator = ({ navigation }) => {
     if(route.name=="Fondation"){
       titre ='La fondation';
     }
+
+    if(route.name=="ListStyleSpectacle"){
+      titre ='Style de spectacle';
+      return (
+
+        <View style={{ flex:1, flexDirection:'row'}}>
+                
+                <Text style={{   
+                  fontSize: 20,
+             fontWeight: "bold",
+             position:'absolute',
+             left:30
+             }}>
+                {titre}
+                </Text>
+               
+                
+                <View
+                style={{  position:'absolute', right: 0 }}
+              >
+                <Pressable
+                  
+                  onPress={() => navigation.goBack()}
+                >
+                  <Image
+                    style={{
+                      resizeMode: "cover",
+                      height: 25,
+                      width: 25,
+                    }}
+                    source={require("../assets/closemenu.png")}
+                  />
+                </Pressable>
+              </View>
+              </View>
+              );
+    }
     
     if(route.name=="RechercheModal"){
       titre ='Recherche';
@@ -115,6 +152,8 @@ const AppNavigator = ({ navigation }) => {
       const route = useRoute();
       
       let titre = route.name;
+
+  
       
       
       let icon_menu = require("../assets/menu.png");
