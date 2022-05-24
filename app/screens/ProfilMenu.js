@@ -100,7 +100,7 @@ export default function ProfilMenu({ navigation }) {
 }, []);
 
 return (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top:'10%', padding: 30 }}>
+  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
   {/*
   {state.isAuthenticated && (
     <Text style={{fontSize: 20}}>Bonjour {state.user.prenom}</Text>
@@ -162,7 +162,7 @@ return (
     style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-ticketoff.png")} />
-   <Text style={{alignItems:'center'}}>Mes places de spectacles</Text>
+   <Text style={{alignItems:'center'}}> Mes places de spectacles</Text>
   <Image style={{resizeMode: "cover",height: 35,width: 35,position: 'absolute', right:0}} 
   source={require("../assets/next.png")} />
   </Pressable>
@@ -177,7 +177,7 @@ return (
 
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
   source={require("../assets/profil-carte.png")} />
- <Text style={{alignItems:'center'}}>Mes cartes d'abonnement</Text>
+ <Text style={{alignItems:'center'}}> Mes cartes d'abonnement</Text>
   <Image style={{resizeMode: "cover",height: 35,width: 35,position: 'absolute', right:0}} 
   source={require("../assets/next.png")} />
 
