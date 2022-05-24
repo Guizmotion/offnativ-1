@@ -66,14 +66,12 @@ const reducer = (stateFavoris, action) => {
 
         case "SELECT_FAVORITES":
       
-            action.payload.map((ud) => {
-                //  dispatchFavoris({
-                //    type: "SELECT_FAVORIS",
-                //    payload: ud,
-                stateFavoris.SpectaclesSelected[ud] = true;
+            action.payload.map((id) => {
+                
+                stateFavoris.SpectaclesSelected[id] = true;
 
                   });
-            //   console.log(action.payload);
+           
                  return {
                      ...stateFavoris,
                      SpectaclesSelected: {...stateFavoris.SpectaclesSelected}

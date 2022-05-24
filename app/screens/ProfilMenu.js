@@ -94,7 +94,7 @@ export default function ProfilMenu({ navigation }) {
 
 
       });
-    console.log("favs loaded!");
+    console.log("favoris enregistrés");
 
 
   }, []);
