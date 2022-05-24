@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { abs } from "react-native-reanimated";
 import colors from "../colors";
 
 
@@ -181,9 +182,10 @@ export default StyleSheet.create({
     },
     imageFiche: {
       width: '100%',
-      height: 300,
+      height: '70%',
       top: 0,
       flex: 1,
+      position: 'absolute', 
      },
      closeFiche: {
        position: 'absolute',

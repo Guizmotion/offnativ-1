@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from "react";
 import {
   Image,
@@ -539,35 +540,37 @@ useEffect(() => {
                     setModalVisible(!modalVisible);
                     
                   }}>
-                  <ScrollView>
-                  <View style=
-                  {{flex: 1, 
-                    height: '100%',
-                    width: '100%',
-                    backgroundColor: '#FFFFFF',
-                    elevation: 1,
-                    overflow: 'scroll'
-                  }}>
-                    <Pressable
-                  style={styles.closeFiche}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Image
-                  style={{
-                    resizeMode: "cover",
-                    height: 25,
-                    width: 25,
-                  }}
-                  source={require("../assets/closemenu.png")}
-                  />
-                  </Pressable>
-                  
+
+
                   <View style={styles.imageFiche}>
-                  <ImgLazy 
-                  PlaceholderContent={<Loader />}
-                  source={{uri: itemImage}} style={{width: '100%', height: 300,resizeMode: "cover"}}/>
+                    <ImgLazy 
+                    PlaceholderContent={<Loader />}
+                    source={{uri: itemImage}} style={{width: '100%', height:'100%'}}/>
                   </View>
+                  <Pressable
+                      style={styles.closeFiche}
+                      onPress={() => setModalVisible(!modalVisible)}>
+                      <Image
+                      style={{
+                        resizeMode: "cover",
+                        height: 25,
+                        width: 25,
+                      }}
+                      source={require("../assets/closemenu.png")}
+                      />
+                      </Pressable>
+
+
+                  <ScrollView style={{marginTop: -100}}>
+                      
+                  
+
+
+
+
                   {/* DEBUT BLOC CONTENU BLANC */}
-                  <View style={{borderRadius: 30, padding: 30, marginTop:-30, backgroundColor: '#fff', width: '100%', paddingBottom: 100}}>
+                  <View style={{flex: 2,borderRadius: 30, padding: 30,
+                  backgroundColor: '#fff', width: '100%', paddingBottom: 100, marginTop:600}}>
                   <View style={{flexDirection: 'row', width: '100%', alignContent: 'space-between'}}>
                   <View style={styles.iconStyle}>
                   <Image
@@ -763,20 +766,6 @@ useEffect(() => {
 
 
                 
-                  <View  style={{marginTop: '5%'}}>
-                <Text>{itemTicket_off}</Text>
-                <TouchableOpacity
-                onPress={() => addTicketToCartState(itemId)}
-                style={ styles.labelAchat}
-                >
-                <Text > Acheter sur Ticket'Off</Text>
-                
-                </TouchableOpacity>
-
-                
-                
-                
-                </View>
 
                 
                 <Text>{itemPays}</Text>
@@ -794,7 +783,14 @@ useEffect(() => {
                 
                 </View>
                 
-                <View style={{justifyContent: "flex-end", flex: 2}}>
+
+
+                
+                
+                
+                
+                </ScrollView>
+                <View style={{justifyContent: "flex-end", flex: 3, bottom: 0}}>
                 
                 <TouchableOpacity
                 onPress={() => addTicketToCartState(itemId)}
@@ -805,9 +801,6 @@ useEffect(() => {
                 </TouchableOpacity>
                 </View>
                 
-                
-                </View>
-                </ScrollView>
                 </Modal>
 
 
@@ -836,7 +829,7 @@ useEffect(() => {
   "type_public":"Tout public",
   "categorie":"événement",
   "lieu":"CHAPELLE DU VERBE INCARNÉ",
-  "description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
+  "description":"Le TOMA 2021 aura de multiples visages. Notre #eTOMA créera le lien avec vous où que vous soyez, avec Radio TOMA (depuis 2018) et TOMA TV (depuis 2020). Suivez notre page Facebook Chapelle du Verbe Incarné et www.verbeincarne.fr pour assister aux lives de Radio TOMA et TOMA TV. - Nous multiplierons les programmations en direct et les rediffusions autour de nos évènements (rencontres, débats, échanges avec les artistes�) - - Radio TOMA - Une quotidienne, en direct du théâtre. Des plateaux animés par Savannah Macé et Benoit Artaud, les chroniques de Greg Germain, Marie-Cécile Drécourt, des podcasts... Toute notre programmation, de l'info, nos coups de cœur... - - TOMA TV - Une programmation autour des captations de spectacles accueillis précédemment, en partenariat avec la Sorbonne Nouvelle. - - MARDI, C'EST EN DIRECT! (20 et 27\/7) - Une salle virtuelle pour vous permettre d'assister aux spectacles depuis votre canapé. - - De nombreuses surprises vous attendent, RESTEZ CONNECTES!",
   "style":"Web TV",
   "salle":"Salle Edouard Glissant",
   "theatre":"",
