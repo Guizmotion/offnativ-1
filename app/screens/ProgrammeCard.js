@@ -406,7 +406,14 @@ useEffect(() => {
 
     }, [stateFavoris]);
 
-      
+    
+    
+    const url = Platform.select({
+      ios: `maps:0,0?q=${item.lieu}`,
+      android: `geo:0,0?q=${item.lieu}`,
+    })
+    
+    
     
     return (
       <View>
@@ -433,7 +440,9 @@ useEffect(() => {
         <View style={styles.labelCard}><Text  style={styles.smallText}>{item.type_public  } </Text></View>
         <View style={styles.labelCard}><Text  style={styles.smallText}>{item.categorie  } </Text></View>
         <View style={[styles.labelCard, styles.labelPlace]}>
+          
           <Text ellipsizeMode='tail' numberOfLines={1} style={styles.smallTextNoir}>{item.lieu} {/*item.salle*/}</Text>
+         
         </View>
         <View style={[styles.labelCard, styles.labelAchat
           , show_ticket_off ? styles.hideElement : null
@@ -711,11 +720,15 @@ useEffect(() => {
                 <View  style={ styles.Separateur} ></View>
 
                 <Text style={ styles.TextSousTitre}>Lieu</Text>
+                <Pressable
+            onPress={() => Linking.openURL(`geo:0,0?q=${item.lieu} ${itemVille}`)}
+            >
+         
                 <Text style={styles.ParagraphBold}>{itemLieu}</Text>
                 <Text>{itemAdresse}</Text>
                 <Text>{itemCp} {itemVille} </Text>
 
-
+                </Pressable>
 
                 
                 <View  style={ styles.Separateur} ></View>
