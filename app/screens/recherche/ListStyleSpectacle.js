@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState,useMemo } from "react";
 import { Pressable,View, Text } from "react-native";
 
@@ -142,6 +144,7 @@ export default function ListStyleSpectacle({ navigation}) {
     style={{
       padding: 0,
       paddingTop: 40,
+      paddingBottom: 40,
       flexDirection: "row",
       width: "100%",
       backgroundColor: "#e8e8e8",
@@ -151,30 +154,20 @@ export default function ListStyleSpectacle({ navigation}) {
 
     letterListContainerStyle={{ 
       
-    //  padding: 10, 
-     width: 300,
-      backgroundColor: "#fff", 
-      height: '70%',
-      top: '11%',
-      borderBottomLeftRadius: 30,
-      borderTopLeftRadius: 30,
-      shadowOpacity: 0.1,
-      shadowColor: "black",
-      shadowRadius: 5,
-      justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      flexWrap: 'nowrap',
+    height: '50%',
+    top: '25%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap'
     
     }}
 
     
     indexLetterStyle={{
-      fontSize: 16,
-      height: 30,
-   
+      fontSize: 12, 
+      color: '#221f1f'
       
-      fontWeight: 'bold',
-      backgroundColor: 'rgba(0,0,0,0)',
+   
     }}
     
     renderCustomItem={(item) => 

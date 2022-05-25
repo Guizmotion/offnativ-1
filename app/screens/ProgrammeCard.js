@@ -466,8 +466,7 @@ useEffect(() => {
         </TouchableOpacity>
 
         
-      
-<View
+        <View
           style={(
          //   [styles.favorisBtn],
             { 
@@ -476,9 +475,6 @@ useEffect(() => {
               position:'absolute',
               bottom : 20,
               left: 30,
-              backgroundColor: '#fff',
-              padding: 10,
-              borderRadius: 20,
              // zIndex: 600000000,
               
 
@@ -493,7 +489,10 @@ useEffect(() => {
                  underlayColor="#DDDDDD"
                  onPress={() => add_favorite(item.id)} >
                
-                   
+                   <View style={{
+              backgroundColor: '#fff',
+              padding: 10,
+              borderRadius: 20}} >
 
 
                   <Image
@@ -504,7 +503,7 @@ useEffect(() => {
                       //marginTop: -30,
                     }}
                     source={require("../assets/favoris.png")}
-                  />
+                  /></View>
                   </Pressable>
                   
                 )}
@@ -516,6 +515,11 @@ useEffect(() => {
                  
                  <Pressable
                   onPress={() => rm_favorite(item.id)} >
+
+                      <View style={{
+              backgroundColor: '#fff',
+              padding: 10,
+              borderRadius: 20}} >
                   <Image
                     style={{
                       resizeMode: "cover",
@@ -523,13 +527,12 @@ useEffect(() => {
                       width: 20,
                     }}
                     source={require("../assets/favoris-active.png")}
-                  />
+                  /></View>
                   </Pressable>
                 )}
 
                 
               </View>
-
 
 
               <Modal

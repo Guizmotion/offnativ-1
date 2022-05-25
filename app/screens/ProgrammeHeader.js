@@ -25,6 +25,7 @@ import Loader from "./Loader";
 import {Overlay, Input} from 'react-native-elements';
 import styles from "../config/styles/StyleGeneral";
 
+
 import { StoreContext } from "../store/store";
 import { RechercheContext } from "../store/storeRecherche";
 
@@ -39,6 +40,8 @@ const ProgrammeHeader = () => {
   const {state, dispatch} = React.useContext(StoreContext);
   const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
   
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -81,17 +84,42 @@ const ProgrammeHeader = () => {
 
   const trierProgramme = (col,value) => {
     let programme = state.programme;
+    //setIsLoading(true);
 
-    let result = _.find(programme, function(obj) {
-      if (obj.value === 'Oui' ) {
-          return true;
+    let filteredProg = null;
+
+    
+    
+   
+    
+      if(col ==='all' )
+      {
+       console.log(value.length);
+       if(value.length > 4){
+       // filteredProg = _.filter(programme, spectacle => spectacle['titre_spectacle'].toLowerCase().includes(value.toLowerCase()));
+        //let filteredProg2 = _.filter(programme, spectacle => spectacle['description'].toLowerCase().includes(value.toLowerCase()));
+        //let filteredProg3 = _.filter(programme, spectacle => spectacle['categorie'].toLowerCase().includes(value.toLowerCase()));
+       // filteredProg = _.concat(filteredProg,filteredProg2);
+       // filteredProg = _.concat(filteredProg,filteredProg3);
+
+       filteredProg = _.filter(programme, function(o) {
+        return Object.keys(o).some(function(k) {
+          return String(o[k]).toLowerCase().includes(value.toLowerCase());
+        });
+      });
+      dispatch({ type: "addData", payload: filteredProg  });
+    
+    }
+
+      }else{
+       // filteredProg = _.filter(programme, spectacle => spectacle[col].toLowerCase().includes(value.toLowerCase()));
+  
       }
-  });
-
-   // let result = _.sortBy(programme, col).value(value);
-
-    dispatch({ type: "addData", payload: result });
+    
+   // setIsLoading(false);
   };
+
+
 
   const filtrerCategorie = (categorie) => {
     let programme = state.programme;
@@ -121,6 +149,7 @@ const ProgrammeHeader = () => {
     
   }>
   
+        
   <View style={{ flexDirection: "row", width: "90%", margin: '5%', marginTop: 0, marginBottom: 5 }}>
   <View>
   <View style={[styles.labelCard, styles.btnBig, styles.labelAchat]}>
@@ -284,11 +313,12 @@ width: "50%",
     }}
 
       placeholder="Rechercher un spectacle, un artiste, un lieu..."
-      onChangeText={(text) => chercherProgramme(text)}
+     // onChangeText={(text) => chercherProgramme(text)}
+     onChangeText={(text =>  trierProgramme("all", text) )}
     />
 
     <Button
-      title="Annuler"
+      title="Annuler les tris"
       onPress={() => {
         axios.get(url_programme + stateRecherche.limite ).then((response) => {
           // setData(response.data);
@@ -333,7 +363,7 @@ width: "50%",
     
    
   </Overlay>
-  
+  {isLoading && <Loader />}
   
   </View>
   );

@@ -27,6 +27,7 @@ import CartesAbonnement from "../screens/profil/CartesAbonnement";
 import CreerCarteAbonnement from "../screens/profil/CreerCarteAbonnement";
 import Factures from "../screens/profil/Factures";
 import CartPage from "../screens/CartPage";
+import Partenaires from "../screens/Partenaires";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -66,20 +67,18 @@ const AppNavigator = ({ navigation }) => {
       titre ='Style de spectacle';
       return (
 
-        <View style={{ flex:1, flexDirection:'row'}}>
+        <View style={{flexDirection:'row'}}>
                 
                 <Text style={{   
                   fontSize: 20,
-             fontWeight: "bold",
-             position:'absolute',
-             left:30
+                  fontWeight: "bold",
+                  width: '97%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
                
                 
                 <View
-                style={{  position:'absolute', right: 0 }}
               >
                 <Pressable
                   
@@ -103,20 +102,20 @@ const AppNavigator = ({ navigation }) => {
       titre ='Recherche';
       return (
 
-<View style={{ flex:1, flexDirection:'row'}}>
+<View style={{ flexDirection:'row'}}>
         
         <Text style={{   
           fontSize: 20,
      fontWeight: "bold",
-     position:'absolute',
-     left:30
+     width: '97%',textAlign: 'center'
+
      }}>
         Rechercher
         </Text>
        
         
         <View
-        style={{  position:'absolute', right: 0 }}
+        style={{ }}
       >
         <Pressable
           
@@ -158,7 +157,7 @@ const AppNavigator = ({ navigation }) => {
       
       let icon_menu = require("../assets/menu.png");
       
-      if (route.name=="RechercheModal") 
+      if ((route.name=="RechercheModal") || (route.name=="ListStyleSpectacle"))
       {
         icon_menu = require("../assets/recherche-black.png") ;
       }
@@ -233,6 +232,7 @@ const AppNavigator = ({ navigation }) => {
           <Drawer.Screen name="Annonces" component={Annonces} />
           <Drawer.Screen name="Fondation" component={Fondation} />
           <Drawer.Screen name="Archives" component={Archives} />
+          <Drawer.Screen name="Partenaires" component={Partenaires} />
           
           <Drawer.Screen name="Login" component={Login} />
           <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
@@ -252,4 +252,3 @@ const AppNavigator = ({ navigation }) => {
         };
         
         export default AppNavigator;
-        

@@ -62,18 +62,18 @@ const Menu = (props) => {
   }
 
   return (
-    <DrawerContentScrollView {...props}>
-      <SafeAreaView>
-        <View
+            <View {...props}
           style={{
-            flex: 1,
-          //  padding: "5%",
-          paddingLeft: "5%",
             width: "100%",
+            height: '100%',
+            bottom: 0,
             justifyContent: "space-between",
-            height: "100%",
+            backgroundColor: '#fff',
+            paddingTop: '20%'
           }}
         >
+
+          
           {/*Top Large Image */}
 
           <Pressable
@@ -97,7 +97,7 @@ const Menu = (props) => {
 
           {/*   <DrawerItemList {...props} /> */}
 
-          <View style={{ marginTop: -15, width: "90%" }}>
+          <View style={{ marginTop: -15, width: "85%", marginLeft: 10 }}>
             <Pressable
               onPress={async () => {
                 await redirectUser();
@@ -121,20 +121,27 @@ const Menu = (props) => {
 
           <DrawerItem
             style={styles.lienMenu}
-            label="Programme"
+            label="Programme / Billetterie"
             onPress={() => props.navigation.navigate("Programme")}
           />
 
           <DrawerItem
             style={styles.lienMenu}
-            label="Actualités"
+            label="Actualités / Agenda"
             onPress={() => props.navigation.navigate("Actualites")}
           />
 
           <DrawerItem
             style={styles.lienMenu}
-            label="Venir / se déplacer / se loger"
+            
+            label="Carte interactive"
             onPress={() => props.navigation.navigate("Carte")}
+          />
+
+          <DrawerItem
+            style={styles.lienMenu}
+            label="Carte d'abonnement"
+            onPress={() => props.navigation.navigate("")}
           />
 
           <DrawerItem
@@ -142,14 +149,8 @@ const Menu = (props) => {
             label="La fondation"
             onPress={() => props.navigation.navigate("Fondation")}
           />
-          <DrawerItem
-            style={styles.lienMenu}
-            label="Archives"
-            onPress={() => props.navigation.navigate("Archives")}
-          />
-          {/*    
-        
-        
+
+          {/*         
 
          <DrawerItem
       style={styles.lienMenu}
@@ -185,8 +186,9 @@ const Menu = (props) => {
               style={{
                 flexDirection: "row",
                 width: "70%",
-                marginLeft: "15%",
+                marginLeft: "10%",
                 justifyContent: "space-between",
+                paddingBottom: 10
               }}
             >
               <Pressable
@@ -205,7 +207,9 @@ const Menu = (props) => {
                 />
               </Pressable>
 
-              <Pressable onPress={async () => {}} style={styles.iconStyle}>
+              <Pressable 
+               onPress={() => props.navigation.navigate("Partenaires")}
+              style={styles.iconStyle}>
                 <Image
                   style={{
                     resizeMode: "cover",
@@ -238,6 +242,21 @@ const Menu = (props) => {
                   source={require("../assets/sociaux.png")}
                 />
               </Pressable>
+
+
+              <Pressable
+                onPress={() => props.navigation.navigate("Archives")}
+                style={styles.iconStyle}
+              >
+                <Image
+                  style={{
+                    resizeMode: "cover",
+                    width: 35,
+                    height: 35,
+                  }}
+                  source={require("../assets/download.png")}
+                />
+              </Pressable>
             </View>
 
             <Text style={[styles.smallTextNoir, styles.alignCenter]}>
@@ -265,7 +284,7 @@ const Menu = (props) => {
                 style={{
                   resizeMode: "cover",
                   width: 260,
-                  height: 90,
+                  height: 110,
                 }}
                 source={require("../assets/off-les-murs-bandeau.jpg")}
               />
@@ -274,8 +293,6 @@ const Menu = (props) => {
             </View>
           </View>
         </View>
-      </SafeAreaView>
-    </DrawerContentScrollView>
   );
 };
 

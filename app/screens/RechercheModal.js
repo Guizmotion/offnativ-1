@@ -36,6 +36,8 @@ import { StoreContext } from "../store/store";
 import { RechercheContext } from "../store/storeRecherche";
 
 import { Tooltip, Text } from 'react-native-elements';
+import { abs } from "react-native-reanimated";
+import { round } from "lodash";
 
 
 const validationSchema = Yup.object().shape({});
@@ -283,17 +285,20 @@ setIsLoading(false);
 navigation.goBack();
 };
 
+const pickerStyle = {
+  inputIOS: {
+  width: "100%",   
+   textAlign: 'right',
+  },
+}
+
 
 
 return (
-<View style={{ width: "100%", backgroundColor: "#fff"}}>
-<ScrollView>
+<View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%'}}>
+
+<ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
 {isLoading && <Loader />}
-
-
-
-
-
 
 <View style={{  display: isLoading ? "none" : "flex" }}>
 
@@ -324,28 +329,19 @@ resetForm,
 }) => (
 <>
 
-
-<TouchableOpacity
-onPress={handleSubmit}
-
->
-<View
-style={[styles.labelCard, styles.labelAchat]}
->
-<Text style={styles.textBigButton}>
-Afficher les résultats
-</Text>
-</View>
-</TouchableOpacity>
-
-<View style={styles.Separateur} />
-<View style={{ padding: 0, flexDirection: "row", width: "100%" }}>
+<View style={{
+  padding: 15,
+  paddingTop:0,
+  width: "100%",
+  margin: 0,
+  flexDirection: "row",
+  alignContent: "space-between",
+  alignItems: "center"
+}}>
 <TextInput
 style={{
-  padding: 10,
-  width: "90%",
-  margin: 0,
-  marginLeft: "5%",
+  paddingTop:0,
+  width: "100%",
 }}
 autoCapitalize="none"
 placeholder="Tapez votre recherche..."
@@ -359,13 +355,11 @@ value={values["titre_spectacle"]}
 
 <View
 style={{
-  padding: 10,
-  width: "90%",
+  padding: 15,
+  width: "100%",
   margin: 0,
-  marginLeft: "5%",
   flexDirection: "row",
   alignContent: "space-between",
-  width: "100%",
   alignItems: "center",
   display:'none'
 }}
@@ -375,9 +369,7 @@ style={{
 
 <TextInput
 style={{
-  width: "90%",
-  margin: 0,
-  marginLeft: 10,
+  width: "100%",
 }}
 autoCapitalize="none"
 placeholder="Style de pièce..."
@@ -390,10 +382,7 @@ value={values["style"]}
 
 <Pressable
 style={{
-  padding: 10,
-  width: "90%",
-  margin: 0,
-  marginLeft: "5%",
+  padding: 15,
   flexDirection: "row",
   alignContent: "space-between",
   width: "100%",
@@ -402,29 +391,31 @@ style={{
 title="liste Style"
 onPress={() => navigation.navigate("ListStyleSpectacle")}
 >
-
-
 <Text>Style de pièce ({nb_styles})</Text></Pressable>
 </View>
 <View style={styles.Separateur} />
 
-<View>
-<Text
-style={{
-  marginLeft: "5%",
-}}
->
+
+
+<View style={{
+  padding: 15,
+  flexDirection: "row",
+  alignContent: "space-between",
+  width: "100%",
+  alignItems: "center", 
+}}>
+<Text>
 Type de public
 </Text>
+<View    style={{width: "100%",     position: "absolute"}}>
+  
 <RNPickerSelect
+style={pickerStyle}
 placeholder={{
   label: "Type de public",
   value: values["type_public"],
 }}
-style={{
-  width: "100%",
-  marginLeft: "5%",
-}}
+
 value={values["type_public"]}
 onValueChange={(value) => setFieldValue("type_public", value)}
 items={[
@@ -436,19 +427,21 @@ items={[
     value: "Public non francophone",
   },
 ]}
-/>
+/></View>
 </View>
+
+
+
+
+
 <View style={styles.Separateur} />
 
 <View
 style={{
-  padding: 10,
-  width: "90%",
-  margin: 0,
-  marginLeft: "5%",
+  padding: 15,
+  width: "100%",
   flexDirection: "row",
   alignContent: "space-between",
-  width: "100%",
   alignItems: "center",
 }}
 >
@@ -482,9 +475,10 @@ onChange={(event, selectedDate) => {
     }}
     />
     )}
+    <View style={{width: "100%",    textAlign: 'right',     position: "absolute"}}>
     <TouchableOpacity onPress={showDatepicker}>
     <TextInput
-    style={{ marginLeft: 10 }}
+    style={{width: "100%",    textAlign: 'right'}}
     placeholder="Date"
     placeholderTextColor="grey"
     value={values["date"]}
@@ -492,24 +486,25 @@ onChange={(event, selectedDate) => {
     pointerEvents="none"
     />
     </TouchableOpacity>
-    </View>
+    </View></View>
     <View style={styles.Separateur} />
     
     <View
     style={{
-      padding: 10,
-      width: "90%",
-      margin: 0,
-      marginLeft: "5%",
+      padding: 15,
+      width: "100%",
       flexDirection: "row",
       alignContent: "space-between",
-      width: "100%",
       alignItems: "center",
     }}
     >
     <Text>Horaires</Text>
-    </View>
-    <View
+   
+
+   <View style={{    width: "75%",right: 0,
+    textAlign: 'right', 
+    position: "absolute", flexDirection: 'row', alignContent: 'space-between'}}>
+    <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}
     
     >
     {/*
@@ -537,7 +532,7 @@ onChange={(event, selectedDate) => {
   
   </View>
   
-  <View>
+  <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
   
   <Text>Apres midi</Text>
   <Switch
@@ -551,7 +546,7 @@ onChange={(event, selectedDate) => {
   
   </View>
   
-  <View>
+  <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
   
   <Text>Soir</Text>
   <Switch
@@ -564,15 +559,13 @@ onChange={(event, selectedDate) => {
   
   
   </View>
-  
+  </View>
+  </View>
   <View style={styles.Separateur} />
   
   <View
   style={{
-    padding: 10,
-    width: "90%",
-    margin: 0,
-    marginLeft: "5%",
+    padding: 15,
     flexDirection: "row",
     alignContent: "space-between",
     width: "100%",
@@ -582,9 +575,9 @@ onChange={(event, selectedDate) => {
   <Text>Théâtre</Text>
   <TextInput
   style={{
-    width: "90%",
-    margin: 0,
-    marginLeft: 10,
+    width: "100%",
+    textAlign: 'right', 
+    position: "absolute"
   }}
   autoCapitalize="none"
   placeholder="Théatre..."
@@ -596,10 +589,7 @@ onChange={(event, selectedDate) => {
   
   <View
   style={{
-    padding: 10,
-    width: "90%",
-    margin: 0,
-    marginLeft: "5%",
+    padding: 15,
     flexDirection: "row",
     alignContent: "space-between",
     width: "100%",
@@ -609,9 +599,9 @@ onChange={(event, selectedDate) => {
   <Text>Auteur</Text>
   <TextInput
   style={{
-    width: "90%",
-    margin: 0,
-    marginLeft: 10,
+    width: "100%",
+    textAlign: 'right', 
+    position: "absolute"
   }}
   autoCapitalize="none"
   placeholder="Auteur..."
@@ -623,10 +613,7 @@ onChange={(event, selectedDate) => {
   
   <View
   style={{
-    padding: 10,
-    width: "90%",
-    margin: 0,
-    marginLeft: "5%",
+    padding: 15,
     flexDirection: "row",
     alignContent: "space-between",
     width: "100%",
@@ -634,7 +621,7 @@ onChange={(event, selectedDate) => {
   }}
   >
   <Text>ticket off</Text>
-  <View style={{ position: "absolute", right: 40, marginTop: 5 }}>
+  <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
   {/* <Image
   style={{
     resizeMode: "cover",
@@ -644,9 +631,9 @@ onChange={(event, selectedDate) => {
   source={require("../assets/next.png")}
 /> */}
 <Switch
-trackColor={{ false: "#767577", true: "#81b0ff" }}
+trackColor={{ false: "#767577", true: "#f26522" }}
 // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-ios_backgroundColor="#3e3e3e"
+ios_backgroundColor="#e8e8e8"
 onValueChange={(text) => setFieldValue("ticket_off", text)}
 value={values["ticket_off"]}
 />
@@ -656,18 +643,15 @@ value={values["ticket_off"]}
 
 <View
 style={{
-  padding: 10,
-  width: "90%",
-  margin: 0,
-  marginLeft: "5%",
-  flexDirection: "row",
-  alignContent: "space-between",
-  width: "100%",
-  alignItems: "center",
+  padding: 15,
+    flexDirection: "row",
+    alignContent: "space-between",
+    width: "100%",
+    alignItems: "center",
 }}
 >
-<Text>Handicape</Text>
-<View style={{ position: "absolute", right: 40, marginTop: 5 }}>
+<Text>Accès personnes à mobilité réduite</Text>
+<View style={{ position: "absolute", right: 15, marginTop: 5 }}>
 {/* <Image
 style={{
   resizeMode: "cover",
@@ -677,9 +661,9 @@ style={{
 source={require("../assets/next.png")}
 /> */}
 <Switch
-trackColor={{ false: "#767577", true: "#81b0ff" }}
+trackColor={{ false: "#767577", true: "#f26522" }}
 // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-ios_backgroundColor="#3e3e3e"
+ios_backgroundColor="#e8e8e8"
 onValueChange={(text) =>
 setFieldValue("acces_handicape", text)
 }
@@ -744,26 +728,7 @@ source={require("../assets/next.png")}
 </View> */}
 {/* <View style={styles.Separateur} /> */}
 
-<View style={{ justifyContent: "flex-end", }} >
 
-
-
-
-<Button type="reset" onPress={resetForm} title="effacer" />
-
-<TouchableOpacity
-onPress={handleSubmit}
-
->
-<View
-style={[styles.labelCard, styles.labelAchat]}
->
-<Text style={styles.textBigButton}>
-Afficher les résultats
-</Text>
-</View>
-</TouchableOpacity>
-</View>
 
 
 </>
@@ -772,6 +737,29 @@ Afficher les résultats
 
 </View>
 </ScrollView>
+
+
+<View style={{   flex: 2, position: 'absolute', bottom: 120, width: '80%', marginLeft: '15%' }} >
+
+
+
+
+
+<TouchableOpacity
+onPress={handleSubmit}
+
+>
+<View
+style={[styles.labelCard, styles.labelAchat, styles.bigButton]}
+>
+<Text style={styles.textBigButton}>
+Afficher les résultats
+</Text>
+</View>
+</TouchableOpacity>
+
+<Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
+</View>
 </View>
 );
 }
