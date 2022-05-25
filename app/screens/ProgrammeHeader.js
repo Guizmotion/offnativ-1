@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
+  Picker,
   Image,
   Text,
   TextInput,
@@ -20,8 +21,8 @@ import {
   Share
 } from "react-native";
 import axios from "axios";
-
-import {Overlay} from 'react-native-elements';
+import Loader from "./Loader";
+import {Overlay, Input} from 'react-native-elements';
 import styles from "../config/styles/StyleGeneral";
 
 import { StoreContext } from "../store/store";
@@ -31,7 +32,8 @@ import { useNavigation } from '@react-navigation/native';
 import {debounce, _} from 'lodash';
 
 
-
+const baseUrl = "https://appli.ovh/off/app/";
+const url_programme = baseUrl + "api2022.php?a=1&limit=";
 
 const ProgrammeHeader = () => {
   const {state, dispatch} = React.useContext(StoreContext);
@@ -57,6 +59,52 @@ const ProgrammeHeader = () => {
 
    // console.log(result);
   };
+  
+  const chercherProgramme = (searchText) => {
+    let programme = state.programme;
+
+    let result = _.filter(programme, function(o) {
+      return Object.keys(o).some(function(k) {
+        return String(o[k]).toLowerCase().includes(searchText.toLowerCase());
+      });
+    });
+
+    dispatch({ type: "addData", payload: result });
+  };
+
+  function myFilter(coll, regex) {
+    return _.filter(
+      coll,
+      _.unary(_.partialRight(_.some, _.method('match', regex)))
+    );
+  }
+
+  const trierProgramme = (col,value) => {
+    let programme = state.programme;
+
+    let result = _.find(programme, function(obj) {
+      if (obj.value === 'Oui' ) {
+          return true;
+      }
+  });
+
+   // let result = _.sortBy(programme, col).value(value);
+
+    dispatch({ type: "addData", payload: result });
+  };
+
+  const filtrerCategorie = (categorie) => {
+    let programme = state.programme;
+
+    let result = _.filter(programme, function(o) {
+      return o.categorie === categorie;
+    });
+
+    dispatch({ type: "addData", payload: result });
+  };
+
+  //_.sortBy(data, [element], [direction]);
+
   
   
   return (
@@ -206,6 +254,75 @@ const ProgrammeHeader = () => {
       }}
 
     />
+    <Button
+
+      
+title="Afficher Ticket OFF"
+
+onPress={() => {
+  trierProgramme("ticket_off", "Oui");
+  toggleOverlay();
+}}
+
+/>
+<View
+style={{
+  flexDirection: "row",
+  justifyContent: "space-between",
+width: "50%",
+}}
+>
+
+
+    
+    <Input
+    style={{
+      //resizeMode: "cover",
+      height: 35,
+      width: 15,
+      borderColor: "#000",
+    }}
+
+      placeholder="Rechercher un spectacle, un artiste, un lieu..."
+      onChangeText={(text) => chercherProgramme(text)}
+    />
+
+    <Button
+      title="Annuler"
+      onPress={() => {
+        axios.get(url_programme + stateRecherche.limite ).then((response) => {
+          // setData(response.data);
+          dispatch({ type: "addData", payload: response.data });
+         
+        });
+        toggleOverlay();
+      }}
+    />
+
+
+</View>
+<View>
+  <Text>Filtrer par catégorie</Text>
+  <Picker
+    selectedValue={stateRecherche.categorie}
+    style={{ height: 50, width: 100 }}
+    onValueChange={(itemValue, itemIndex) => {
+    //  setCategorie(itemValue);
+      filtrerCategorie(itemValue);
+    }}
+  >
+
+   
+    <Picker.Item label="Danse" value="danse" />
+    <Picker.Item label="Théâtre" value="Théâtre" />
+    <Picker.Item label="Spectacle" value="Spectacle" />
+    <Picker.Item label="Autre" value="Autre" />
+    <Picker.Item label="Tous" value="Tous" />
+    <Picker.Item label="Musique" value="musique" />
+  </Picker>
+
+
+</View>
 
   
 
