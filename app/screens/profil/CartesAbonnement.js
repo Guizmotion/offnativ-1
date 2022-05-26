@@ -23,13 +23,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "../../config/styles/StyleGeneral";
 import { StoreContext } from "../../store/store";
+import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
+import { ListItem } from "react-native-elements";
 
-/*
-{state.isAuthenticated && (
-  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
-  
-  )}
-  */
+
 
 export default function CartesAbonnement({ navigation }) {
   const handleSubmit = () => {
@@ -38,6 +35,15 @@ export default function CartesAbonnement({ navigation }) {
   };
 
   const { state, dispatch } = React.useContext(StoreContext);
+  const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
+  const [cartes, setCartes] = useState([stateCartesAbonnement.cartes]);
+
+  useEffect(() => {
+
+    setCartes(stateCartesAbonnement.cartes);
+
+  }, [stateCartesAbonnement.cartes]);
+
 
   return (
     <View
@@ -50,6 +56,51 @@ export default function CartesAbonnement({ navigation }) {
     >
       <Text style={{ fontSize: 20 }}>Mes cartes achetés</Text>
       <Text style={{ fontSize: 20 }}>Mes brouillons</Text>
+      
+
+      <FlatList
+
+        data={cartes}
+
+        renderItem={({ item,index }) => ( console.log(item) )}
+      /* renderItem={({ item,index }) => (
+          <ListItem
+            key={index.toString()}
+            title={item.nom}
+            subtitle={item.prenom}
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: 10,
+              margin: 10,
+              padding: 10,
+              borderWidth: 1,
+              borderColor: "#ddd",
+              width: "100%",
+            }}
+
+            leftAvatar={{ source: { uri: item.image } }}
+            bottomDivider
+            chevron
+            onPress={() => {
+              navigation.navigate("DetailCarteAbonnement", {
+                id: item.id,
+              });
+            }}
+
+           
+          />
+        )}
+*/
+        keyExtractor={(item, index) => {
+          // console.log("index", index)
+          return index.toString();
+        }}
+      />
+
+
+
+
+
       <Text style={{ fontSize: 20 }}>Mes autres cartes</Text>
       <Text style={{ fontSize: 20 }}>Associer une carte</Text>
 
@@ -61,3 +112,5 @@ export default function CartesAbonnement({ navigation }) {
     </View>
   );
 }
+
+

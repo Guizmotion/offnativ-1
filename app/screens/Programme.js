@@ -104,13 +104,14 @@ export default function Programme({ navigation }) {
         <FlatList
         
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
-      
+        
         data={filteredData }
         
         removeClippedSubviews={true}
         // updateCellsBatchingPeriod={5} 
         maxToRenderPerBatch={12}
-        initialNumToRender={4}
+        initialNumToRender={8}
+        windowSize={8}
        // getItemLayout={() => getItemLayout() }
         
         onEndReached={({ distanceFromEnd }) => {
@@ -119,7 +120,7 @@ export default function Programme({ navigation }) {
 
         keyExtractor={(item, index) => {
           // console.log("index", index)
-          return index.toString();
+          return item.id.toString();
         }}
        
         

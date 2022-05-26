@@ -7,6 +7,7 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import { StoreContainer } from "./app/store/store";
 import { RechercheContainer } from "./app/store/storeRecherche";
 import {FavorisContainer} from './app/store/storeFavoris';
+import { CartesAbonnementContainer } from "./app/store/storeCartesAbonnement";
 
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
         <NavigationContainer>
          <RechercheContainer>
          <FavorisContainer>
+           <CartesAbonnementContainer>
           <AppNavigator />
+          </CartesAbonnementContainer>
          </FavorisContainer>
           </RechercheContainer>
         </NavigationContainer>

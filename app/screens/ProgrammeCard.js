@@ -327,18 +327,19 @@ let id = item;
         setItemUrl_fav(item.url_fav);
         setItemUrl_rmfav(item.url_rmfav);
         setItemDates(item.dates);
-        setItemT_Rouge(item.t_Rouge);
-        setItemT_jaune(item.t_jaune);
-        setItemT_bleu(item.t_bleu);
-        setItemT_vert(item.t_vert);
-        setItemT_turquoise(item.t_turquoise);
+        setModalVisible(true);
+       //setItemT_Rouge(item.t_Rouge);
+       //setItemT_jaune(item.t_jaune);
+       //setItemT_bleu(item.t_bleu);
+       //setItemT_vert(item.t_vert);
+       //setItemT_turquoise(item.t_turquoise);
         setItemCharg_diff(item.charg_diff);
         setItemTelephone(item.telephone);
         setItemCourriel(item.courriel);
         setItemStructure(item.structure);
         setItemCharg_diff_addresse(item.charg_diff_addresse);
        // setIsLoading(false);
-        setModalVisible(true);
+        
       }
 
 
@@ -416,7 +417,10 @@ useEffect(() => {
     
     
     return (
-      <View>
+      <View 
+      key={item.id}
+
+      >
         <TouchableOpacity
        // <TouchableWithoutFeedback
          // delayPressIn={10}
