@@ -34,6 +34,8 @@ import { FavorisContext } from "../store/storeFavoris";
 
 import Loader from "./Loader";
 
+import moment from "moment";
+
 
 
 
@@ -124,7 +126,7 @@ const add_favorite =  (item) => {
   });
 
     
-    }, 10);
+    }, 1);
    
     setTimeout(() => { 
     var id= item;
@@ -143,7 +145,7 @@ const add_favorite =  (item) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+       // console.log(JSON.stringify(response.data));
        
           dispatchFavoris({
             type: "ADD_FAVORIS",
@@ -170,10 +172,11 @@ const add_favorite =  (item) => {
            });
          
             
-             }, 10);
+             }, 1);
      
              setTimeout(() => {
-let id = item;
+        let id = item;
+
         axios
         .delete("https://api.festivaloffavignon.com/favorite", {
           headers: {
@@ -623,12 +626,34 @@ useEffect(() => {
 <Text>
     {itemCategorie}
 
-    </Text> */}
+    </Text>
+    https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bithday&dates=20201231T193000Z/20201231T223000Z&details=With%20clowns%20and%20stuff&location=North%20Pole
+    
+    */}
 
                   </View>
                   <View style={styles.labelBigplace}>
                  
-                      <Text>{itemLieu}</Text>
+                      
+                        <Pressable
+                          onPress={() => {
+/*
+                           let newDate = moment.utc(new Date('2022-07-07')).format('YYYY-MM-DD'
+                            )+'T193000Z';
+                            console.log(newDate);
+                            Linking.openURL(
+                              'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' +
+                              itemTitre_spectacle +
+                          //    '&dates=' + 
+                           //   newDate  + '/' + newDate +
+                              '&details='+
+                              'à%20' + itemHoraire + '%20- Durée%20' + itemDuree +
+                              '&location='+itemLieu);
+                            
+                            */       }}
+                          >
+                        <Text>{itemLieu}</Text>
+                        </Pressable>
                   
                   </View>
                   </View>
