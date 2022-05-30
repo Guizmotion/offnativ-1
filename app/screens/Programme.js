@@ -106,6 +106,7 @@ export default function Programme({ navigation }) {
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
         
         data={filteredData }
+       // extraData={stateRecherche} 
         
         removeClippedSubviews={true}
         // updateCellsBatchingPeriod={5} 
