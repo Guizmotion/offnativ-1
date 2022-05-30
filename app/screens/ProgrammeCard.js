@@ -115,7 +115,7 @@ import moment from "moment";
 
 
 const add_favorite =  (item) => {
-   //console.log("add_favorite" + item);
+   console.log("add_favorite" + item);
    ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
  
    setTimeout(() => {
