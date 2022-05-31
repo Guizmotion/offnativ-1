@@ -37,7 +37,8 @@ import { RechercheContext } from "../store/storeRecherche";
 
 import { Tooltip, Text } from 'react-native-elements';
 import { abs } from "react-native-reanimated";
-import { round } from "lodash";
+
+import {debounce, _,round} from 'lodash';
 
 
 const validationSchema = Yup.object().shape({});
@@ -161,6 +162,17 @@ export default function RechercheModal({ navigation }) {
       (item) => {
         
         let search_ticket_off = '';
+
+        // 07\/07\/2022-09h45|08\/07\/2022-00h00
+        let search_date = '';
+        search_date = item.dates.replace ("\/", "/");
+
+        //remove hour
+        search_date = search_date.replace( /-\d\dh\d\d/g, "");
+
+       // console.log(search_date);
+       // console.log(stateRecherche.StylesRecherches[0]);
+        
        
         if (
           
@@ -168,6 +180,10 @@ export default function RechercheModal({ navigation }) {
             stateRecherche.StylesRecherches.includes(item.style) : true
             )
             &&
+            (nb_dates !== 0 ?
+              stateRecherche.DatesRecherches.includes(search_date) : true
+              )
+              &&
             (values.type_public
               ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
               : true)
@@ -190,9 +206,15 @@ export default function RechercheModal({ navigation }) {
               }
               );
               
+           //   let filRech = _.filter(fil, function(o) {
+           //     return Object.keys(o).some(function(k) {
+           //       return String(o[k]).toLowerCase().includes(values["titre_spectacle"].toLowerCase());
+           //     });
+           //   });
               
-                
-                dispatch({ type: "addData", payload: fil });
+                filRech = _.uniqBy(fil, 'id');
+
+                dispatch({ type: "addData", payload: filRech });
                 setIsLoading(false);
               
                 navigation.navigate('Programme');
@@ -202,7 +224,7 @@ export default function RechercheModal({ navigation }) {
               
               
               return (
-                <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%'}}>
+                <View key="recherche_modal" style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%'}}>
                 
                 <ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
                 

@@ -28,31 +28,31 @@ export default function ListDateSpectacle({ navigation}) {
     {key:4,   value:"", checked:false } ,
     {key:5,   value:"", checked:false } ,   
     {key:6,   value:"", checked:false } ,
-    {key:7 , value:"7  Juillet 2022", checked:false   },
-    {key:8 , value:"8  Juillet 2022", checked:false   },
-    {key:9 , value:"9  Juillet 2022", checked:false   },
-    {key:10, value:"10 Juillet 2022", checked:false   },
-    {key:11, value:"11 Juillet 2022", checked:false   },
-    {key:12, value:"12 Juillet 2022", checked:false   },
-    {key:13, value:"13 Juillet 2022", checked:false   },
-    {key:14, value:"14 Juillet 2022", checked:false   },
-    {key:15, value:"15 Juillet 2022", checked:false   },
-    {key:16, value:"16 Juillet 2022", checked:false   },
-    {key:17, value:"17 Juillet 2022", checked:false   },
-    {key:18, value:"18 Juillet 2022", checked:false   },
-    {key:19, value:"19 Juillet 2022", checked:false   },
-    {key:20, value:"20 Juillet 2022", checked:false   },
-    {key:21, value:"21 Juillet 2022", checked:false   },
-    {key:22, value:"22 Juillet 2022", checked:false   },
-    {key:23, value:"23 Juillet 2022", checked:false   },
-    {key:24, value:"24 Juillet 2022", checked:false   },
-    {key:25, value:"25 Juillet 2022", checked:false   },
-    {key:26, value:"26 Juillet 2022", checked:false   },
-    {key:27, value:"27 Juillet 2022", checked:false   },
-    {key:28, value:"28 Juillet 2022", checked:false   },
-    {key:29, value:"29 Juillet 2022", checked:false   },
-    {key:30, value:"30 Juillet 2022", checked:false   },
-    {key:31, value:"31 Juillet 2022", checked:false   },
+    {key:7 , value:"07/07/2022", checked:false   },
+    {key:8 , value:"08/07/2022", checked:false   },
+    {key:9 , value:"09/07/2022", checked:false   },
+    {key:10, value:"10/07/2022", checked:false   },
+    {key:11, value:"11/07/2022", checked:false   },
+    {key:12, value:"12/07/2022", checked:false   },
+    {key:13, value:"13/07/2022", checked:false   },
+    {key:14, value:"14/07/2022", checked:false   },
+    {key:15, value:"15/07/2022", checked:false   },
+    {key:16, value:"16/07/2022", checked:false   },
+    {key:17, value:"17/07/2022", checked:false   },
+    {key:18, value:"18/07/2022", checked:false   },
+    {key:19, value:"19/07/2022", checked:false   },
+    {key:20, value:"20/07/2022", checked:false   },
+    {key:21, value:"21/07/2022", checked:false   },
+    {key:22, value:"22/07/2022", checked:false   },
+    {key:23, value:"23/07/2022", checked:false   },
+    {key:24, value:"24/07/2022", checked:false   },
+    {key:25, value:"25/07/2022", checked:false   },
+    {key:26, value:"26/07/2022", checked:false   },
+    {key:27, value:"27/07/2022", checked:false   },
+    {key:28, value:"28/07/2022", checked:false   },
+    {key:29, value:"29/07/2022", checked:false   },
+    {key:30, value:"30/07/2022", checked:false   },
+    {key:31, value:"31/07/2022", checked:false   },
 
     
     
@@ -195,10 +195,10 @@ function removeItemAll(arr, value) {
     <View 
     style={{
       flex: 1,
-      backgroundColor: "#7CA1B4",
-      alignItems: "center",
-      justifyContent: "center",
-     // paddingBottom: 200
+       // flexDirection: 'row',
+        padding: 15,
+       // justifyContent: 'center',
+       // alignItems: 'center',
     }}
     >
       <ScrollView>
@@ -206,16 +206,18 @@ function removeItemAll(arr, value) {
   {
     stateData
     .filter((item) => (item.value !== ""))
-    .map((item, i) => (
+    .map((item, i) => 
+    
+    (
      
       <View key={item.key}
       style={{
-        borderColor: "#fff",
-        borderWidth: 1,
+        flex: 1,
+        height: 50,
         width: 100,
-        height: 100,
-        justifyContent: "center",
-        alignItems: "center",
+       // textAlign: 'center',
+        // Highlight header
+        
         backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
         // backgroundColor: bgColor
         // backgroundColor: 'rgba(255,255,255,0)' 
