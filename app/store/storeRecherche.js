@@ -13,7 +13,9 @@ const initialRechercheState = {
 
 export const RechercheContext = createContext(initialRechercheState);
 
-
+function uniq(a) {
+    return Array.from(new Set(a));
+ }
 
 const reducer = (stateRecherche, action) => {
     
@@ -35,7 +37,7 @@ const reducer = (stateRecherche, action) => {
         return {
             ...stateRecherche,
             
-            StylesRecherches: [...stateRecherche.StylesRecherches, action.payload.value],
+            StylesRecherches: [...new Set(stateRecherche.StylesRecherches), action.payload.value],
            
         };
         
@@ -52,7 +54,7 @@ const reducer = (stateRecherche, action) => {
         
         return {
             ...stateRecherche,
-            StylesRecherches: array,
+            StylesRecherches: uniq(array),
             
         };
         

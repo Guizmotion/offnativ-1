@@ -89,13 +89,7 @@ export default function ListStyleSpectacle({ navigation}) {
         
       }else{
 
-      //remove item from array
-     // arrayRemove(stateData, item.value)
-
-      //removeItemAll(stateData, item);
-
-
-        dispatchRecherche({
+      dispatchRecherche({
           type: "DELETE_STYLES_RECHERCHES",
           payload: item,
         });
@@ -160,7 +154,7 @@ function removeItemAll(arr, value) {
       
       // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
       //temp_state[0] = temp_element;
-      console.log(	temp_element);
+      //console.log(	temp_element);
       temp_state[item.key] = temp_element;
       
       
@@ -182,7 +176,7 @@ function removeItemAll(arr, value) {
       
       // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
       //temp_state[0] = temp_element;
-      console.log(	temp_element);
+     // console.log(	temp_element);
       temp_state[item.key] = temp_element;
       
       
