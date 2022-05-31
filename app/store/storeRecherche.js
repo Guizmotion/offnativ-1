@@ -5,9 +5,10 @@ import React, { useReducer, createContext } from "react";
 const initialRechercheState = {
     StylesRecherches: [],
     StylesRecherchesSelected: {},
+
     AuteursRecherches: [],
-    AuteursRecherchesSelected: {},
     DatesRecherches: [],
+    LieuxRecherches: [],
     limite: 100,
 };
 
@@ -138,6 +139,36 @@ const reducer = (stateRecherche, action) => {
              DatesRecherches: uniq(array),
              
          };
+
+
+        case "ADD_LIEUS_RECHERCHES":
+
+
+            // const uniqueArr = [...new Set(stateRecherche)];
+         return {
+             ...stateRecherche,
+             
+             LieusRecherches: [...new Set(stateRecherche.LieusRecherches), action.payload.value],
+            
+         };
+         
+         case "DELETE_LIEUS_RECHERCHES" : 
+         
+         
+         var array = [...stateRecherche.LieusRecherches]; 
+         var index = array.indexOf(action.payload.value)
+         if (index !== -1) {
+             array.splice(index, 1);
+             console.log('effacer Lieu '+ action.payload.value);
+             
+         }
+         
+         return {
+             ...stateRecherche,
+             LieusRecherches: uniq(array),
+             
+         };
+        
         
         
         default:

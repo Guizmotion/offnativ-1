@@ -120,6 +120,8 @@ export default function RechercheModal({ navigation }) {
   
   const  [nb_styles,setNb_Styles] = useState();
   const  [nb_dates,setNb_Dates] = useState();
+  const [nb_auteurs,setNb_Auteurs] = useState();
+  const [nb_lieux,setNb_Lieux] = useState();
   const [keyword, setKeyword] = useState("");
   
   
@@ -134,6 +136,8 @@ export default function RechercheModal({ navigation }) {
     
     setNb_Styles(countUnique(stateRecherche.StylesRecherches));
     setNb_Dates(countUnique(stateRecherche.DatesRecherches));
+    setNb_Auteurs(countUnique(stateRecherche.AuteursRecherches));
+    setNb_Lieux(countUnique(stateRecherche.LieusRecherches));
    
     
   }, [stateRecherche]);
@@ -428,7 +432,7 @@ export default function RechercheModal({ navigation }) {
                     */}
                       <Pressable
                   style={{
-                    padding: 15,
+                  //  padding: 15,
                     flexDirection: "row",
                     alignContent: "space-between",
                     width: "100%",
@@ -437,7 +441,7 @@ export default function RechercheModal({ navigation }) {
                   title="Date(s)"
                   onPress={() => navigation.navigate("ListDateSpectacle")}
                   >
-                  <Text>nb Dates ({nb_dates})</Text></Pressable>
+                  <Text>({nb_dates})</Text></Pressable>
                   </View>
                 
 
@@ -526,18 +530,19 @@ export default function RechercheModal({ navigation }) {
                       alignItems: "center",
                     }}
                     >
-                    <Text>Théâtre</Text>
-                    <TextInput
-                    style={{
-                      width: "100%",
-                      textAlign: 'right', 
-                      position: "absolute"
-                    }}
-                    autoCapitalize="none"
-                    placeholder="Théatre..."
-                    onChangeText={(text) => setFieldValue("salle", text)}
-                    value={values["salle"]}
-                    />
+                    <Pressable
+                  style={{
+                  //  padding: 15,
+                    flexDirection: "row",
+                    alignContent: "space-between",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                  title="Date(s)"
+                  onPress={() => navigation.navigate("ListLieuSpectacle")}
+                  >
+                    <Text>Théâtre ({nb_lieux})</Text>
+                    </Pressable>
                     </View>
                     <View style={styles.Separateur} />
                     
@@ -552,7 +557,7 @@ export default function RechercheModal({ navigation }) {
                     >
                     <Pressable
                   style={{
-                    padding: 15,
+                  //  padding: 15,
                     flexDirection: "row",
                     alignContent: "space-between",
                     width: "100%",
@@ -560,7 +565,7 @@ export default function RechercheModal({ navigation }) {
                   }}
                   title="liste Style"
                   onPress={() => navigation.navigate("ListAuteurSpectacle")}
-                  ><Text>Auteur</Text>
+                  ><Text>Auteur ({nb_auteurs})</Text>
                    {/* <TextInput
                     style={{
                       width: "100%",

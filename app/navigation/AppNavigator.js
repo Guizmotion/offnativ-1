@@ -22,6 +22,7 @@ import RechercheAuteurs from "../screens/RechercheAuteurs";
 import ListStyleSpectacle from "../screens/recherche/ListStyleSpectacle";
 import ListDateSpectacle from "../screens/recherche/ListDateSpectacle";
 import ListAuteurSpectacle from "../screens/recherche/ListAuteurSpectacle";
+import ListLieuSpectacle from "../screens/recherche/ListLieuSpectacle";
 
 import ModifierProfil from "../screens/profil/ModifierProfil";
 import PlacesSpectacles from "../screens/profil/PlacesSpectacles";
@@ -236,6 +237,12 @@ const AppNavigator = ({ navigation }) => {
                     <Drawer.Screen
           name="ListAuteurSpectacle"
           component={ListAuteurSpectacle}
+          options={{ drawerLabel: () => null }}
+          />
+
+          <Drawer.Screen
+          name="ListLieuSpectacle"
+          component={ListLieuSpectacle}
           options={{ drawerLabel: () => null }}
           />
           
