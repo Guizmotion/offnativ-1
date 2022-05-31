@@ -80,45 +80,36 @@ const reducer = (stateRecherche, action) => {
         };
         
 
+        
+        
         case "ADD_AUTEURS_RECHERCHES":
 
-        return {
-            ...stateRecherche,
-            AuteursRecherches: [...stateRecherche.AuteursRecherches, action.payload.value],
-        };
 
-        case "DELETE_AUTEURS_RECHERCHES" :
+            // const uniqueArr = [...new Set(stateRecherche)];
+         return {
+             ...stateRecherche,
+             
+             AuteursRecherches: [...new Set(stateRecherche.AuteursRecherches), action.payload.value],
+            
+         };
+         
+         case "DELETE_AUTEURS_RECHERCHES" : 
+         
+         
+         var array = [...stateRecherche.AuteursRecherches]; 
+         var index = array.indexOf(action.payload.value)
+         if (index !== -1) {
+             array.splice(index, 1);
+             console.log('effacer Auteur '+ action.payload.value);
+             
+         }
+         
+         return {
+             ...stateRecherche,
+             AuteursRecherches: uniq(array),
+             
+         };
 
-        var array = [...stateRecherche.AuteursRecherches];
-        var index = array.indexOf(action.payload.value)
-        if (index !== -1) {
-            array.splice(index, 1);
-
-        }
-
-        return {
-            ...stateRecherche,
-            AuteursRecherches: array,
-        };
-
-        case "SELECT_AUTEURS_RECHERCHES":
-
-        stateRecherche.AuteursRecherchesSelected[action.payload] = true;
-        return {
-            ...stateRecherche,
-            AuteursRecherchesSelected: {  ...stateRecherche.AuteursRecherchesSelected}
-        };
-
-        case "UNSELECT_AUTEURS_RECHERCHES" :
-
-        stateRecherche.AuteursRecherchesSelected[action.payload] = false;
-
-        return {
-            ...stateRecherche
-        };
-
-        
-        
 
         case "ADD_DATES_RECHERCHES":
 

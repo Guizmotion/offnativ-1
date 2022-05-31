@@ -550,8 +550,18 @@ export default function RechercheModal({ navigation }) {
                       alignItems: "center",
                     }}
                     >
-                    <Text>Auteur</Text>
-                    <TextInput
+                    <Pressable
+                  style={{
+                    padding: 15,
+                    flexDirection: "row",
+                    alignContent: "space-between",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                  title="liste Style"
+                  onPress={() => navigation.navigate("ListAuteurSpectacle")}
+                  ><Text>Auteur</Text>
+                   {/* <TextInput
                     style={{
                       width: "100%",
                       textAlign: 'right', 
@@ -562,6 +572,8 @@ export default function RechercheModal({ navigation }) {
                     onChangeText={(text) => setFieldValue("nom", text)}
                     value={values["nom"]}
                     />
+                  */}
+                  </Pressable>
                     </View>
                     <View style={styles.Separateur} />
                     

@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState,useMemo } from "react";
-import { Pressable,View, Text } from "react-native";
+import { SectionList, Pressable,View, Text } from "react-native";
 
 import { ActivityIndicator, Colors } from "react-native-paper";
 
@@ -10,154 +11,257 @@ import { StoreContext } from "../../store/store";
 import { RechercheContext } from "../../store/storeRecherche";
 import styles from "../../config/styles/StyleGeneral";
 
-
+import { ListItem } from 'react-native-elements'
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function ListAuteurSpectacle({ navigation}) {
-    
-    
-    
-    const data = [
-        { key:0, value: "A"},
-        { key:1,value: "B"},
-        {key:2, value: "Boulevard"},
-        {key:3,value: "Café-théâtre"},
-        {key:4,value: "Chanson"},
-        {key:5,value: "Cirque contemporain"},     
-        {key:6,value: "Clown"},
-        {key:7,value: "Comédie"},
-        {key:8,value: "Concert"},
-        {key:9,value: "Conférence"},
-        {key:10,value: "Conférence-spectacle"}, 
-        
-        
-        
-    ];
-    
-    
-    const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
-    
-    
-    
-    const addAuteursRecherches =  (item) => {
-        
-        
-        dispatchRecherche({
-            type: "SELECT_STYLES_RECHERCHES",
-            payload: item.key,
-        });
-        
-        dispatchRecherche({
-            type: "ADD_STYLES_RECHERCHES",
-            payload: item,
-        });
-        
-        
-        
-        
-        
-        
-    };
-    
-    
+  
+  const [checked, setChecked] = useState(false);
+  const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
+  
+  
+  const data = [
+    { key:0,  value:"nico", checked:false } ,
+    { key:1,  value:"jon", checked:false } ,
+    {key:2,   value:"test", checked:false } ,
+    {key:3,   value:"", checked:false } ,
+    {key:4,   value:"", checked:false } ,
+    {key:5,   value:"", checked:false } ,   
+    {key:6,   value:"", checked:false } ,
+    {key:7 , value:"", checked:false   },
+    {key:8 , value:"", checked:false   },
+    {key:9 , value:"", checked:false   },
+    {key:10, value:"", checked:false   },
+    {key:11, value:"", checked:false   },
+    {key:12, value:"", checked:false   },
+    {key:13, value:"", checked:false   },
+    {key:14, value:"", checked:false   },
+    {key:15, value:"", checked:false   },
+    {key:16, value:"", checked:false   },
+    {key:17, value:"", checked:false   },
+    {key:18, value:"", checked:false   },
+    {key:19, value:"", checked:false   },
+    {key:20, value:"", checked:false   },
+    {key:21, value:"", checked:false   },
+    {key:22, value:"", checked:false   },
+    {key:23, value:"", checked:false   },
+    {key:24, value:"", checked:false   },
+    {key:25, value:"", checked:false   },
+    {key:26, value:"", checked:false   },
+    {key:27, value:"", checked:false   },
+    {key:28, value:"", checked:false   },
+    {key:29, value:"", checked:false   },
+    {key:30, value:"", checked:false   },
+    {key:31, value:"", checked:false   },
 
-    const removeAuteursRecherches = (item) => {
+    
+    
+  ];
+  
+  
+  const bgColor = "#f5f5f5";
+  
+  const handleAuteursRecherches = () => {
+    
+   
+    stateData.map((item, index) => {
+      
+
+      //console.log(item.checked);
+      
+      if (item.checked === true ) {
+        
         
         dispatchRecherche({
-            type: "UNSELECT_STYLES_RECHERCHES",
-            payload: item.key,
-        });
-        dispatchRecherche({
-            type: "DELETE_STYLES_RECHERCHES",
-            payload: item,
+          type: "ADD_AUTEURS_RECHERCHES",
+          payload: item,
         });
         
-        
-    };
+      }else{
+
+      dispatchRecherche({
+          type: "DELETE_AUTEURS_RECHERCHES",
+          payload: item,
+        });
+      }
+      
+      
+    });
     
-    useEffect(() => {
-        // console.log(stateRecherche.AuteursRecherchesSelected);
-        
-        // const isSelected = false;
-        
-    }, [stateRecherche]);
+    navigation.navigate('RechercheModal') ;
+    
+  };
+  
+  
+function removeItemAll(arr, value) {
+  var i = 0;
+  while (i < arr.length) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+  return arr;
+}  
+  
+  
+ 
+  const [stateData, setState] = useState(data);
+  
+
+
+  function uniq(a) {
+    return Array.from(new Set(a));
+ }
+
+
+ function arrayRemove(arr, value) { 
+    
+  return arr.filter(function(ele){ 
+      return ele != value; 
+  });
+}
+
+
+  const clickButton = (item) => {
+
+    console.log(item.value);
+
+    
+    if(item.checked === false ){
+      // 1. Make a shallow copy of the array
+      let temp_state = [...stateData];
+      
+      // 2. Make a shallow copy of the element you want to mutate
+      let temp_element = { ...temp_state[item.key] };
+
+     
+      // 3. UpAuteur the property you're interested in
+      temp_element.checked = true;
+      
+      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+      //temp_state[0] = temp_element;
+      //console.log(	temp_element);
+      temp_state[item.key] = temp_element;
+      
+      
+      
+     
+      
+      // 5. Set the state to our new copy
+      setState( uniq(temp_state) );
+      
+    }else{
+      
+      let temp_state = [...stateData];
+      
+      // 2. Make a shallow copy of the element you want to mutate
+      let temp_element = { ...temp_state[item.key] };
+      
+      // 3. UpAuteur the property you're interested in
+      temp_element.checked = false;
+      
+      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+      //temp_state[0] = temp_element;
+     // console.log(	temp_element);
+      temp_state[item.key] = temp_element;
+      
+      
+      
+      // 5. Set the state to our new copy
+      setState( uniq(temp_state) );
+      
+    }
+    
+  }
+  
+  /*
+  
+  let fil = '';
+  useEffect(() => {
+    //fil = data;
     
     
+  }, {stateData});
+  
+  */
+
+
+
+  
+  return (
     
-    return (
-        <AlphabetList
-        data={data}
+    <View 
+    style={{
+      flex: 1,
+       // flexDirection: 'row',
+        padding: 15,
+       // justifyContent: 'center',
+       // alignItems: 'center',
+    }}
+    >
+      <ScrollView>
+      
+  {
+    stateData
+    .filter((item) => (item.value !== ""))
+    .map((item, i) => 
+    
+    (
+     
+      <View key={item.key}
+      style={{
+        flex: 1,
+        height: 50,
+        width: 100,
+       // textAlign: 'center',
+        // Highlight header
         
-        indexLetterStyle={{ 
-            color: 'blue', 
-            fontSize: 15,
-        }}
-        renderCustomItem={(item) => 
+        backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
+        // backgroundColor: bgColor
+        // backgroundColor: 'rgba(255,255,255,0)' 
+      }}
+      >
+        
+        <Pressable 
+          
+          onPress={()  =>
             {
-                
-                // const statut = stateRecherche.AuteursRecherches.includes(item.value) ;
-                //const statut = state.AuteursRecherches.indexOf(item.value) != -1 ;
-                //const statut = state.AuteursRecherches.some(item.value)  ;
-                //let statut = AuteursRecherches2[item.key];
-                let statut = stateRecherche.AuteursRecherchesSelected[item.key];
-                
-                return (
-                    
-                    
-                    
-                    <View
-                    key={item.key} 
-                    
-                    // style={item.isClicked ? '#00cc00' : '#f2f2f2' }>
-                    >
-                    <Pressable 
-                    
-                    onPress={()  =>
-                        {
-                            //checkToChangeStyle(item);
-                            if(statut){
-                                removeAuteursRecherches(item);
-                            }else{
-                                addAuteursRecherches(item);
-                            }
-                            //console.log(styles_list);
-                        }
-                    }
-                    >
-                    <View 
-                    key="container_{item.key} "
-                    
-                    style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: 10, 
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#ccc',
-                        backgroundColor: statut ? '#00cc00' : '#f2f2f2' 
-                    }}
-                    
-                    
-                    
-                    >
-                    
-                    <Text style={styles.listItemLabel}>{item.value}</Text>
-                    
-                    </View>
-                    </Pressable>
-                    </View>
-                    
-                    )}
-                    
-                }
-                
-                renderCustomSectionHeader={(section) => (
-                    <View style={styles.sectionHeaderContainer} key={section.key}>
-                    <Text style={styles.sectionHeaderLabel}>{section.title}</Text>
-                    </View>
-                    )}
-                    />
-                    )
-                    
-                    
-                }
+              //handleStylesRecherches(item)
+              clickButton(item)
+            }}
+            >
+      <Text>{item.value}</Text>
+      </Pressable>
+      </View>
+    ))
+  }
+</ScrollView>
+            
+            <View style={{justifyContent: "flex-end", flex: 3,
+            position: "absolute", bottom: 10, width: '80%', marginLeft: '10%'}} key="btn_select">
+            
+            <Pressable
+            
+            onPress={() => {
+              handleAuteursRecherches()
+              //clickButton(item)
+              
+            }}
+            
+            >
+            <View style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
+            <Text style={styles.textBigButton}> Valider ma sélection </Text>
+            </View>
+            </Pressable>
+            
+            </View>
+            
+            </View>
+            
+            
+            )
+            
+            
+          }
