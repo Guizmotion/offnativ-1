@@ -7,6 +7,7 @@ const initialRechercheState = {
     StylesRecherchesSelected: {},
     AuteursRecherches: [],
     AuteursRecherchesSelected: {},
+    DatesRecherches: [],
     limite: 100,
 };
 
@@ -118,6 +119,34 @@ const reducer = (stateRecherche, action) => {
 
         
         
+
+        case "ADD_DATES_RECHERCHES":
+
+
+            // const uniqueArr = [...new Set(stateRecherche)];
+         return {
+             ...stateRecherche,
+             
+             DatesRecherches: [...new Set(stateRecherche.DatesRecherches), action.payload.value],
+            
+         };
+         
+         case "DELETE_DATES_RECHERCHES" : 
+         
+         
+         var array = [...stateRecherche.DatesRecherches]; 
+         var index = array.indexOf(action.payload.value)
+         if (index !== -1) {
+             array.splice(index, 1);
+             console.log('effacer date '+ action.payload.value);
+             
+         }
+         
+         return {
+             ...stateRecherche,
+             DatesRecherches: uniq(array),
+             
+         };
         
         
         default:
