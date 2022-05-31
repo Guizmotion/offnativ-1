@@ -69,13 +69,14 @@ const [isLoading, setIsLoading] = useState(false);
 const [limite, setLimite] = useState(false);
 
 const resetForm = () => {
-//setIsLoading(false);
+setIsLoading(false);
 //setFieldValue('type_public', '');
 };
 
 const [switchMatin, setswitchMatin] = useState(false);
 const [switchApresMidi, setswitchApresMidi] = useState(false);
 const [switchSoir, setswitchSoir] = useState(false);
+const [switchTicketOff,setswitchTicketOff] = useState(false);
 
 const toggleSwitchMatin = (value) => {
 //To handle switch toggle
@@ -94,13 +95,27 @@ setswitchSoir(value);
 //State changes according to switch
 };
 
+const toggleTicketOff = (value) => {
+  //To handle switch toggle
+  setswitchTicketOff(value);
+  
+  //State changes according to switch
+  };
+
 
 const  [nb_styles,setNb_Styles] = useState();// =  stateRecherche.StylesRecherchesSelected.length;
 
 
-useEffect(() => {
+function countUnique(iterable) {
+  return new Set(iterable).size;
+}
 
-setNb_Styles(stateRecherche.StylesRecherches.length);
+
+
+useEffect(() => {
+console.log(stateRecherche.StylesRecherches);
+//setNb_Styles(stateRecherche.StylesRecherchesSelected.length);
+setNb_Styles(countUnique(stateRecherche.StylesRecherches));
 
 // setNb_Styles(stateRecherche.limite);
 
@@ -111,7 +126,7 @@ setNb_Styles(stateRecherche.StylesRecherches.length);
 
 
 
-const handleSubmit = async (values, { resetForm }) => {
+const handleSubmit = async (values) => {
 let data = [];
 
 setIsLoading(true);
@@ -130,8 +145,150 @@ data = response.data;
 //<Text>    {switchMatin ? 'Switch is ON' : 'Switch is OFF'}</Text>
 
 const fil = data.filter(
+  (item) => {
+   
+    let search_ticket_off = '';
+  
+   
+
+    if (
+      (stateRecherche.StylesRecherches.includes(item.style))  &&
+      (switchTicketOff == true ? item.ticket_off.includes('Oui') : true ) 
+      &&
+      (
+        (
+          switchMatin == true ?
+          (
+            item.horaire.includes('05h')
+            || item.horaire.includes('06h')
+            || item.horaire.includes('07h')
+            || item.horaire.includes('08h')
+            || item.horaire.includes('09h')
+            || item.horaire.includes('10h')
+            || item.horaire.includes('11h')
+            
+
+          ): true 
+      )
+      &&
+      (
+        switchApresMidi == true ?
+        (
+          item.horaire.includes('12h')
+          || item.horaire.includes('13h')
+          || item.horaire.includes('14h')
+          || item.horaire.includes('15h')
+          || item.horaire.includes('16h')
+          || item.horaire.includes('17h')
+        
+          
+
+        ): true 
+    )
+    &&
+    (
+      switchSoir == true ?
+      (
+        item.horaire.includes('18h')
+        || item.horaire.includes('19h')
+        || item.horaire.includes('20h')
+        || item.horaire.includes('21h')
+        || item.horaire.includes('22h')
+        || item.horaire.includes('23h')
+        || item.horaire.includes('24h')
+        
+
+      ): true 
+    )
+
+
+       /* (switchMatin == true
+        ? item.horaire.includes('05h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('06h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('07h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('08h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('09h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('10h') : true
+        ) || 
+        (switchMatin == true
+        ? item.horaire.includes('11h') : true
+        ) 
+        
+        ) && (
+        
+        
+        (switchApresMidi == true
+        ? item.horaire.includes('12h' 
+        ) : true
+        )  || 
+       (switchApresMidi == true
+        ? item.horaire .includes('13h') : true
+        ) || 
+        (switchApresMidi == true
+        ? item.horaire.includes('14h') : true
+        ) || 
+        (switchApresMidi == true
+        ? item.horaire.includes('15h' ) : true
+        ) || 
+        (switchApresMidi == true
+        ? item.horaire .includes('16h') : true
+        ) || 
+        (switchApresMidi == true
+        ? item.horaire.includes('17h') : true
+        ) 
+       
+        
+        ) && (
+        
+        (switchSoir == true
+        ? item.horaire.includes('18h') : true
+        ) ||
+        (switchSoir == true
+        ? item.horaire.includes('19h') : true
+        ) ||
+        (switchSoir == true
+        ? item.horaire.includes('20h') : true
+        ) ||
+        (switchSoir == true
+        ? item.horaire.includes('21h') : true
+        ) ||
+        (switchSoir == true
+        ? item.horaire.includes('22h') : true
+        ) ||
+        (switchSoir == true
+        ? item.horaire.includes('23h' ): true
+        ) 
+         
+        )  */
+   
+      )
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+);
+
+
+
+
+
+
+const fil2 = data.filter(
 (item) =>
 
+/*
 (
 (values.titre_spectacle
 ? item.titre_spectacle
@@ -152,6 +309,7 @@ const fil = data.filter(
 
 
 &&
+*/
 /*   (values.description
 ? item.description
 .toLowerCase()
@@ -159,17 +317,15 @@ const fil = data.filter(
 : true) &&
 
 */
-(
-(values.style
-? item.style.includes(values.style)
-: true)  
 
-//&&   (stateRecherche.StylesRecherches.includes(item.style))
+//(
+//(values.style ? item.style.includes(values.style) : true)  
 
-)
-
+   (stateRecherche.StylesRecherches.includes(item.style))
+//&& (stateRecherche.StylesRecherchesSelected.includes(item.style))
+//)&&
+/*
 &&
-
 (values.nom
 ? item.nom.toLowerCase() == values.nom.toLowerCase()
 : true) &&
@@ -178,9 +334,13 @@ const fil = data.filter(
 : true) &&
 (values.salle ? item.salle == values.salle : true) &&
 
+*/
+
 /*   (values.horaire
 ? moment(item.horaire, "h:mm a").format("HH:mm") === values.horaire
 : true) && */
+
+/*
 (
 
 (switchMatin == true
@@ -257,19 +417,25 @@ const fil = data.filter(
 (values.acces_handicape && values.acces_handicape == true
 ? item.acces_handicape == "Oui"
 : true) 
+*/
+
 /*&&
 (values.acces_handicape && values.acces_handicape == false
 ? item.acces_handicape == "Non"
-: true) */
+: true) 
 &&
 (values.ticket_off && values.ticket_off == true
 ? item.ticket_off == "Oui"
 : true)
+*/
 /* &&
 (values.ticket_off && values.ticket_off == false
 ? item.ticket_off == "Non"
 : true)*/
 
+&& (
+item.ticket_off.toLowerCase().indexOf('oui') > -1 && values.ticket_off
+)
 
 ); 
 
@@ -620,7 +786,7 @@ onChange={(event, selectedDate) => {
     alignItems: "center",
   }}
   >
-  <Text>ticket off</Text>
+  <Text>ticket off </Text>
   <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
   {/* <Image
   style={{
@@ -629,7 +795,7 @@ onChange={(event, selectedDate) => {
     width: 30,
   }}
   source={require("../assets/next.png")}
-/> */}
+/>
 <Switch
 trackColor={{ false: "#767577", true: "#f26522" }}
 // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -637,6 +803,12 @@ ios_backgroundColor="#e8e8e8"
 onValueChange={(text) => setFieldValue("ticket_off", text)}
 value={values["ticket_off"]}
 />
+ */}
+<Switch
+  
+  onValueChange={toggleTicketOff}
+  value={switchTicketOff}
+  />
 </View>
 </View>
 <View style={styles.Separateur} />
@@ -758,8 +930,9 @@ Afficher les résultats
 </View>
 </TouchableOpacity>
 
-<Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
+
 </View>
 </View>
 );
+//<Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
 }

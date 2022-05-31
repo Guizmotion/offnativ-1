@@ -636,8 +636,9 @@ useEffect(() => {
                  
                       
                         <Pressable
-                          onPress={() => {
-/*
+                        onPress={() => Linking.openURL(`geo:0,0?q=${item.lieu} ${itemVille}`)}
+                     /*     onPress={() => {
+
                            let newDate = moment.utc(new Date('2022-07-07')).format('YYYY-MM-DD'
                             )+'T193000Z';
                             console.log(newDate);
@@ -650,7 +651,7 @@ useEffect(() => {
                               'à%20' + itemHoraire + '%20- Durée%20' + itemDuree +
                               '&location='+itemLieu);
                             
-                            */       }}
+                                  }}*/ 
                           >
                         <Text>{itemLieu}</Text>
                         </Pressable>
@@ -789,7 +790,7 @@ useEffect(() => {
 
 
                 <Text style={ styles.TextSousTitre}>Auteur</Text>
-                <Text style={{textAlign:'left'}}></Text>
+                <Text style={{textAlign:'left'}}>{itemAuteur_prenom} {itemNom}</Text>
 
                 
 

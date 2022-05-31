@@ -72,7 +72,8 @@ const memoizedAxiosGet = memo(axios.get);
   
   useEffect(() => {
     setIsLoading(true);
-    memoizedAxiosGet(url_programme + stateRecherche.limite ).then((response) => {
+    axios.get(url_programme + stateRecherche.limite ).then(response => {
+  //  memoizedAxiosGet(url_programme + stateRecherche.limite ).then((response) => {
       // setData(response.data);
       dispatch({ type: "addData", payload: response.data });
       setIsLoading(false);

@@ -30,6 +30,8 @@ const reducer = (stateRecherche, action) => {
 
         case "ADD_STYLES_RECHERCHES":
 
+
+           // const uniqueArr = [...new Set(stateRecherche)];
         return {
             ...stateRecherche,
             
@@ -44,6 +46,7 @@ const reducer = (stateRecherche, action) => {
         var index = array.indexOf(action.payload.value)
         if (index !== -1) {
             array.splice(index, 1);
+            console.log('effacer style '+ action.payload.value);
             
         }
         
@@ -55,8 +58,9 @@ const reducer = (stateRecherche, action) => {
         
         case "SELECT_STYLES_RECHERCHES":
         
-        
+           // data[key].checked = true;
         stateRecherche.StylesRecherchesSelected[action.payload] = true;
+       // stateRecherche.StylesRecherchesSelected.checked[action.payload] = true;
         return {
             ...stateRecherche,
             StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
@@ -68,6 +72,8 @@ const reducer = (stateRecherche, action) => {
         
         return {
             ...stateRecherche
+            ,
+            StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
         };
         
 
