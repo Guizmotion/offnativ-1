@@ -118,8 +118,9 @@ export default function RechercheModal({ navigation }) {
     
   };
   
-  const  [nb_styles,setNb_Styles] = useState();// =  stateRecherche.StylesRecherchesSelected.length;
-  const  [nb_dates,setNb_Dates] = useState();// =  stateRecherche.StylesRecherchesSelected.length;
+  const  [nb_styles,setNb_Styles] = useState();
+  const  [nb_dates,setNb_Dates] = useState();
+  const [keyword, setKeyword] = useState("");
   
   
   function countUnique(iterable) {
@@ -206,13 +207,13 @@ export default function RechercheModal({ navigation }) {
               }
               );
               
-           //   let filRech = _.filter(fil, function(o) {
-           //     return Object.keys(o).some(function(k) {
-           //       return String(o[k]).toLowerCase().includes(values["titre_spectacle"].toLowerCase());
-           //     });
-           //   });
+            let filRechByKeyword = _.filter(fil, function(o) {
+              return Object.keys(o).some(function(k) {
+                return String(o[k]).toLowerCase().includes(keyword.toLowerCase());
+              });
+            });
               
-                filRech = _.uniqBy(fil, 'id');
+               let  filRech = _.uniqBy(filRechByKeyword, 'id');
 
                 dispatch({ type: "addData", payload: filRech });
                 setIsLoading(false);
@@ -276,9 +277,11 @@ export default function RechercheModal({ navigation }) {
                   autoCapitalize="none"
                   placeholder="Tapez votre recherche..."
                   onChangeText={(text) =>
-                    setFieldValue("titre_spectacle", text)
+                    //setFieldValue("titre_spectacle", text)
+                    setKeyword(text)
                   }
-                  value={values["titre_spectacle"]}
+                 // value={values["titre_spectacle"]}
+                  value={keyword}
                   />
                   </View>
                   <View style={styles.Separateur} />
