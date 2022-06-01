@@ -246,7 +246,6 @@ function removeItemAll(arr, value) {
             
             onPress={() => {
               handleDatesRecherches()
-              //clickButton(item)
               
             }}
             

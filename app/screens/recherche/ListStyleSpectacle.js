@@ -77,7 +77,7 @@ export default function ListStyleSpectacle({ navigation}) {
     stateData.map((item, index) => {
       
 
-      console.log(item.checked);
+    //  console.log(item.checked);
       
       if (item.checked === true ) {
         
@@ -148,20 +148,13 @@ function removeItemAll(arr, value) {
       // 2. Make a shallow copy of the element you want to mutate
       let temp_element = { ...temp_state[item.key] };
 
-     
       // 3. Update the property you're interested in
       temp_element.checked = true;
       
       // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-      //console.log(	temp_element);
       temp_state[item.key] = temp_element;
       
-      
-      
-     
-      
-      // 5. Set the state to our new copy
+       // 5. Set the state to our new copy
       setState( uniq(temp_state) );
       
     }else{
@@ -175,8 +168,6 @@ function removeItemAll(arr, value) {
       temp_element.checked = false;
       
       // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-     // console.log(	temp_element);
       temp_state[item.key] = temp_element;
       
       
@@ -187,17 +178,6 @@ function removeItemAll(arr, value) {
     }
     
   }
-  
-  /*
-  
-  let fil = '';
-  useEffect(() => {
-    //fil = data;
-    
-    
-  }, {stateData});
-  
-  */
   
   return (
     
@@ -235,21 +215,14 @@ function removeItemAll(arr, value) {
     renderCustomItem={(item) => 
       {
         
-        // const statut = stateRecherche.StylesRecherches.includes(item.value) ;
-        //const statut = state.StylesRecherches.indexOf(item.value) != -1 ;
-        //const statut = state.StylesRecherches.some(item.value)  ;
-        //let statut = StylesRecherches2[item.key];
-        //let statut = stateRecherche.StylesRecherchesSelected[item.key];
-        
+      
         return (
           
           
           
           <View
           key={item.key} 
-          
-          // style={item.isClicked ? '#00cc00' : '#f2f2f2' }>
-          >
+           >
           <Pressable 
           
           onPress={()  =>
@@ -301,7 +274,7 @@ function removeItemAll(arr, value) {
             
             onPress={() => {
               handleStylesRecherches()
-              //clickButton(item)
+             
               
             }}
             
