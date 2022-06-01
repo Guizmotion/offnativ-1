@@ -825,7 +825,7 @@ useEffect(() => {
     
      
      <WebView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginBottom: 00 }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginBottom: 200 }}
     source={{ uri: itemBande_annonce }}
     
     javaScriptEnabled={true}
