@@ -60,28 +60,6 @@ const reducer = (stateRecherche, action) => {
             
         };
         
-        case "SELECT_STYLES_RECHERCHES":
-        
-           // data[key].checked = true;
-        stateRecherche.StylesRecherchesSelected[action.payload] = true;
-       // stateRecherche.StylesRecherchesSelected.checked[action.payload] = true;
-        return {
-            ...stateRecherche,
-            StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
-        };
-        
-        case "UNSELECT_STYLES_RECHERCHES" : 
-        
-        stateRecherche.StylesRecherchesSelected[action.payload] = false;
-        
-        return {
-            ...stateRecherche
-            ,
-            StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
-        };
-        
-
-        
         
         case "ADD_AUTEURS_RECHERCHES":
 
@@ -170,6 +148,27 @@ const reducer = (stateRecherche, action) => {
          };
         
         
+        
+
+        //todo: verify its not use, then delete it
+        case "SELECT_STYLES_RECHERCHES":
+            stateRecherche.StylesRecherchesSelected[action.payload] = true;
+        return {
+            ...stateRecherche,
+            StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
+        };
+         //todo: verify its not use, then delete it
+        case "UNSELECT_STYLES_RECHERCHES" :
+            stateRecherche.StylesRecherchesSelected[action.payload] = false;
+        
+        return {
+            ...stateRecherche ,
+            StylesRecherchesSelected: {  ...stateRecherche.StylesRecherchesSelected}
+        };
+        
+
+        
+
         
         default:
         return stateRecherche;

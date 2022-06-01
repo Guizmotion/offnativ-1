@@ -283,6 +283,8 @@ const ProgrammeHeader = () => {
       }}
 
     />
+
+    {/*
     <Button
 
       
@@ -331,6 +333,7 @@ width: "50%",
 
 
 </View>
+
 <View>
   <Text>Filtrer par catégorie</Text>
   <Picker
@@ -354,7 +357,7 @@ width: "50%",
 
 </View>
 
-  
+  */}
 
 
 
