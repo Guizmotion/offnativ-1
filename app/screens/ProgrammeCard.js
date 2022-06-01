@@ -21,6 +21,7 @@ import {
   Share
 } from "react-native";
 import axios from "axios";
+import WebView from "react-native-webview";
 
 import { ActivityIndicator, ToastAndroid } from "react-native";
 import { Image as ImgLazy, Icon } from "react-native-elements";
@@ -819,7 +820,23 @@ useEffect(() => {
                 
                 </View>
                 
+                <View style={{flex: 1}}>
+                  <Text>{itemBande_annonce}</Text>
+    
+     
+     <WebView
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginBottom: 00 }}
+    source={{ uri: itemBande_annonce }}
+    
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+    startInLoadingState={true}
+    scalesPageToFit={true}
+    renderLoading={(e) => { return ( <Loader />  );  }}
 
+   // injectedJavaScript={jsCode}
+    />
+</View>
 
                 
                 
