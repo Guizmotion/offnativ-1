@@ -176,7 +176,8 @@ export default function RechercheModal({ navigation }) {
         search_date = search_date.replace( /-\d\dh\d\d/g, "");
 
        // console.log(search_date);
-       // console.log(stateRecherche.StylesRecherches[0]);
+        console.log(stateRecherche.AuteursRecherches);
+        console.log(item.nom);
         
        
         if (
@@ -194,7 +195,7 @@ export default function RechercheModal({ navigation }) {
                 )
                 &&
                 (nb_auteurs !== 0 ?
-                  stateRecherche.AuteursRecherches.includes(item.nom+' '+item.auteur_prenom) : true
+                  stateRecherche.AuteursRecherches.includes(item.nom+' ' +item.auteur_prenom) : true
                   )
               &&
             (values.type_public
