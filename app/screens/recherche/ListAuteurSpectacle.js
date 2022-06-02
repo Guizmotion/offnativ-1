@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState,useMemo } from "react";
+import React, { useEffect, useState,useMemo,useRef } from "react";
 import { SectionList, Pressable,View, Text } from "react-native";
 
 import { ActivityIndicator, Colors } from "react-native-paper";
@@ -153,7 +153,8 @@ function removeItemAll(arr, value) {
   
   */
 
-
+  const itemsEls = useRef(new Array());
+        
 
   
   return (
@@ -192,13 +193,16 @@ function removeItemAll(arr, value) {
     renderCustomItem={(item) => 
       {
         
+        const getRef = (element) => (itemsEls.current.push(element));
       
+
         return (
           
           
           
           <View
-          key={item.key} 
+          key={getRef} 
+          //key={getRef}
            >
           <Pressable 
           
