@@ -189,6 +189,14 @@ export default function RechercheModal({ navigation }) {
               stateRecherche.DatesRecherches.includes(search_date) : true
               )
               &&
+              (nb_lieux !== 0 ?
+                stateRecherche.LieusRecherches.includes(item.lieu) : true
+                )
+                &&
+                (nb_auteurs !== 0 ?
+                  stateRecherche.AuteursRecherches.includes(item.nom+' '+item.auteur_prenom) : true
+                  )
+              &&
             (values.type_public
               ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
               : true)
