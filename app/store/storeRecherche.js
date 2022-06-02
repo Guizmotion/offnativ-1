@@ -8,7 +8,7 @@ const initialRechercheState = {
 
     AuteursRecherches: [],
     DatesRecherches: [],
-    LieuxRecherches: [],
+    LieusRecherches: [],
     limite: 100,
 };
 
