@@ -72,6 +72,7 @@ function removeItemAll(arr, value) {
 }  
   
   
+
  
   const [stateData, setState] = useState(data);
   
@@ -142,17 +143,8 @@ function removeItemAll(arr, value) {
     
   }
   
-  /*
   
-  let fil = '';
-  useEffect(() => {
-    //fil = data;
-    
-    
-  }, {stateData});
-  
-  */
-
+  //to do check if its better to use useMemo
   const itemsEls = useRef(new Array());
         
 
@@ -161,7 +153,9 @@ function removeItemAll(arr, value) {
     
     <View style={{height: '100%'}}>
     <AlphabetList
+   // data={useMemo(() => stateData, [stateData])}
     data={stateData}
+
     
     style={{
       padding: 0,
@@ -190,7 +184,9 @@ function removeItemAll(arr, value) {
       
     }}
     
-    renderCustomItem={(item) => 
+    renderCustomItem={ 
+     // ({ item, index, section }) => {
+      (item) => 
       {
         
         const getRef = (element) => (itemsEls.current.push(element));
