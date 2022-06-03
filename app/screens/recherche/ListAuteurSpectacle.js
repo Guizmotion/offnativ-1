@@ -151,6 +151,13 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
     
   }
   
+  const renderCustomSectionHeader = (section) => (
+    <View  key="section_{section.key}">
+    <Text style={styles.sectionHeader}>{section.title}</Text>
+    </View>
+    );
+
+
   
   const renderCustomItem =  useCallback(
     (item) => 
@@ -201,11 +208,9 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
         
         
         return (
-          
-          <View style={{height: '100%'}}>
+        <View style={{height: '100%'}}>
           <AlphabetList
           data={stateData}
-          
           
           style={{
             padding: 0,
@@ -235,80 +240,18 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
           }}
           
           renderCustomItem={renderCustomItem}
-          /*
-          renderCustomItem={ 
-            // ({ item, index, section }) => {
-            (item) => 
-            {
-              
-              //const getRef = (element) => (itemsEls.current.push(element));
-              
-              
-              return (
-                
-                
-                
-                <View
-                key={item.key} 
-                >
-                <Pressable 
-                
-                onPress={()  =>
-                  {
-                    //handleStylesRecherches(item)
-                    clickButton(item)
-                  }}
-                  >
-                  <View 
-                  key="container_{item.key} "
-                  
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: 10, 
-                    //
-                    backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
-                    // backgroundColor: bgColor
-                    // backgroundColor: 'rgba(255,255,255,0)' 
-                  }}
-                  
-                  
-                  
-                  >
-                  
-                  <Text style={styles.listItemLabel}>{item.value}</Text>
-                  
-                  </View>
-                  </Pressable>
-                  </View>
-                  
-                  )}
-                  
-                }*/
-                
-                renderCustomSectionHeader={(section) => (
-                  <View  key="section_{section.key}">
-                  <Text style={styles.sectionHeader}>{section.title}</Text>
-                  </View>
-                  )}
-                  />
-                  
-                  <View style={{justifyContent: "flex-end", flex: 3,
-                  position: "absolute", bottom: 130, width: '80%', marginLeft: '10%'}} key="btn_select">
+          renderCustomSectionHeader={renderCustomSectionHeader}
+           />
+           <View style={{justifyContent: "flex-end", flex: 3,position: "absolute", bottom: 130, width: '80%', marginLeft: '10%'}} key="btn_select" >
                   
                   <Pressable
                   
                   onPress={() => {
                     handleAuteursRecherches()
-                    
-                    
                   }}
                   
                   >
-                  <View style={[styles.labelCard, styles.labelAchat, styles.bigButton]}
-                  >
+                  <View style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
                   <Text style={styles.textBigButton}>
                   Valider ma sélection
                   </Text>
