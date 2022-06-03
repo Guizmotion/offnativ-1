@@ -392,9 +392,17 @@ export default function RechercheModal({ navigation }) {
                       
                       <RNPickerSelect
                       style={pickerStyle}
-                      
+
+
+                      placeholder={{
+                        label: "Type de public",
+                        value: values["type_public"],
+                      }}
+
+
                       value={values["type_public"]}
                       onValueChange={(value) => setFieldValue("type_public", value)}
+                      
                       items={[
                         { label: "Jeune public", value: "Jeune public" },
                         { label: "Public adulte", value: "Public adulte" },
