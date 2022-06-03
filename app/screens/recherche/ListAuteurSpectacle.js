@@ -125,7 +125,7 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
       
     }
 
-    
+    return false;
   }
   
   const renderCustomSectionHeader = (section) => (
