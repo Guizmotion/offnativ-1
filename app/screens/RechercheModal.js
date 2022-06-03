@@ -51,8 +51,10 @@ export default function RechercheModal({ navigation }) {
   
   const pickerStyle = {
     inputIOS: {
-      width: "100%",   
       textAlign: 'right',
+      marginRight: 20,
+      height: 50
+
     },
   }
   
@@ -164,7 +166,7 @@ export default function RechercheModal({ navigation }) {
       data = response.data;
     });
     
-   
+    //console.log( values['type_public'].toLowerCase() ) ;
     
     //console.log(nb_auteurs + 'test contains: ' + stateRecherche.SpectaclesIdRecherches.includes(31012) );
     
@@ -190,7 +192,10 @@ export default function RechercheModal({ navigation }) {
         search_date = search_date.replace( /-\d\dh\d\d/g, "");
         
         
-        
+        console.log(
+
+          item.type_public.toLowerCase() +' ' 
+        )
         if (
           (nb_auteurs !== 0 ?
             stateRecherche.SpectaclesIdRecherches.includes(parseInt(item.id)) : true
@@ -314,9 +319,11 @@ export default function RechercheModal({ navigation }) {
                       style={{
                         paddingTop:0,
                         width: "100%",
+                        height: 30
                       }}
                       autoCapitalize="none"
                       placeholder="Tapez votre recherche..."
+                      placeholderTextColor="rgba(0,0,0,0.3)"
                       onChangeText={(text) =>
                         //setFieldValue("titre_spectacle", text)
                         setKeyword(text)
@@ -381,14 +388,10 @@ export default function RechercheModal({ navigation }) {
                       <Text>
                       Type de public
                       </Text>
-                      <View    style={{width: "50%",  right:0,   position: "absolute"}}>
+                      <View    style={{width: "70%",  right:0,   position: "absolute", minHeight: 30}}>
                       
                       <RNPickerSelect
                       style={pickerStyle}
-                      placeholder={{
-                        label: "Type de public",
-                        value: values["type_public"],
-                      }}
                       
                       value={values["type_public"]}
                       onValueChange={(value) => setFieldValue("type_public", value)}

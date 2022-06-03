@@ -15,6 +15,7 @@ import Actualites from "../screens/Actualites";
 import Carte from "../screens/Carte";
 import Annonces from "../screens/Annonces";
 import Fondation from "../screens/Fondation";
+import CarteAbonnementWebview from "../screens/CarteAbonnementWebview";
 import Photo from "../screens/Photo";
 import Login from "../screens/Login";
 import RechercheModal from "../screens/RechercheModal";
@@ -250,6 +251,7 @@ const AppNavigator = ({ navigation }) => {
           <Drawer.Screen name="Carte" component={Carte} />
           <Drawer.Screen name="Annonces" component={Annonces} />
           <Drawer.Screen name="Fondation" component={Fondation} />
+          <Drawer.Screen name="CarteAbonnementWebview" component={CarteAbonnementWebview} />
           <Drawer.Screen name="Archives" component={Archives} />
           <Drawer.Screen name="Partenaires" component={Partenaires} />
           

@@ -1,4 +1,6 @@
 
+
+
 import React, { useEffect, useState,useMemo } from "react";
 import { SectionList, Pressable,View, Text } from "react-native";
 
@@ -53,7 +55,7 @@ export default function ListDateSpectacle({ navigation}) {
     {key:29, value:"29/07/2022", checked:false   },
     {key:30, value:"30/07/2022", checked:false   },
     {key:31, value:"31/07/2022", checked:false   },
-
+    
     
     
   ];
@@ -63,10 +65,10 @@ export default function ListDateSpectacle({ navigation}) {
   
   const handleDatesRecherches = () => {
     
-   
+    
     stateData.map((item, index) => {
       
-
+      
       //console.log(item.checked);
       
       if (item.checked === true ) {
@@ -78,8 +80,8 @@ export default function ListDateSpectacle({ navigation}) {
         });
         
       }else{
-
-      dispatchRecherche({
+        
+        dispatchRecherche({
           type: "DELETE_DATES_RECHERCHES",
           payload: item,
         });
@@ -93,174 +95,138 @@ export default function ListDateSpectacle({ navigation}) {
   };
   
   
-function removeItemAll(arr, value) {
-  var i = 0;
-  while (i < arr.length) {
-    if (arr[i] === value) {
-      arr.splice(i, 1);
-    } else {
-      ++i;
+  function removeItemAll(arr, value) {
+    var i = 0;
+    while (i < arr.length) {
+      if (arr[i] === value) {
+        arr.splice(i, 1);
+      } else {
+        ++i;
+      }
     }
-  }
-  return arr;
-}  
+    return arr;
+  }  
   
   
- 
+  
   const [stateData, setState] = useState(data);
   
-
-
+  
+  
   function uniq(a) {
     return Array.from(new Set(a));
- }
-
-
- function arrayRemove(arr, value) { 
-    
-  return arr.filter(function(ele){ 
-      return ele != value; 
-  });
-}
-
-
-  const clickButton = (item) => {
-
-    console.log(item.value);
-
-    
-    if(item.checked === false ){
-      // 1. Make a shallow copy of the array
-      let temp_state = [...stateData];
-      
-      // 2. Make a shallow copy of the element you want to mutate
-      let temp_element = { ...temp_state[item.key] };
-
-     
-      // 3. Update the property you're interested in
-      temp_element.checked = true;
-      
-      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-      //console.log(	temp_element);
-      temp_state[item.key] = temp_element;
-      
-      
-      
-     
-      
-      // 5. Set the state to our new copy
-      setState( uniq(temp_state) );
-      
-    }else{
-      
-      let temp_state = [...stateData];
-      
-      // 2. Make a shallow copy of the element you want to mutate
-      let temp_element = { ...temp_state[item.key] };
-      
-      // 3. Update the property you're interested in
-      temp_element.checked = false;
-      
-      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-     // console.log(	temp_element);
-      temp_state[item.key] = temp_element;
-      
-      
-      
-      // 5. Set the state to our new copy
-      setState( uniq(temp_state) );
-      
-    }
-    
   }
   
-  /*
   
-  let fil = '';
-  useEffect(() => {
-    //fil = data;
+  function arrayRemove(arr, value) { 
+    
+    return arr.filter(function(ele){ 
+      return ele != value; 
+    });
+  }
+  
+  
+  const clickButton = (item) => {
+   
+    let temp_state = [...stateData];
+    let temp_element = { ...temp_state[item.key] };
+    
+   if(item.checked === false ){
+
+    temp_element.checked = true;
+    temp_state[item.key] = temp_element;
+    setState( temp_state);
     
     
-  }, {stateData});
+    
+  }else{
+    
+    
+    temp_element.checked = false;
+    temp_state[item.key] = temp_element;
+    setState( temp_state);
+    
+    
+  }
+
+  //return false;
+}
   
-  */
-
-
-
+  
   
   return (
     
     <View 
     style={{
       flex: 1,
-       // flexDirection: 'row',
-        padding: 15,
-       // justifyContent: 'center',
-       // alignItems: 'center',
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      width: '90%',
+      height: '100%',
+      margin: '5%'
+
+
     }}
     >
-      <ScrollView>
-      
-  {
-    stateData
-    .filter((item) => (item.value !== ""))
-    .map((item, i) => 
     
-    (
-     
-      <View key={item.key}
-      style={{
-        flex: 1,
-        height: 50,
-        width: 100,
-       // textAlign: 'center',
-        // Highlight header
+    
+    {
+      stateData
+      .filter((item) => (item.value !== ""))
+      .map((item, i) => 
+      
+      (
         
-        backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
-        // backgroundColor: bgColor
-        // backgroundColor: 'rgba(255,255,255,0)' 
-      }}
-      >
+        <View key={item.key}
+        style={{
+          // flex: 1,
+          height: 60,
+          width: 60,
+          borderRadius: 60,
+          flexGrow:1,
+          margin: 5,
+          backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)'
+
+        }}
+        >
         
         <Pressable 
+        
+        onPress={()  =>
+          {
+            //handleStylesRecherches(item)
+            clickButton(item)
+          }}
+          >
+          <Text style={{textAlign: 'center',  padding: 15,fontSize: 24}}>{item.value.replace("/07/2022","")}</Text>
+          </Pressable>
+          </View>
+          ))
+        }
+        
+        
+        <View style={{justifyContent: "flex-end", flex: 3,
+        position: "absolute", bottom: 30, width: '80%', marginLeft: '10%'}} key="btn_select">
+        
+        <Pressable
+        
+        onPress={() => {
+          handleDatesRecherches()
           
-          onPress={()  =>
-            {
-              //handleStylesRecherches(item)
-              clickButton(item)
-            }}
-            >
-      <Text>{item.value.replace('/07/2022',"")}</Text>
-      </Pressable>
-      </View>
-    ))
-  }
-</ScrollView>
-            
-            <View style={{justifyContent: "flex-end", flex: 3,
-            position: "absolute", bottom: 10, width: '80%', marginLeft: '10%'}} key="btn_select">
-            
-            <Pressable
-            
-            onPress={() => {
-              handleDatesRecherches()
-              
-            }}
-            
-            >
-            <View style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
-            <Text style={styles.textBigButton}> Valider ma sélection </Text>
-            </View>
-            </Pressable>
-            
-            </View>
-            
-            </View>
-            
-            
-            )
-            
-            
-          }
+        }}
+        
+        >
+        <View style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
+        <Text style={styles.textBigButton}> Valider ma sélection </Text>
+        </View>
+        </Pressable>
+        
+        </View>
+        
+        </View>
+        
+        
+        )
+        
+        
+      }
