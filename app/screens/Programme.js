@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef,useMemo } from "react";
+import React, { useEffect, useState, useRef,useMemo, useCallback } from "react";
 import {
   Image,
   Text,
@@ -74,12 +74,7 @@ export default function Programme({ navigation }) {
   }, []);
   */
   
-  
-  const getItemLayout = (data, index) => (
-    { length: 100, offset: 100 * index, index }
-  )
-  
-  
+
   const filteredData = state.programme;/*searchText
   ? state.programme.filter(
     (x) =>
@@ -92,6 +87,35 @@ export default function Programme({ navigation }) {
    // const memoizedValue = useMemo(() => renderItem, [state.programme]);
       
 
+  
+  const getItemLayout = (data, index) => (
+    { length: 100, offset: 100 * index, index }
+  )
+
+  const renderData = ({ item, index }) => {
+    return (
+      <ProgrammeCard
+
+        item={item}
+        index={index}
+
+      />
+
+    );
+  }
+
+  const renderData2 = useCallback(
+    ({ item }) => (
+      <ProgrammeCard
+
+      item={item}
+     
+
+    />
+    ),[state.programme]);
+
+  
+  
     
       return (
         <View>
@@ -126,11 +150,11 @@ export default function Programme({ navigation }) {
         }}
        
         
-        
-        renderItem={({ item }) => {
+        renderItem={renderData2}
+       /* renderItem={({ item }) => {
           // return renderData(item);
           return <ProgrammeCard item={item} />
-        }}
+        }}*/
         
         
         refreshControl={

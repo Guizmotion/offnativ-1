@@ -808,11 +808,14 @@ useEffect(() => {
 
                 <Text style={ styles.TextSousTitre}>Résumé du spectacle</Text>
 
-                {itemBande_annonce !== '' && <Pressable
-           onPress={ ()=>{ Linking.openURL(itemBande_annonce)}}>
-             <Text style={styles.ParagraphBold}>Voir la bande annonce</Text>
-             <View  style={ styles.Separateur} ></View>
-              </Pressable>}
+
+                {itemBande_annonce !== '' && 
+                <Pressable
+                    onPress={ ()=>{ Linking.openURL(itemBande_annonce)}}>
+                    <Text style={styles.ParagraphBold}>Voir la bande annonce</Text>
+                    <View  style={ styles.Separateur} ></View>
+               </Pressable>
+                }
 
 
                 <Text style={{textAlign:'left'}}>{itemDescription}</Text>
@@ -879,7 +882,7 @@ useEffect(() => {
     /*  <Button title="DelFav" onPress={() => rm_favorite(item.id)} /> */
   }
 
-  export default ProgrammeCard;
+  export default React.memo(ProgrammeCard);
 
 
 

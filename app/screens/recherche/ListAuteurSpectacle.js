@@ -15,8 +15,11 @@ import { ListItem } from 'react-native-elements'
 import { ScrollView } from "react-native-gesture-handler";
 //import auteurs from "./auteurs";
 
-export default function ListAuteurSpectacle({ navigation}) {
-  
+
+  const ListAuteurSpectacle = ({ navigation}) =>  {
+      
+    
+
   const [checked, setChecked] = useState(false);
   const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
   
@@ -277,3 +280,6 @@ function removeItemAll(arr, value) {
             
             
           }
+
+          export default React.memo(ListAuteurSpectacle)
+  
