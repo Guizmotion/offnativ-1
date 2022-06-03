@@ -248,14 +248,11 @@ export default function RechercheModal({ navigation }) {
 
                     let filRechByKeyword = _.filter(fil, function(o) {
                       return Object.keys(o).some(function(k) {
-                        return String(o[k]).toLowerCase().includes(keyword.toLowerCase());
+                        return String(o[k]).toLowerCase().includes(keyword.toLowerCase().trim());
                       });
                     });
                     
-                    //check if stateRecherche.SpectaclesIdRecherches includes item.id
-                    
-
-                    
+                   
                     
                     let  filRech = _.uniqBy(filRechByKeyword, 'id');
                     

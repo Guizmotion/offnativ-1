@@ -723,6 +723,29 @@ useEffect(() => {
                 </View>
                 
 
+ {/*
+                <View style={{flex: 1}}>
+                  <Text>{itemBande_annonce}</Text>
+    
+                  
+     <WebView
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginBottom: 200 }}
+    source={{ uri: itemBande_annonce }}
+    hardwareAccelerated={true}
+  //  javaScriptEnabled={true}
+   // domStorageEnabled={true}
+   // startInLoadingState={true}
+   // scalesPageToFit={true}
+
+    allowsFullscreenVideo
+  allowsInlineMediaPlayback
+  mediaPlaybackRequiresUserAction
+
+   // renderLoading={(e) => { return ( <Loader />  );  }}
+
+   // injectedJavaScript={jsCode}
+    />
+</View> */}
 
 
 
@@ -776,7 +799,7 @@ useEffect(() => {
                 <Text style={ styles.TextSousTitre}>Infos & reservations</Text>
                 <View  style={[styles.labelCard, styles.labelGris]}>
                   <Text style={styles.TextPhone}
-                      onPress={ ()=>{ Linking.openURL('tel:'+itemTel_reservation)}}>
+                      onPress={ ()=>{ Linking.openURL(itemTel_reservation)}}>
                     {itemTel_reservation}
                   </Text>
                 </View>
@@ -784,6 +807,14 @@ useEffect(() => {
                 <View  style={ styles.Separateur} ></View>
 
                 <Text style={ styles.TextSousTitre}>Résumé du spectacle</Text>
+
+                {itemBande_annonce !== '' && <Pressable
+           onPress={ ()=>{ Linking.openURL(itemBande_annonce)}}>
+             <Text style={styles.ParagraphBold}>Voir la bande annonce</Text>
+             <View  style={ styles.Separateur} ></View>
+              </Pressable>}
+
+
                 <Text style={{textAlign:'left'}}>{itemDescription}</Text>
                 
                 <View  style={ styles.Separateur} ></View>
@@ -820,23 +851,7 @@ useEffect(() => {
                 
                 </View>
                 
-                <View style={{flex: 1}}>
-                  <Text>{itemBande_annonce}</Text>
-    
-     
-     <WebView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginBottom: 200 }}
-    source={{ uri: itemBande_annonce }}
-    
-    javaScriptEnabled={true}
-    domStorageEnabled={true}
-    startInLoadingState={true}
-    scalesPageToFit={true}
-    renderLoading={(e) => { return ( <Loader />  );  }}
-
-   // injectedJavaScript={jsCode}
-    />
-</View>
+               
 
                 
                 
