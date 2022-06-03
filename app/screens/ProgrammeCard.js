@@ -288,8 +288,8 @@ const add_favorite =  (item) => {
 
 
     function fillModal(item) {
-        console.log(item.nom);
-      //  setIsLoading(true);
+        //console.log(item.nom);
+
         setItemId(item.id);
         setItemTitre_spectacle(item.titre_spectacle);
         setItemAuteur_prenom(item.auteur_prenom);
