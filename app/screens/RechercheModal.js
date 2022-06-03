@@ -126,6 +126,7 @@ export default function RechercheModal({ navigation }) {
   const [nb_auteurs,setNb_Auteurs] = useState();
   const [nb_lieux,setNb_Lieux] = useState();
   const [keyword, setKeyword] = useState("");
+  const [type_public, setType_Public] = useState("");
   
   
   function countUnique(iterable) {
@@ -166,7 +167,7 @@ export default function RechercheModal({ navigation }) {
       data = response.data;
     });
     
-    //console.log( values['type_public'].toLowerCase() ) ;
+    //console.log( type_public.toLowerCase() ) ;
     
     //console.log(nb_auteurs + 'test contains: ' + stateRecherche.SpectaclesIdRecherches.includes(31012) );
     
@@ -227,8 +228,9 @@ export default function RechercheModal({ navigation }) {
                   : true
                   )*/
                   &&
-                  (values.type_public
-                    ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
+                  (type_public
+                  //  ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
+                  ? item.type_public.toLowerCase() === type_public.toLowerCase() 
                     : true)
                     &&
                     (switchTicketOff == true ? item.ticket_off.includes('Oui') : true ) 
@@ -395,22 +397,25 @@ export default function RechercheModal({ navigation }) {
 
 
                       placeholder={{
-                        label: "Type de public",
-                        value: values["type_public"],
+                        label: type_public,
+                        value: type_public,
                       }}
 
 
-                      value={values["type_public"]}
-                      onValueChange={(value) => setFieldValue("type_public", value)}
-                      
+                      value={type_public}
+                      onValueChange={(value) =>
+                        {
+                          setType_Public(value);
+                        //setFieldValue("type_public", value)
+                        
+                        }
+                        }
+
                       items={[
                         { label: "Jeune public", value: "Jeune public" },
                         { label: "Public adulte", value: "Public adulte" },
                         { label: "Tout public", value: "Tout public" },
-                        {
-                          label: "Public non francophone",
-                          value: "Public non francophone",
-                        },
+                       // { label: "Public non francophone", value: "Public non francophone", },
                       ]}
                       /></View>
                       </View>
