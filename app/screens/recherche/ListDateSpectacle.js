@@ -232,7 +232,7 @@ function removeItemAll(arr, value) {
               clickButton(item)
             }}
             >
-      <Text>{item.value}</Text>
+      <Text>{item.value.replace('/07/2022',"")}</Text>
       </Pressable>
       </View>
     ))

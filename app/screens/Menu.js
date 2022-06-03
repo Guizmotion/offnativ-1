@@ -1,7 +1,7 @@
 // Custom Navigation Drawer / Sidebar with Image and Icon in Menu Options
 // https://aboutreact.com/custom-navigation-drawer-sidebar-with-image-and-icon-in-menu-options/
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import {
   Dimensions,
   Share,
@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import axios from "axios";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -33,6 +34,9 @@ import { StoreContext } from "../store/store";
 
 const Menu = (props) => {
   const { state, dispatch } = React.useContext(StoreContext);
+  const [Publicite, setPublicite] = useState([]);
+  
+  
 
   const BASE_PATH = "https://www.appli.ovh/off/web/img/";
   const proileImage = "logo.png";
@@ -60,6 +64,72 @@ const Menu = (props) => {
       return props.navigation.navigate("Login");
     }
   }
+
+
+
+  async function getPublicite(){
+
+    // exact raw URL, no need to append an extra .json extension
+    const { data } = await axios.get('https://appli.ovh/off/app/api2022.php?a=16');
+    
+    return data;    
+}
+
+const delayChangePub = 5000;
+
+useLayoutEffect(() => {
+
+  const interval = setInterval(() => {
+    
+
+
+    getPublicite().then(data => {
+   
+      const rndIdPub = Math.floor(Math.random() * 3) ;
+      //console.log("rndIdPub : " + rndIdPub);
+  
+      let pub = data[rndIdPub].split("|");
+  
+      if(pub){
+  
+      let image = 'https://appli.ovh/off/app/img/' + pub[0];
+      let url  =   pub[1];
+  
+  
+  
+     setPublicite(
+      <Pressable onPress={() => Linking.openURL(url)}  >
+             
+      <Image
+        style={{
+          resizeMode: "cover",
+          width: 260,
+          height: 110,
+        }}
+        source={{uri:image}}
+      /></Pressable>
+      
+      
+      );
+  
+  
+     
+  }
+  
+    
+  
+    });
+
+
+
+
+  }, delayChangePub);
+  return () => clearInterval(interval);
+
+  
+}, [Publicite]);
+
+
 
   return (
             <View {...props}
@@ -278,7 +348,8 @@ const Menu = (props) => {
                 
               }}
             >
-              <Pressable onPress={() => Linking.openURL('https://www.festivaloffavignon.com/')}  >
+              {Publicite}
+             {/* <Pressable onPress={() => Linking.openURL('https://www.festivaloffavignon.com/')}  >
            
               <Image
                 style={{
@@ -290,6 +361,7 @@ const Menu = (props) => {
               />
 
               </Pressable>
+              */}
             </View>
           </View>
         </View>
