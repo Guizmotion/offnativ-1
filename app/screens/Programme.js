@@ -56,25 +56,10 @@ export default function Programme({ navigation }) {
   const [visible, setVisible] = useState(false);
   
 
-
-const memo = callback => {
-  const cache = new Map();
-  return (...args) => {
-    const selector = JSON.stringify(args);
-    if (cache.has(selector)) return cache.get(selector);
-    const value = callback(...args);
-    cache.set(selector, value);
-    return value;
-  };
-};
-
-const memoizedAxiosGet = memo(axios.get);
-  
   useEffect(() => {
     setIsLoading(true);
     axios.get(url_programme + stateRecherche.limite ).then(response => {
-  //  memoizedAxiosGet(url_programme + stateRecherche.limite ).then((response) => {
-      // setData(response.data);
+
       dispatch({ type: "addData", payload: response.data });
       setIsLoading(false);
     });

@@ -1,4 +1,6 @@
 import React, { useReducer, createContext } from "react";
+import {debounce, _} from 'lodash';
+
 
 
 
@@ -9,6 +11,7 @@ const initialRechercheState = {
     AuteursRecherches: [],
     DatesRecherches: [],
     LieusRecherches: [],
+    SpectaclesIdRecherches: [],
     limite: 100,
 };
 
@@ -40,7 +43,7 @@ const reducer = (stateRecherche, action) => {
             ...stateRecherche,
             
             StylesRecherches: [...new Set(stateRecherche.StylesRecherches), action.payload.value],
-           
+            
         };
         
         case "DELETE_STYLES_RECHERCHES" : 
@@ -53,10 +56,13 @@ const reducer = (stateRecherche, action) => {
             console.log('effacer style '+ action.payload.value);
             
         }
+
+        
         
         return {
             ...stateRecherche,
             StylesRecherches: uniq(array),
+            
             
         };
         
@@ -68,24 +74,47 @@ const reducer = (stateRecherche, action) => {
          return {
              ...stateRecherche,
              
-             AuteursRecherches: [...new Set(stateRecherche.AuteursRecherches), action.payload.value],
-            
+            // AuteursRecherches: [...new Set(stateRecherche.AuteursRecherches), action.payload.value],
+            AuteursRecherches: [...new Set(stateRecherche.AuteursRecherches),
+                 action.payload.value
+                
+                ],
+            SpectaclesIdRecherches: [...new Set(stateRecherche.SpectaclesIdRecherches), action.payload.id_spectacle],
+           
          };
          
          case "DELETE_AUTEURS_RECHERCHES" : 
          
          
+         var arrayIdpsectacles = [...stateRecherche.SpectaclesIdRecherches];
+
+
+
          var array = [...stateRecherche.AuteursRecherches]; 
-         var index = array.indexOf(action.payload.value)
+         
+         var index = array.indexOf(action.payload.value);
+         //var index = array.indexOf(action.payload.key);
+         
          if (index !== -1) {
              array.splice(index, 1);
              console.log('effacer Auteur '+ action.payload.value);
+             var indexIdpsectacles = arrayIdpsectacles.indexOf(action.payload.id_spectacle)
+             if (indexIdpsectacles !== -1) {
+                
+                 arrayIdpsectacles.splice(indexIdpsectacles, 1);
+                 console.log('effacer id_spectacle '+ action.payload.id_spectacle);
+    
+             }
              
          }
-         
+       
+  
+
          return {
              ...stateRecherche,
              AuteursRecherches: uniq(array),
+             SpectaclesIdRecherches: uniq(arrayIdpsectacles)
+           
              
          };
 
