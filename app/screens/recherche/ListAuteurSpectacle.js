@@ -99,55 +99,32 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
   }
   
   
+
+  
+
   const clickButton = (item) => {
-    
-    //console.log(item.value);
-    
-    
-    if(item.checked === false ){
-      // 1. Make a shallow copy of the array
+   
       let temp_state = [...stateData];
-      
-      // 2. Make a shallow copy of the element you want to mutate
       let temp_element = { ...temp_state[item.key] };
       
-      
-      // 3. UpAuteur the property you're interested in
+     if(item.checked === false ){
+
       temp_element.checked = true;
-      
-      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-      //console.log(	temp_element);
       temp_state[item.key] = temp_element;
+      setState( temp_state);
       
       
-      
-      
-      
-      // 5. Set the state to our new copy
-      setState( uniq(temp_state) );
       
     }else{
       
-      let temp_state = [...stateData];
       
-      // 2. Make a shallow copy of the element you want to mutate
-      let temp_element = { ...temp_state[item.key] };
-      
-      // 3. UpAuteur the property you're interested in
       temp_element.checked = false;
-      
-      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-      //temp_state[0] = temp_element;
-      // console.log(	temp_element);
       temp_state[item.key] = temp_element;
+      setState( temp_state);
       
-      
-      
-      // 5. Set the state to our new copy
-      setState( uniq(temp_state) );
       
     }
+
     
   }
   
