@@ -138,18 +138,12 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
   
   const renderCustomItem =  useCallback(
     (item) => 
-    (
-      
-      
-      
-      <View
+    ( <View
       key={item.key} 
       >
       <Pressable 
-      
-      onPress={()  =>
+       onPress={()  =>
         {
-          //handleStylesRecherches(item)
           clickButton(item)
         }}
         >
@@ -162,27 +156,17 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: 10, 
-          //
           backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
-          // backgroundColor: bgColor
-          // backgroundColor: 'rgba(255,255,255,0)' 
+
         }}
-        
-        
-        
-        >
-        
-        <Text style={styles.listItemLabel}>{item.value}</Text>
-        
-        </View>
+         >
+           <Text style={styles.listItemLabel}>{item.value}</Text>
+          </View>
         </Pressable>
         </View>
         
         
         ),[stateData]);
-        
-        
-        
         
         return (
         <View style={{height: '100%'}}>
