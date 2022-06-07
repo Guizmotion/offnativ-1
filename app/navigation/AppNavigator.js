@@ -61,14 +61,154 @@ const AppNavigator = ({ navigation }) => {
       titre ='Actualités';
     }
     if(route.name=="Carte"){
-      titre ='Venir / se déplacer / se loger';
+      titre ='plan interactif';
     }
     if(route.name=="Fondation"){
       titre ='La fondation';
     }
+    if(route.name=="Login"){
+      titre ='Connexion';
+    }
+    if(route.name=="Login"){
+      titre ='Connexion';
+    }
+    if(route.name=="CarteAbonnementWebview"){
+      titre ='Carte d\'abonnement';
+    }
+    if(route.name=="Archives"){
+      titre ='Ressources & archives';
+    }
+    if(route.name=="Annonces"){
+      titre ='Plateforme solidaire';
+    }
+    if(route.name=="Favoris"){
+      titre ='Mes favoris';
+    }
+    if(route.name=="ModifierProfil"){
+      titre ='Mon profil';
+    }
+    if(route.name=="CartPage"){
+      titre ='Mon panier';
+    }
+    if(route.name=="PlacesSpectacles"){
+      titre ='Mes places de spectacles';
+    }
+    if(route.name=="CartesAbonnement"){
+      titre ='Mes cartes d\'abonnement';
+    }
+    if(route.name=="Factures"){
+      titre ='Mes factures';
+    }
+
+
+
+    if(route.name=="ListDateSpectacle"){
+      titre ='Choisir une date';
+      return (
+
+        <View style={{flexDirection:'row'}}>
+                
+                <Text style={{   
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  width: '97%',textAlign: 'center'
+             }}>
+                {titre}
+                </Text>
+               
+                
+                <View
+              >
+                <Pressable
+                  
+                  onPress={() => navigation.goBack()}
+                >
+                  <Image
+                    style={{
+                      resizeMode: "cover",
+                      height: 25,
+                      width: 25,
+                    }}
+                    source={require("../assets/closemenu.png")}
+                  />
+                </Pressable>
+              </View>
+              </View>
+              );
+    }
+
+    if(route.name=="ListLieuSpectacle"){
+      titre ='Choisir un théâtre';
+      return (
+
+        <View style={{flexDirection:'row'}}>
+                
+                <Text style={{   
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  width: '97%',textAlign: 'center'
+             }}>
+                {titre}
+                </Text>
+               
+                
+                <View
+              >
+                <Pressable
+                  
+                  onPress={() => navigation.goBack()}
+                >
+                  <Image
+                    style={{
+                      resizeMode: "cover",
+                      height: 25,
+                      width: 25,
+                    }}
+                    source={require("../assets/closemenu.png")}
+                  />
+                </Pressable>
+              </View>
+              </View>
+              );
+    }
+
+    if(route.name=="ListAuteurSpectacle"){
+      titre ='Choisir un auteur';
+      return (
+
+        <View style={{flexDirection:'row'}}>
+                
+                <Text style={{   
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  width: '97%',textAlign: 'center'
+             }}>
+                {titre}
+                </Text>
+               
+                
+                <View
+              >
+                <Pressable
+                  
+                  onPress={() => navigation.goBack()}
+                >
+                  <Image
+                    style={{
+                      resizeMode: "cover",
+                      height: 25,
+                      width: 25,
+                    }}
+                    source={require("../assets/closemenu.png")}
+                  />
+                </Pressable>
+              </View>
+              </View>
+              );
+    }
 
     if(route.name=="ListStyleSpectacle"){
-      titre ='Style de spectacle';
+      titre ='Choisir un style';
       return (
 
         <View style={{flexDirection:'row'}}>

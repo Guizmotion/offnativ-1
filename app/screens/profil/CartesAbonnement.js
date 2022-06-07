@@ -11,38 +11,120 @@ import {
   ScrollViewButton,
   ScrollView,
   Button,
-  FlatList,
+  Switch,
   TouchableOpacity,
   Modal,
   Pressable,
   TouchableWithoutFeedback,
 } from "react-native";
 import axios from "axios";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNPickerSelect from "react-native-picker-select";
+import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 
 import styles from "../../config/styles/StyleGeneral";
-import { StoreContext } from "../../store/store";
-import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
-import { ListItem } from "react-native-elements";
-
+import { FlatList } from "react-native-gesture-handler";
 
 
 export default function CartesAbonnement({ navigation }) {
-  const handleSubmit = () => {
-    navigation.navigate("CreerCarteAbonnement");
-    console.log("submit");
-  };
 
-  const { state, dispatch } = React.useContext(StoreContext);
-  const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
-  const [cartes, setCartes] = useState([stateCartesAbonnement.cartes]);
+const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
+const [CartesFromState, setCartesFromState] = useState();
+const [CartesFromAsyncStorage, setCartesFromAsyncStorage] = useState();
+const [Cartes, setCartes] = useState([]);
+const [newCartes, setNewCartes] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+/*
+const getCartes = async () => {
+    try {
+        const valueString = await AsyncStorage.getItem('CartesAbonnement');
+        const value = JSON.parse(valueString);
+       // console.log(valueString + 'test');
+        setCartes(value);
+    } catch (error) {
+        console.log(error);
+    }
+};
+*/
 
-    setCartes(stateCartesAbonnement.cartes);
+const fetchCartes = async () => {
+  
+  try {
+    console.log('before get');
+    const value = await AsyncStorage.getItem('CartesAbonnement');
+    if (value !== null) {
+        setCartes(JSON.parse(value));
+       // console.log(value + 'test');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  }, [stateCartesAbonnement.cartes]);
+  
+ 
+
+ 
+useEffect(() => {
+// fetchCartes();
+   // setCartes([...Cartes,stateCartesAbonnement.Cartes]);
+  // AsyncStorage.setItem("CartesAbonnement", JSON.stringify(stateCartesAbonnement.Cartes));
+  // fetchCartes();
+   setCartes(stateCartesAbonnement.Cartes);
+   // setIsLoading(false);
+  }, [stateCartesAbonnement.Cartes]);
+
+
+
+   
+  
+const renderItem = ({ item,i }) => {
+console.log(item.photo);
+    //item data
+/*
+                  "id": 1,    
+                "statut" : "brouillon",
+                    "numero_carte" : "123456789",
+                    "code_promo": "",
+                    "structure": "",
+                    "nom" : "perodo",
+                    "prenom" : "nico",
+                    "adresse" : "rue de la paix",
+                    "ville" : "paris",
+                    "codePostal" : "75000",
+                    "telephone" : "0123456789",
+                    "pays" : "france",
+                    "livraison" : "courrier",
+                    "photo": ""
+                    */
+
+                    return(
+                        <View style={styles.carteAbonnement} key={item.id}>
+                            <View style={styles.carteAbonnement_header}>
+                                <Text style={styles.carteAbonnement_header_text}>{item.nom} {item.prenom}</Text>
+                            </View>
+                            <View style={styles.carteAbonnement_body}>
+                                <View style={styles.carteAbonnement_body_left}>
+                               
+                                <Image
+  source={{ uri: 'data:image/jpeg;base64,' + item.photo }}
+  style={{ width: 100, height: 100 }}
+/>
+                                  
+                               
+                                </View>
+                               
+                            </View>
+                        </View>
+
+                    );
+
+                }
+
+
+
+
 
 
   return (
@@ -51,66 +133,56 @@ export default function CartesAbonnement({ navigation }) {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        top: "10%",
+        top: "0%",
       }}
+
+      key="listecartes"
     >
       <Text style={{ fontSize: 20 }}>Mes cartes achetés</Text>
+
       <Text style={{ fontSize: 20 }}>Mes brouillons</Text>
-      
-
       <FlatList
+        data={Cartes}
+       // extraData={newCartes}
+        renderItem={(item) => renderItem(item)}
+        keyExtractor={(item) => item.id}
 
-        data={cartes}
+        style={{ width: "100%", height: "100%" }}
 
-        renderItem={({ item,index }) => ( console.log(item) )}
-      /* renderItem={({ item,index }) => (
-          <ListItem
-            key={index.toString()}
-            title={item.nom}
-            subtitle={item.prenom}
-            style={{
-              backgroundColor: "#fff",
-              borderRadius: 10,
-              margin: 10,
-              padding: 10,
-              borderWidth: 1,
-              borderColor: "#ddd",
-              width: "100%",
-            }}
+        onEndReached={() => {
+            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }
+            , 2000);
+        }
+        }
+        
+        onEndReachedThreshold={0.5}
+        refreshing={isLoading}
+        onRefresh={() => {
+            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }
+            , 2000);
 
-            leftAvatar={{ source: { uri: item.image } }}
-            bottomDivider
-            chevron
-            onPress={() => {
-              navigation.navigate("DetailCarteAbonnement", {
-                id: item.id,
-              });
-            }}
+        }
+        }
 
-           
-          />
-        )}
-*/
-        keyExtractor={(item, index) => {
-          // console.log("index", index)
-          return index.toString();
-        }}
-      />
+
+        
+        />
 
 
 
+      <Button
+        title="Créer un brouillon"
+        onPress={() => navigation.navigate("CreerCarteAbonnement")}
+        />
 
-
-      <Text style={{ fontSize: 20 }}>Mes autres cartes</Text>
-      <Text style={{ fontSize: 20 }}>Associer une carte</Text>
-
-      <Pressable onPress={() => navigation.navigate("CreerCarteAbonnement")}>
-        <View style={[styles.labelCard, styles.labelAchat]}>
-          <Text style={styles.textBigButton}>Acheter une nouvelle carte</Text>
-        </View>
-      </Pressable>
     </View>
-  );
+    );
 }
 
 

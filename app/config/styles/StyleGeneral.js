@@ -60,26 +60,27 @@ export default StyleSheet.create({
        borderRadius: 15,
        shadowOpacity: 0.1,
        shadowRadius: 5,
-       height: 150,
+       height: 150
    },
     blocContent: {
-       width: '65%',
+       width: '75%',
        alignSelf: "flex-end",
-
        flexDirection: "row",
-
        flex:1,
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center'
+       flexDirection:'column',
+       alignItems:'center',
+       justifyContent:'center',
+       zIndex:3,
+       backgroundColor: '#fff',
+       paddingLeft: 15
     },
     blocImage: {
        width: '30%',
-     // flex: 2, 
-  
        position: 'absolute',
        marginTop: -15,
        marginBottom: 10,
+       flex: 2,
+       zIndex: 1
     },
     labelInline: {
       alignContent: "flex-start",

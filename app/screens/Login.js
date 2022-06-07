@@ -239,9 +239,6 @@ console.log(state.favorites);
   return (
     <View style={{ flex: 1, alignItems: 'center', padding: 30, paddingTop: 50 }}>
   
-  
-  <Text>Connexion</Text>
-  
 
 <TextInput
 style={[styles.inputStyle]}
@@ -260,7 +257,7 @@ onChangeText={(password) => setPassword(password)}
 
 />
 <Pressable
-                  style={{right: 45,position: 'absolute', top: 152}}
+                  style={{right: 45,position: 'absolute', top: 135}}
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Image
                   style={{

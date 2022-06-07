@@ -711,6 +711,7 @@ export default function RechercheModal({ navigation }) {
                 </View>
                 
                 <View style={styles.Separateur} />
+                
                 {/*  
                 <View
                 style={{
@@ -770,7 +771,9 @@ export default function RechercheModal({ navigation }) {
             
             
             </>
+            
             )}
+            
             </Formik>
             
             </View>
@@ -796,9 +799,10 @@ export default function RechercheModal({ navigation }) {
             </View>
             </TouchableOpacity>
             
+            <Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
+            
             
             </View>
             </View>
             );
-            //<Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
           }

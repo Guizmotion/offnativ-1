@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WebView } from 'react-native-webview';
 import Loader from "./Loader";
+import { random } from "lodash";
 
 export default function Carte({ navigation}) {
   //const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
@@ -17,8 +18,8 @@ export default function Carte({ navigation}) {
      
     <WebView
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginTop: 0 }}
-    source={{ uri: 'https://carte-interactive.festivaloffavignon.com/off2/' }}
- 
+    source={{ uri: 'https://carte-interactive.festivaloffavignon.com/off2/?'+ random(3000) }}
+    cacheEnabled={false} 
     javaScriptEnabled={true}
     domStorageEnabled={true}
     startInLoadingState={true}

@@ -96,8 +96,12 @@ export default function ProfilMenu({ navigation }) {
   });
   console.log("favoris enregistrés");
   
+
+  
   
 }, []);
+
+
 
 return (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingLeft: 30,paddingRight: 30 }}>

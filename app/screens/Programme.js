@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef,useMemo, useCallback } from "react";
 import {
   Image,
@@ -126,7 +127,7 @@ export default function Programme({ navigation }) {
          
    
         
-        <FlatList
+        <FlatList style={{paddingTop: 15, marginBottom: 170}}
         
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
         
@@ -170,4 +171,3 @@ export default function Programme({ navigation }) {
         </View>
         );
       }
-      

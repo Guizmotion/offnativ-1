@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from "react";
-import {Image, Text,TextInput,DrawerContentScrollView, View, StyleSheet, ScrollViewButton, ScrollView, Button,FlatList, TouchableOpacity,Modal,Pressable,TouchableWithoutFeedback} from 'react-native';
-import axios from 'axios';
-
-import { NavigationContainer } from '@react-navigation/native';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from "react";
 import { WebView } from 'react-native-webview';
+import Loader from "./Loader";
 
 export default function Actualites({ navigation}) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Actualités</Text>
-        <Text>Check this out !</Text>
-         <Pressable
-          onPress={() => navigation.openDrawer()}
-          style={{ padding: 10, marginBottom: 10, marginTop: 10 }}
-        >
-        <Text>Open Drawer</Text>
-       
-        </Pressable>
-      </View>
-    );
+
+  const jsCode = "document.body.style.userSelect = 'none';document.querySelector('header').style.display = 'none !important'; document.querySelector('footer').style.display = 'none'; document.querySelector('.cc-window.cc-floating.cc-type-info.cc-theme-classic').style.display='none';";
+
+    return (  
+    
+     
+    <WebView
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
+    source={{ uri: 'https://www.festivaloffavignon.com/agenda-actualites/' }}
+    
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+    startInLoadingState={true}
+    scalesPageToFit={true}
+    renderLoading={(e) => { return ( <Loader />  );  }}
+
+    injectedJavaScript={jsCode}
+    />
+  
+      );
   }

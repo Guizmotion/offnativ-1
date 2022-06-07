@@ -44,13 +44,13 @@ const Menu = (props) => {
   function share() {
     Share.share(
       {
-        message: "Voici le lien vers la nouvelle application du OFF",
+        message: "Voici le lien vers la nouvelle application du festival off avignon",
         url: "https://play.google.com/store/apps/details?id=com.nympheastudio.off",
         title: "Application Android",
       },
       {
         // Android only:
-        dialogTitle: "Partager l'application du OFF",
+        dialogTitle: "Partager l'application du festival off avignon",
         // iOS only:
         excludedActivityTypes: ["com.apple.UIKit.activity.PostToTwitter"],
       }
@@ -98,13 +98,12 @@ useLayoutEffect(() => {
   
   
      setPublicite(
-      <Pressable onPress={() => Linking.openURL(url)}  >
+      <Pressable onPress={() => Linking.openURL(url)}  style={{width: '100%'}}>
              
       <Image
         style={{
-          resizeMode: "cover",
-          width: 260,
-          height: 110,
+          width:'100%',
+          height: 140,
         }}
         source={{uri:image}}
       /></Pressable>
@@ -204,7 +203,7 @@ useLayoutEffect(() => {
           <DrawerItem
             style={styles.lienMenu}
             
-            label="Carte interactive"
+            label="Plan interactif"
             onPress={() => props.navigation.navigate("Carte")}
           />
 

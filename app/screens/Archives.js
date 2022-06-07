@@ -20,7 +20,7 @@ export default function Archives({ navigation}) {
     
       
     <WebView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginTop: 20  }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center'  }}
     source={{ uri: 'https://www.festivaloffavignon.com/archives-et-ressources/' }}
    
     javaScriptEnabled={true}
