@@ -47,7 +47,7 @@ export default function CreerCarteAbonnement({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0,
+      quality: 0.3,
       base64: true,
 
     });
