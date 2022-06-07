@@ -1,28 +1,13 @@
-import React, { useReducer, createContext } from "react";
-
-
+import React, { useReducer, createContext,useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialCartesAbonnementState = {
     
  
     Cartes: 
-        /*
-        {
-                "nom" : "perodo",
-                "prenom" : "nico",
-                "adresse" : "rue de la paix",
-                "ville" : "paris",
-                "codePostal" : "75000",
-                "telephone" : "0123456789",
-                "pays" : "france",
-                "livraison" : "courrier",
-                "photo": ""
+        
 
-
-        }
-        */
-
-            [
+            [ /*
                {
                 "id": 1,    
                 "statut" : "brouillon",
@@ -54,13 +39,14 @@ const initialCartesAbonnementState = {
                     "pays" : "france",
                     "livraison" : "courrier",
                     "photo": ""
-                },
+                },*/
             ]
     
 
     
         };
 
+     
 
 export const CartesAbonnementContext = createContext(initialCartesAbonnementState);
 
@@ -72,42 +58,84 @@ const reducer = (stateCartesAbonnement, action) => {
 
 
         
-        case "ADD_CARTES_ABONNEMENT":
+        case "ADD_CARTE_ABONNEMENT":
         
+        //console.log(action.payload)
+        if (action.payload) {
+        //  AsyncStorage.setItem("carte_"+action.payload.id, JSON.stringify(action.payload));
+         //save with AsyncStorage
+        // AsyncStorage.setItem('CartesAbonnement', JSON.stringify(stateCartesAbonnement.Cartes));
+
+         
+            return {
+                ...stateCartesAbonnement,
+                Cartes: [...stateCartesAbonnement.Cartes, action.payload]
+            };
         
-        stateCartesAbonnement.Cartes.push(action.payload);
-
-
-
-        return {
-            ...stateCartesAbonnement,
-            Cartes: {  ...stateCartesAbonnement.Cartes}
-        };
-        
-        case "DELETE_CARTES_ABONNEMENT":
-        
-        var array = [...stateCartesAbonnement.Cartes]; // make a separate copy of the array
-        var index = array.indexOf(action.payload)
-        if (index !== -1) {
-            array.splice(index, 1);
-
+          }
+        else {
+            return {
+                ...stateCartesAbonnement,
+                Cartes: [...stateCartesAbonnement.Cartes]
+            };
         }
 
-        return {
-            ...stateCartesAbonnement,
-            Cartes: array,
-        };
-        
-
-        
-        
-        default:
+        case "DELETE_CARTE_ABONNEMENT":
+            return {
+                ...stateCartesAbonnement,
+                Cartes: stateCartesAbonnement.Cartes.filter(carte => carte.id !== action.payload)
+            };
+        case "UPDATE_CARTE_ABONNEMENT":
+            return {
+                ...stateCartesAbonnement,
+                Cartes: stateCartesAbonnement.Cartes.map(carte => carte.id === action.payload.id ? action.payload : carte)
+            };
+        case "SET_CARTES_ABONNEMENT":
+            
+            return {
+                ...stateCartesAbonnement,
+                Cartes: action.payload
+            };
+      
+            default:
         return stateCartesAbonnement;
     }
 };
 
 export const CartesAbonnementContainer = ({ children }) => {
+   
+   //set initial state from async storage
+
+
+
+    
     const [stateCartesAbonnement, dispatchCartesAbonnement] = useReducer(reducer, initialCartesAbonnementState);
+   
+
+// Loading initial Satte
+useEffect(() => {
+     AsyncStorage.getItem("CartesAbonnement").then(value => {
+         if (value ) {
+             console.log("SET_CARTES_ABONNEMENT", value);
+             dispatchCartesAbonnement({ type: "SET_CARTES_ABONNEMENT", payload: JSON.parse(value) });
+         }
+     }
+     );
+}
+, []);
+
+  // Update AsyncStorage when user is updated
+  useEffect(() => {
+    // This check is required to avoid initial writing to asyncStorage
+    if(stateCartesAbonnement.Cartes) {
+        AsyncStorage.setItem("CartesAbonnement", JSON.stringify(stateCartesAbonnement.Cartes));
+    }
+  }, [stateCartesAbonnement.Cartes]);
+
+
+
+
+ 
     return (
         <CartesAbonnementContext.Provider value={{ stateCartesAbonnement, dispatchCartesAbonnement }}>
         {children}
