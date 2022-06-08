@@ -348,9 +348,7 @@ const add_favorite =  (item) => {
 
 
     let show_ticket_off = false;
-
-    //console.log(item.ticket_off);
-    if (item.ticket_off === "Non") {
+     if (item.ticket_off === "Non") {
       show_ticket_off = true;
     }
   
@@ -862,7 +860,7 @@ useEffect(() => {
                 
                 </ScrollView>
                 <View style={{justifyContent: "flex-end", flex: 3, bottom: 0}}>
-                
+                {state.isAuthenticated && 
                 <TouchableOpacity
                 onPress={() => addTicketToCartState(itemId)}
                 >
@@ -870,6 +868,7 @@ useEffect(() => {
                 <Text style={styles.textBigButton}> Acheter sur Ticket'Off</Text>
                 </View>
                 </TouchableOpacity>
+  }
                 </View>
                 
                 </Modal>

@@ -138,14 +138,27 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
 
 
   let last_item_value = '';
+  let last_item_checke = false;
   let hide_item = false;
   const renderCustomItem =  useCallback(
     (item) => {
       
-      if(last_item_value === item.value) hide_item = true; else hide_item = false;
+     if(last_item_value === item.value){
+        hide_item = true; 
+        if(last_item_checke === true){
+          item.checked = true;
+        }
+      } else 
+      {
+        hide_item = false;
+      
+      }
+      
+
       
       
       last_item_value = item.value;
+      last_item_checke = item.checked;
       
       
       return( <View

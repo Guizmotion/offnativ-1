@@ -215,6 +215,7 @@ export default function RechercheModal({ navigation }) {
           if (
             (nb_auteurs !== 0 ?
               stateRecherche.SpectaclesIdRecherches.includes(parseInt(item.id)) : true
+              //stateRecherche.AuteursRecherches.some(item.nom) : true
               )
               &&
               
