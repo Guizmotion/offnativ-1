@@ -127,7 +127,7 @@ const renderItem = ({ item,i }) => {
    */
    
    return(
-     <View style={styles.carteAbonnement} key={item.id}>
+     <View style={styles.carteAbonnement} key={item.tko_id}>
      <View style={styles.carteAbonnement_header}>
      <Text style={styles.carteAbonnement_header_text}>Carte Abonnement</Text>
      </View>
@@ -141,15 +141,15 @@ const renderItem = ({ item,i }) => {
        voirPlace(item.id);
        
      }}
-     ><Text>Voir</Text>
+     ><Text>Voir { item.sh_id}</Text>
      </Pressable> 
      
      </View>
      <View style={styles.carteAbonnement_body_right}>
-     <Text style={styles.carteAbonnement_header_text}>{item.nom} {item.prenom}</Text>
+     <Text style={styles.carteAbonnement_header_text}>{item.tko_tickets['name']} {item.ticket_card['card_name']}</Text>
      
      <Image
-     source={{ uri: 'data:image/jpeg;base64,' + item.photo }}
+     source={{ uri:  item.sh_id }}
      style={{ width: 100, height: 100 }}
      />
      
@@ -179,7 +179,7 @@ const renderItem = ({ item,i }) => {
       // extraData={newCartes}
       ListEmptyComponent={_listEmptyComponent}
       renderItem={(item) => renderItem(item)}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.tko_id}
       ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
       style={{ width: "100%", height: "100%" }}
       

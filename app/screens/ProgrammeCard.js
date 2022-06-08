@@ -18,15 +18,13 @@ import {
   Pressable,
   TouchableWithoutFeedback,
   RefreshControl,
-  Share
+  Share,
+  Platform
 } from "react-native";
 import axios from "axios";
-import WebView from "react-native-webview";
 
-import { ActivityIndicator, ToastAndroid } from "react-native";
 import { Image as ImgLazy, Icon } from "react-native-elements";
 
-import { Detail } from "./Detail";
 import { Card } from "react-native-paper";
 import styles from "../config/styles/StyleGeneral";
 
@@ -34,8 +32,6 @@ import { StoreContext } from "../store/store";
 import { FavorisContext } from "../store/storeFavoris";
 
 import Loader from "./Loader";
-
-import moment from "moment";
 
 
 
@@ -797,7 +793,16 @@ useEffect(() => {
                 <Text style={ styles.TextSousTitre}>Infos & reservations</Text>
                 <View  style={[styles.labelCard, styles.labelGris]}>
                   <Text style={styles.TextPhone}
-                      onPress={ ()=>{ Linking.openURL(itemTel_reservation)}}>
+                      onPress={ ()=>{ 
+                        let composephoneNumber = '';
+
+                          if (Platform.OS === 'android') {
+                            composephoneNumber = 'tel:'+itemTel_reservation;
+                          } else {
+                            composephoneNumber = 'telprompt:'+itemTel_reservation;
+                          }
+                        
+                        Linking.openURL(composephoneNumber)}}>
                     {itemTel_reservation}
                   </Text>
                 </View>
