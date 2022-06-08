@@ -14,7 +14,8 @@ import styles from "../../config/styles/StyleGeneral";
 import { ListItem } from 'react-native-elements'
 import { ScrollView } from "react-native-gesture-handler";
 //import auteurs from "./auteurs";
-
+import {_, rebounce} from "lodash";
+import uniq from "lodash/uniq";
 
 const ListAuteurSpectacle = ({ navigation}) =>  {
   
@@ -35,8 +36,9 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
   
   const handleAuteursRecherches = () => {
     
-    
-    stateData.map((item, index) => {
+   
+    stateData
+    .map((item, index) => {
       
       
       //console.log(item.checked);
@@ -85,11 +87,11 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
   const [stateData, setState] = useState(data);
   
   
-  
+  /*
   function uniq(a) {
     return Array.from(new Set(a));
   }
-  
+  */
   
   function arrayRemove(arr, value) { 
     
@@ -135,10 +137,18 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
     );
 
 
-  
+  let last_item_value = '';
+  let hide_item = false;
   const renderCustomItem =  useCallback(
-    (item) => 
-    ( <View
+    (item) => {
+      
+      if(last_item_value === item.value) hide_item = true; else hide_item = false;
+      
+      
+      last_item_value = item.value;
+      
+      
+      return( <View
       key={item.key} 
       >
       <Pressable 
@@ -156,17 +166,18 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: 10, 
+          display: hide_item ? 'none' : 'flex',
           backgroundColor: item.checked ? '#f26522' : 'rgba(255,255,255,0)' 
 
         }}
          >
-           <Text style={styles.listItemLabel}>{item.value}</Text>
+           <Text style={styles.listItemLabel}>{item.value} {hide_item}</Text>
           </View>
         </Pressable>
         </View>
         
         
-        ),[stateData]);
+        )},[stateData]);
         
         return (
         <View style={{height: '100%'}}>
