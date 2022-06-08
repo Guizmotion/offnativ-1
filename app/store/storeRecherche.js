@@ -35,6 +35,19 @@ const reducer = (stateRecherche, action) => {
                
             };
 
+        case 'RESET_RECHERCHE':
+            return {
+                ...stateRecherche,
+                StylesRecherches: [],
+                StylesRecherchesSelected: {},
+                AuteursRecherches: [],
+                DatesRecherches: [],
+                LieusRecherches: [],
+                SpectaclesIdRecherches: [],
+                limite: 100,
+            };
+            
+
         case "ADD_STYLES_RECHERCHES":
 
 

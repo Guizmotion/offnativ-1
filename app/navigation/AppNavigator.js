@@ -121,7 +121,8 @@ const AppNavigator = ({ navigation }) => {
               >
                 <Pressable
                   
-                  onPress={() => navigation.goBack()}
+                  //onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("RechercheModal")}
                 >
                   <Image
                     style={{
@@ -156,7 +157,7 @@ const AppNavigator = ({ navigation }) => {
               >
                 <Pressable
                   
-                  onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("RechercheModal")}
                 >
                   <Image
                     style={{
@@ -191,7 +192,7 @@ const AppNavigator = ({ navigation }) => {
               >
                 <Pressable
                   
-                  onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("RechercheModal")}
                 >
                   <Image
                     style={{
@@ -225,8 +226,7 @@ const AppNavigator = ({ navigation }) => {
                 <View
               >
                 <Pressable
-                  
-                  onPress={() => navigation.goBack()}
+     onPress={() => navigation.navigate("RechercheModal")}
                 >
                   <Image
                     style={{
@@ -263,7 +263,7 @@ const AppNavigator = ({ navigation }) => {
       >
         <Pressable
           
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Programme")}
         >
           <Image
             style={{

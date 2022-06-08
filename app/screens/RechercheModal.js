@@ -84,7 +84,11 @@ export default function RechercheModal({ navigation }) {
   
   const resetForm = () => {
     setIsLoading(false);
-    //setFieldValue('type_public', '');
+    setLimite(false);
+    dispatchRecherche({ type: "RESET_RECHERCHE" });
+
+
+    
   };
   
   const [switchMatin, setswitchMatin] = useState(false);
