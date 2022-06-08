@@ -190,7 +190,8 @@ const ProgrammeHeader = () => {
     </View>
     
     
-    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}  >
+    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
+    style={{padding: 50, backgroundColor: 'red'}}  >
     {/*<Text>Limite de résultats :</Text>
     
     <TextInput
@@ -209,54 +210,58 @@ const ProgrammeHeader = () => {
     
     value={stateRecherche.limite.toString()}
   />*/}
-  
-  <View style={{marginBottom:5}}>
+  <View><Text style={{marginTop: 10,fontSize: 20, fontWeight: "bold",width: '100%',textAlign: "center", marginBottom: 20}}>Trier par</Text></View>
+<View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
+  <View style={{marginRight: 15, marginLeft: 15}}>
   <Button
-  title="Trier par ordre alphabétique A-Z"
+  title="Ordre alphabétique (A - Z)"
   
   
-  color= '#f26522' 
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("titre_spectacle", "asc");
     toggleOverlay();
   }}
   /> 
   </View>
-  <View style={{marginBottom:5}}>
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
+  <View >
   <Button
-  title="Trier par ordre alphabétique Z-A"
-  color= '#f26522' 
+  title="Ordre alphabétique (Z - A)"
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("titre_spectacle", "desc");
     toggleOverlay();
   }}
   />
   </View>
-  <View style={{marginBottom:5}}>
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
+  <View >
   <Button
-  title="Trier par horaire ascendant"
-  color= '#f26522' 
+  title="Le plus tôt"
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("horaire", "asc");
     toggleOverlay();
   }}
   />
   </View>
-  <View style={{marginBottom:5}}>
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
+  <View >
   <Button
-  title="Trier par horaire descendant"
-  color= '#f26522' 
+  title="Le plus tard"
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("horaire", "desc");
     toggleOverlay();
   }}
   />  
-  
+  {/*
   </View>
   <View style={{marginBottom:5}}>
   <Button
   title="Trier par durée ascendant"
-  color= '#f26522' 
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("duree", "asc");
     toggleOverlay();
@@ -268,19 +273,20 @@ const ProgrammeHeader = () => {
   <Button
   
   title="Trier par durée descendante"
-  color= '#f26522' 
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("duree", "desc");
     toggleOverlay();
   }}
-  />
+/> */}
   
   </View>
-  <View style={{marginBottom:5}}>
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
+  <View >
   <Button
   
-  title="Trier par prix ascendant"
-  color= '#f26522' 
+  title="Le moins cher"
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("tarif", "asc");
     toggleOverlay();
@@ -288,12 +294,13 @@ const ProgrammeHeader = () => {
   />
   
   </View>
-  <View style={{marginBottom:5}}>
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
+  <View >
   <Button
   
   
-  title="Trier par prix descendant"
-  color= '#f26522' 
+  title="Le plus cher"
+  color= '#221f1f' 
   onPress={() => {
     filtrerProgramme("tarif", "desc");
     toggleOverlay();
@@ -393,4 +400,3 @@ const ProgrammeHeader = () => {
 }
 
 export default ProgrammeHeader;
-
