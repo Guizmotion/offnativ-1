@@ -24,19 +24,17 @@ import RNPickerSelect from "react-native-picker-select";
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 
 import styles from "../../config/styles/StyleGeneral";
-
-
+import { StoreContext } from "../../store/store";
 /*
 {state.isAuthenticated && (
   <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
   
   )}
-
-
-  */
+*/
 
 export default function PlacesSpectacles({ navigation }) {
- // const { state, dispatch } = React.useContext(StoreContext);
+  const { state, dispatch } = React.useContext(StoreContext);
+
 const [Places, setPlaces] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
  // var axios = require('axios');
@@ -49,10 +47,9 @@ var config = {
   url: 'https://api.festivaloffavignon.com/tickets',
   headers: { 
     'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
-    'token': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvZmYtand0IiwidG9rZW5faWQiOiJjZGVhMzcwMy05OWRiLTQ5MTQtOTExNS1iZDFiNWFkMjM4Y2YiLCJ1c2VyX2lkIjo2ODA4MywiaWF0IjoxNjUyNzE3MzQ3LCJleHAiOjE2NTUzMDkzNDd9.ha7S4Mx_L2keGXHBP_jO6LxA89Z2e0mRmaGlQ0axPuH87PFABpN8iO1EdQRwYRKP_zWgnLhCA3DZQ4yUFgPfuKZtPHOjqBXT1HGUrfR843HMCSZBmjwKyDjP3bLhVcG5yAB42SL73Pm0XdLM9W_rgvmbi2YFRtyQXYLcIaSV3Qg', 
-    'Content-Type': 'text/plain', 
-    'Cookie': '.ASPXANONYMOUS=C5AaxfWW2AEkAAAAMjZlMGI5YzUtMzZhNC00ZmI3LWJhOWUtYjcxMzEwNjJmMWZmJnHD8r3JRaHoMX5AiBpQOd6w5NNFbICO7Y56PMvrWz81'
-  },
+    'token': state.token,
+     'Content-Type': 'text/plain', 
+   },
   data : data
 };
 

@@ -1,5 +1,6 @@
 import React, { useReducer, createContext,useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Storage } from 'expo-storage';
 
 const initialCartesAbonnementState = {
     
@@ -114,22 +115,48 @@ export const CartesAbonnementContainer = ({ children }) => {
 
 // Loading initial Satte
 useEffect(() => {
-     AsyncStorage.getItem("CartesAbonnement").then(value => {
-         if (value ) {
-             console.log("SET_CARTES_ABONNEMENT", value);
-             dispatchCartesAbonnement({ type: "SET_CARTES_ABONNEMENT", payload: JSON.parse(value) });
-         }
+   // AsyncStorage.getItem("CartesAbonnement").then(value => {
+   //     if (value ) {
+   //         console.log("SET_CARTES_ABONNEMENT", value);
+   //         dispatchCartesAbonnement({ type: "SET_CARTES_ABONNEMENT", payload: JSON.parse(value) });
+   //     }
+   // }
+   // );
+
+     // declare the data fetching function
+  const fetchCartes = async () => {
+    const value = JSON.parse(
+        await Storage.getItem({ key: "CartesAbonnement" })
+       );
+       if (value ) {
+        // console.log("SET_CARTES_ABONNEMENT", value);
+         dispatchCartesAbonnement({ type: "SET_CARTES_ABONNEMENT", payload: value });
      }
-     );
-}
-, []);
+  }
+    fetchCartes(); 
+
+}, []);
 
   // Update AsyncStorage when user is updated
   useEffect(() => {
     // This check is required to avoid initial writing to asyncStorage
     if(stateCartesAbonnement.Cartes) {
-        AsyncStorage.setItem("CartesAbonnement", JSON.stringify(stateCartesAbonnement.Cartes));
+        //AsyncStorage.setItem("CartesAbonnement", JSON.stringify(stateCartesAbonnement.Cartes));
+
+        
+
+                 // declare the data fetching function
+  const setCartes = async () => {
+    await Storage.setItem({
+        key: 'CartesAbonnement',
+        value: JSON.stringify(stateCartesAbonnement.Cartes)
+        });
+  }
+    setCartes(); 
+
+
     }
+    
   }, [stateCartesAbonnement.Cartes]);
 
 
