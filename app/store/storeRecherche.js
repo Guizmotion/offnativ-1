@@ -46,7 +46,7 @@ const reducer = (stateRecherche, action) => {
                 SpectaclesIdRecherches: [],
                 limite: 100,
             };
-            
+
 
         case "ADD_STYLES_RECHERCHES":
 
@@ -111,6 +111,7 @@ const reducer = (stateRecherche, action) => {
          if (index !== -1) {
              array.splice(index, 1);
              console.log('effacer Auteur '+ action.payload.value);
+            
              var indexIdpsectacles = arrayIdpsectacles.indexOf(action.payload.id_spectacle)
              if (indexIdpsectacles !== -1) {
                 
