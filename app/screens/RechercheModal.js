@@ -54,7 +54,7 @@ export default function RechercheModal({ navigation }) {
       textAlign: 'right',
       marginRight: 20,
       height: 50
-
+      
     },
   }
   
@@ -85,9 +85,20 @@ export default function RechercheModal({ navigation }) {
   const resetForm = () => {
     setIsLoading(false);
     setLimite(false);
+ 
+    setswitchApresMidi(false);
+    setswitchMatin(false);
+    setswitchSoir(false);
+    setswitchTicketOff(false);
+    setswitchHandicap(false);
+    setNb_Styles("");
+    setNb_Dates("");
+    setNb_Auteurs("");
+    setNb_Lieux("");
+    setKeyword("");
+    setType_Public(""); 
+
     dispatchRecherche({ type: "RESET_RECHERCHE" });
-
-
     
   };
   
@@ -183,10 +194,10 @@ export default function RechercheModal({ navigation }) {
         }
         
         if( item.id === 31012 ){
-         console.log(item.nom + ' ' + item.id + typeof(item.id));
+          console.log(item.nom + ' ' + item.id + typeof(item.id));
         }
-
-
+        
+        
         let search_ticket_off = '';
         
         // 07\/07\/2022-09h45|08\/07\/2022-00h00
@@ -198,382 +209,479 @@ export default function RechercheModal({ navigation }) {
         
         
         console.log(
-
-          item.type_public.toLowerCase() +' ' 
-        )
-        if (
-          (nb_auteurs !== 0 ?
-            stateRecherche.SpectaclesIdRecherches.includes(parseInt(item.id)) : true
-            )
-            &&
           
-          (nb_styles !== 0 ?
-            stateRecherche.StylesRecherches.includes(item.style) : true
-            )
-            &&
-            (nb_dates !== 0 ?
-              stateRecherche.DatesRecherches.includes(search_date) : true
+          item.type_public.toLowerCase() +' ' 
+          )
+          if (
+            (nb_auteurs !== 0 ?
+              stateRecherche.SpectaclesIdRecherches.includes(parseInt(item.id)) : true
               )
               &&
-              (nb_lieux !== 0 ?
-                stateRecherche.LieusRecherches.includes(item.lieu) : true
+              
+              (nb_styles !== 0 ?
+                stateRecherche.StylesRecherches.includes(item.style) : true
                 )
-                /* &&
-                (nb_auteurs !== 0 ?
-                  //  stateRecherche.AuteursRecherches.map(id_spectacle => id_spectacle).includes(
-                  // stateRecherche.AuteursRecherches.includes(
-                  // item.id.includes(stateRecherche.SpectaclesIdRecherches
-                  //  (resultIdSpectacle === true
-                  //  stateRecherche.SpectaclesIdRecherches.some(id => id === item.id
-                  // stateRecherche.AuteursRecherches.some(el => el.id_spectacle == item.id
-                  //  parseInt(item.id)
-                  // item.nom  +' '  +item.auteur_prenom
-                  stateRecherche.SpectaclesIdRecherches.includes(item.id)
-                  : true
-                  )*/
+                &&
+                (nb_dates !== 0 ?
+                  stateRecherche.DatesRecherches.includes(search_date) : true
+                  )
                   &&
-                  (type_public
-                  //  ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
-                  ? item.type_public.toLowerCase() === type_public.toLowerCase() 
-                    : true)
-                    &&
-                    (switchTicketOff == true ? item.ticket_off.includes('Oui') : true ) 
-                    &&
-                    (switchHandicap == true ? item.acces_handicape.includes('Oui') : true )
-                    &&
-                    
-                    (
-                      /*** test switch horaires values ***/
-                      (!0!=switchMatin|| !1!=switchApresMidi|| !1!=switchSoir||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h"))&&(!0!=switchApresMidi|| !1!=switchMatin|| !1!=switchSoir||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h"))&&(!0!=switchSoir|| !1!=switchMatin|| !1!=switchApresMidi||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))&&(!0!=switchMatin|| !0!=switchApresMidi|| !1!=switchSoir||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h")||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h"))&&(!0!=switchMatin|| !0!=switchSoir|| !1!=switchApresMidi||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h")||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))&&(!0!=switchApresMidi|| !0!=switchSoir|| !1!=switchMatin||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h")||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))
-                      /*****/                                                         
-                      )
-                      ) {
-                        return true;
-                      } else {
-                        return false;
-                      }
-                    }
-                    );
-                    
-                    
-
-                    let filRechByKeyword = _.filter(fil, function(o) {
-                      return Object.keys(o).some(function(k) {
-                        return String(o[k]).toLowerCase().includes(keyword.toLowerCase().trim());
-                      });
-                    });
-                    
-                   
-                    
-                    let  filRech = _.uniqBy(filRechByKeyword, 'id');
-                    
-                    dispatch({ type: "addData", payload: filRech });
-                    setIsLoading(false);
-                    
-                    navigation.navigate('Programme');
-                  };
-                  
-                  
-                  
-                  
-                  return (
-                    <View key="recherche_modal" style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%'}}>
-                    
-                    <ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
-                    
-                    {isLoading && <Loader style={{ marginTop:50 }} />}
-                    {isLoading && <Text style={{ marginLeft:'33%',marginTop:50, alignContent:'center', alignItems: 'center' }} >Recherche en cours ...</Text>}
-                    <View style={{  display: isLoading ? "none" : "flex" }}>
-                    
-                    <Formik
-                    initialValues={{
-                      titre_spectacle: "",
-                      ticket_off: "",
-                      acces_handicape: "",
-                      type_public: "",
-                      style: "",
-                      nom: "",
-                      salle: "",
-                      date: "",
-                      horaire: "",
-                    }}
-                    onSubmit={handleSubmit}
-                    validationSchema={validationSchema}
-                    >
-                    {({
-                      values,
-                      setFieldTouched,
-                      setFieldValue,
-                      errors,
-                      touched,
-                      handleChange,
-                      handleSubmit,
-                      resetForm,
-                    }) => (
-                      <>
-                      
-                      <View style={{
-                        padding: 15,
-                        paddingTop:0,
-                        width: "100%",
-                        margin: 0,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        alignItems: "center"
-                      }}>
-                      <TextInput
-                      style={{
-                        paddingTop:0,
-                        width: "100%",
-                        height: 30
-                      }}
-                      autoCapitalize="none"
-                      placeholder="Tapez votre recherche..."
-                      placeholderTextColor="rgba(0,0,0,0.3)"
-                      onChangeText={(text) =>
-                        //setFieldValue("titre_spectacle", text)
-                        setKeyword(text)
-                      }
-                      // value={values["titre_spectacle"]}
-                      value={keyword}
-                      />
-                      </View>
-                      <View style={styles.Separateur} />
-                      
-                      <View
-                      style={{
-                        padding: 15,
-                        width: "100%",
-                        margin: 0,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        alignItems: "center",
-                        display:'none'
-                      }}
-                      >
-                      
-                      <Text>Style de pièce</Text>
-                      
-                      <TextInput
-                      style={{
-                        width: "100%",
-                      }}
-                      autoCapitalize="none"
-                      placeholder="Style de pièce..."
-                      onChangeText={(text) => setFieldValue("style", text)}
-                      value={values["style"]}
-                      />
-                      </View>
-                      
-                      <View>
-                      
-                      <Pressable
-                      style={{
-                        padding: 15,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        width: "100%",
-                        alignItems: "center",
-                      }}
-                      title="liste Style"
-                      onPress={() => navigation.navigate("ListStyleSpectacle")}
-                      >
-                      <Text>Style de pièce ({nb_styles})</Text></Pressable>
-                      </View>
-                      <View style={styles.Separateur} />
-                      
-                      
-                      
-                      <View style={{
-                        padding: 15,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        width: "100%",
-                        alignItems: "center", 
-                      }}>
-                      <Text>
-                      Type de public
-                      </Text>
-                      <View    style={{width: "70%",  right:0,   position: "absolute", minHeight: 30}}>
-                      
-                      <RNPickerSelect
-                      style={pickerStyle}
-
-
-                      placeholder={{
-                        label: type_public,
-                        value: type_public,
-                      }}
-
-
-                      value={type_public}
-                      onValueChange={(value) =>
-                        {
-                          setType_Public(value);
-                        //setFieldValue("type_public", value)
+                  (nb_lieux !== 0 ?
+                    stateRecherche.LieusRecherches.includes(item.lieu) : true
+                    )
+                    /* &&
+                    (nb_auteurs !== 0 ?
+                      //  stateRecherche.AuteursRecherches.map(id_spectacle => id_spectacle).includes(
+                      // stateRecherche.AuteursRecherches.includes(
+                      // item.id.includes(stateRecherche.SpectaclesIdRecherches
+                      //  (resultIdSpectacle === true
+                      //  stateRecherche.SpectaclesIdRecherches.some(id => id === item.id
+                      // stateRecherche.AuteursRecherches.some(el => el.id_spectacle == item.id
+                      //  parseInt(item.id)
+                      // item.nom  +' '  +item.auteur_prenom
+                      stateRecherche.SpectaclesIdRecherches.includes(item.id)
+                      : true
+                      )*/
+                      &&
+                      (type_public
+                        //  ? item.type_public.toLowerCase() === values.type_public.toLowerCase()
+                        ? item.type_public.toLowerCase() === type_public.toLowerCase() 
+                        : true)
+                        &&
+                        (switchTicketOff == true ? item.ticket_off.includes('Oui') : true ) 
+                        &&
+                        (switchHandicap == true ? item.acces_handicape.includes('Oui') : true )
+                        &&
                         
-                        }
-                        }
-
-                      items={[
-                        { label: "Jeune public", value: "Jeune public" },
-                        { label: "Public adulte", value: "Public adulte" },
-                        { label: "Tout public", value: "Tout public" },
-                       // { label: "Public non francophone", value: "Public non francophone", },
-                      ]}
-                      /></View>
-                      </View>
-                      
-                      
-                      
-                      
-                      
-                      <View style={styles.Separateur} />
-                      
-                      <View
-                      style={{
-                        padding: 15,
-                        width: "100%",
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        alignItems: "center",
-                      }}
-                      >
-                      <Text >Date</Text>
-                      {/* <TouchableOpacity onPress={showDatepicker}>
-                      <Text>selected: {date.toLocaleString()}</Text>
-                    </TouchableOpacity> */}
-                    
-                    {/* show && (
-                      <DateTimePicker
-                      testID="dateTimePicker"
-                      value={mode == "date" ? date : time}
-                      mode={mode}
-                      is24Hour={true}
-                      onChange={(event, selectedDate) => {
-                        const currentDate = selectedDate;
-                        setShow(false);
-                        mode == "date"
-                        ? setDate(currentDate)
-                        : setTime(currentDate);
-                        mode == "date"
-                        ? setFieldValue(
-                          "date",
-                          moment(selectedDate).format("DD/MM/YYYY")
+                        (
+                          /*** test switch horaires values ***/
+                          (!0!=switchMatin|| !1!=switchApresMidi|| !1!=switchSoir||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h"))&&(!0!=switchApresMidi|| !1!=switchMatin|| !1!=switchSoir||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h"))&&(!0!=switchSoir|| !1!=switchMatin|| !1!=switchApresMidi||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))&&(!0!=switchMatin|| !0!=switchApresMidi|| !1!=switchSoir||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h")||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h"))&&(!0!=switchMatin|| !0!=switchSoir|| !1!=switchApresMidi||item.horaire.includes("05h")||item.horaire.includes("06h")||item.horaire.includes("07h")||item.horaire.includes("08h")||item.horaire.includes("09h")||item.horaire.includes("10h")||item.horaire.includes("11h")||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))&&(!0!=switchApresMidi|| !0!=switchSoir|| !1!=switchMatin||item.horaire.includes("12h")||item.horaire.includes("13h")||item.horaire.includes("14h")||item.horaire.includes("15h")||item.horaire.includes("16h")||item.horaire.includes("17h")||item.horaire.includes("18h")||item.horaire.includes("19h")||item.horaire.includes("20h")||item.horaire.includes("21h")||item.horaire.includes("22h")||item.horaire.includes("23h")||item.horaire.includes("24h"))
+                          /*****/                                                         
                           )
-                          : setFieldValue(
-                            "horaire",
-                            moment(selectedDate).format("HH:mm")
-                            );
-                            console.log(time);
-                          }}
-                          />
-                          )}
-                          <View style={{width: "100%",    textAlign: 'right',     position: "absolute"}}>
-                          <TouchableOpacity 
-                          onPress={showDatepicker}
-                          
-                          
-                          >
-                          <TextInput
-                          style={{width: "100%",    textAlign: 'right'}}
-                          placeholder="Date"
-                          placeholderTextColor="grey"
-                          value={values["date"]}
-                          editable={false}
-                          pointerEvents="none"
-                          />
-                          </TouchableOpacity>
-                          </View></View>
-                          
-                        */}
-                        <Pressable
-                        style={{
-                          //  padding: 15,
-                          flexDirection: "row",
-                          alignContent: "space-between",
-                          width: "100%",
-                          alignItems: "center",
+                          ) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        }
+                        );
+                        
+                        
+                        
+                        let filRechByKeyword = _.filter(fil, function(o) {
+                          return Object.keys(o).some(function(k) {
+                            return String(o[k]).toLowerCase().includes(keyword.toLowerCase().trim());
+                          });
+                        });
+                        
+                        
+                        
+                        let  filRech = _.uniqBy(filRechByKeyword, 'id');
+                        
+                        dispatch({ type: "addData", payload: filRech });
+                        setIsLoading(false);
+                        
+                        navigation.navigate('Programme');
+                      };
+                      
+                      
+                      
+                      
+                      return (
+                        <View key="recherche_modal" style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%'}}>
+                        
+                        <ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
+                        
+                        {isLoading && <Loader style={{ marginTop:50 }} />}
+                        {isLoading && <Text style={{ marginLeft:'33%',marginTop:50, alignContent:'center', alignItems: 'center' }} >Recherche en cours ...</Text>}
+                        <View style={{  display: isLoading ? "none" : "flex" }}>
+                        
+                        <Formik
+                        initialValues={{
+                          titre_spectacle: "",
+                          ticket_off: "",
+                          acces_handicape: "",
+                          type_public: "",
+                          style: "",
+                          nom: "",
+                          salle: "",
+                          date: "",
+                          horaire: "",
                         }}
-                        title="Date(s)"
-                        onPress={() => navigation.navigate("ListDateSpectacle")}
+                        onSubmit={handleSubmit}
+                        validationSchema={validationSchema}
                         >
-                        <Text>({nb_dates})</Text></Pressable>
+                        {({
+                          values,
+                          setFieldTouched,
+                          setFieldValue,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleSubmit,
+                          resetForm,
+                        }) => (
+                          <>
+                          
+                          <View style={{
+                            padding: 15,
+                            paddingTop:0,
+                            width: "100%",
+                            margin: 0,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            alignItems: "center"
+                          }}>
+                          <TextInput
+                          style={{
+                            paddingTop:0,
+                            width: "100%",
+                            height: 30
+                          }}
+                          autoCapitalize="none"
+                          placeholder="Tapez votre recherche..."
+                          placeholderTextColor="rgba(0,0,0,0.3)"
+                          onChangeText={(text) =>
+                            //setFieldValue("titre_spectacle", text)
+                            setKeyword(text)
+                          }
+                          // value={values["titre_spectacle"]}
+                          value={keyword}
+                          />
+                          </View>
+                          <View style={styles.Separateur} />
+                          
+                          <View
+                          style={{
+                            padding: 15,
+                            width: "100%",
+                            margin: 0,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            alignItems: "center",
+                            display:'none'
+                          }}
+                          >
+                          
+                          <Text>Style de pièce</Text>
+                          
+                          <TextInput
+                          style={{
+                            width: "100%",
+                          }}
+                          autoCapitalize="none"
+                          placeholder="Style de pièce..."
+                          onChangeText={(text) => setFieldValue("style", text)}
+                          value={values["style"]}
+                          />
+                          </View>
+                          
+                          <View>
+                          
+                          <Pressable
+                          style={{
+                            padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center",
+                          }}
+                          title="liste Style"
+                          onPress={() => navigation.navigate("ListStyleSpectacle")}
+                          >
+                          <Text>Style de pièce ({nb_styles})</Text></Pressable>
+                          </View>
+                          <View style={styles.Separateur} />
+                          
+                          
+                          
+                          <View style={{
+                            padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center", 
+                          }}>
+                          <Text>
+                          Type de public
+                          </Text>
+                          <View    style={{width: "70%",  right:0,   position: "absolute", minHeight: 30}}>
+                          
+                          <RNPickerSelect
+                          style={pickerStyle}
+                          
+                          
+                          placeholder={{
+                            label: type_public,
+                            value: type_public,
+                          }}
+                          
+                          
+                          value={type_public}
+                          onValueChange={(value) =>
+                            {
+                              setType_Public(value);
+                              //setFieldValue("type_public", value)
+                              
+                            }
+                          }
+                          
+                          items={[
+                            { label: "Jeune public", value: "Jeune public" },
+                            { label: "Public adulte", value: "Public adulte" },
+                            { label: "Tout public", value: "Tout public" },
+                            // { label: "Public non francophone", value: "Public non francophone", },
+                          ]}
+                          /></View>
+                          </View>
+                          
+                          
+                          
+                          
+                          
+                          <View style={styles.Separateur} />
+                          
+                          <View
+                          style={{
+                            padding: 15,
+                            width: "100%",
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            alignItems: "center",
+                          }}
+                          >
+                          <Text >Date</Text>
+                          {/* <TouchableOpacity onPress={showDatepicker}>
+                          <Text>selected: {date.toLocaleString()}</Text>
+                        </TouchableOpacity> */}
+                        
+                        {/* show && (
+                          <DateTimePicker
+                          testID="dateTimePicker"
+                          value={mode == "date" ? date : time}
+                          mode={mode}
+                          is24Hour={true}
+                          onChange={(event, selectedDate) => {
+                            const currentDate = selectedDate;
+                            setShow(false);
+                            mode == "date"
+                            ? setDate(currentDate)
+                            : setTime(currentDate);
+                            mode == "date"
+                            ? setFieldValue(
+                              "date",
+                              moment(selectedDate).format("DD/MM/YYYY")
+                              )
+                              : setFieldValue(
+                                "horaire",
+                                moment(selectedDate).format("HH:mm")
+                                );
+                                console.log(time);
+                              }}
+                              />
+                              )}
+                              <View style={{width: "100%",    textAlign: 'right',     position: "absolute"}}>
+                              <TouchableOpacity 
+                              onPress={showDatepicker}
+                              
+                              
+                              >
+                              <TextInput
+                              style={{width: "100%",    textAlign: 'right'}}
+                              placeholder="Date"
+                              placeholderTextColor="grey"
+                              value={values["date"]}
+                              editable={false}
+                              pointerEvents="none"
+                              />
+                              </TouchableOpacity>
+                              </View></View>
+                              
+                            */}
+                            <Pressable
+                            style={{
+                              //  padding: 15,
+                              flexDirection: "row",
+                              alignContent: "space-between",
+                              width: "100%",
+                              alignItems: "center",
+                            }}
+                            title="Date(s)"
+                            onPress={() => navigation.navigate("ListDateSpectacle")}
+                            >
+                            <Text>({nb_dates})</Text></Pressable>
+                            </View>
+                            
+                            
+                            <View style={styles.Separateur} />
+                            
+                            <View
+                            style={{
+                              padding: 15,
+                              width: "100%",
+                              flexDirection: "row",
+                              alignContent: "space-between",
+                              alignItems: "center",
+                            }}
+                            >
+                            <Text>Horaires</Text>
+                            
+                            
+                            <View style={{    width: "75%",right: 0,
+                            textAlign: 'right', 
+                            position: "absolute", flexDirection: 'row', alignContent: 'space-between'}}>
+                            <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}
+                            
+                            >
+                            {/*
+                            <TouchableOpacity onPress={showTimepicker}>
+                            <TextInput
+                            style={{
+                              marginLeft: 10,
+                            }}
+                            placeholder="Horaire"
+                            placeholderTextColor="grey"
+                            value={values["horaire"]}
+                            editable={false}
+                            pointerEvents="none"
+                            />
+                          </TouchableOpacity> */ }
+                          
+                          <Text>Matin</Text>
+                          
+                          <Switch
+                          
+                          onValueChange={toggleSwitchMatin}
+                          value={switchMatin}
+                          />
+                          
+                          
+                          </View>
+                          
+                          <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
+                          
+                          <Text>Apres midi</Text>
+                          <Switch
+                          
+                          onValueChange={toggleSwitchApresMidi}
+                          value={switchApresMidi}
+                          />
+                          
+                          
+                          
+                          
+                          </View>
+                          
+                          <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
+                          
+                          <Text>Soir</Text>
+                          <Switch
+                          
+                          onValueChange={toggleSwitchSoir}
+                          value={switchSoir}
+                          />
+                          
+                          
+                          
+                          
+                          </View>
+                          </View>
+                          </View>
+                          <View style={styles.Separateur} />
+                          
+                          <View
+                          style={{
+                            padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center",
+                          }}
+                          >
+                          <Pressable
+                          style={{
+                            //  padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center",
+                          }}
+                          title="Date(s)"
+                          onPress={() => navigation.navigate("ListLieuSpectacle")}
+                          >
+                          <Text>Théâtre ({nb_lieux})</Text>
+                          </Pressable>
+                          </View>
+                          <View style={styles.Separateur} />
+                          
+                          <View
+                          style={{
+                            padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center",
+                          }}
+                          >
+                          <Pressable
+                          style={{
+                            //  padding: 15,
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                            width: "100%",
+                            alignItems: "center",
+                          }}
+                          title="liste Style"
+                          onPress={() => navigation.navigate("ListAuteurSpectacle")}
+                          ><Text>Auteur ({nb_auteurs})</Text>
+                          {/* <TextInput
+                          style={{
+                            width: "100%",
+                            textAlign: 'right', 
+                            position: "absolute"
+                          }}
+                          autoCapitalize="none"
+                          placeholder="Auteur..."
+                          onChangeText={(text) => setFieldValue("nom", text)}
+                          value={values["nom"]}
+                          />
+                        */}
+                        </Pressable>
                         </View>
-                        
-                        
                         <View style={styles.Separateur} />
                         
                         <View
                         style={{
                           padding: 15,
-                          width: "100%",
                           flexDirection: "row",
                           alignContent: "space-between",
+                          width: "100%",
                           alignItems: "center",
                         }}
                         >
-                        <Text>Horaires</Text>
-                        
-                        
-                        <View style={{    width: "75%",right: 0,
-                        textAlign: 'right', 
-                        position: "absolute", flexDirection: 'row', alignContent: 'space-between'}}>
-                        <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}
-                        
-                        >
-                        {/*
-                        <TouchableOpacity onPress={showTimepicker}>
-                        <TextInput
+                        <Text>ticket off </Text>
+                        <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
+                        {/* <Image
                         style={{
-                          marginLeft: 10,
+                          resizeMode: "cover",
+                          height: 30,
+                          width: 30,
                         }}
-                        placeholder="Horaire"
-                        placeholderTextColor="grey"
-                        value={values["horaire"]}
-                        editable={false}
-                        pointerEvents="none"
+                        source={require("../assets/next.png")}
                         />
-                      </TouchableOpacity> */ }
-                      
-                      <Text>Matin</Text>
-                      
+                        <Switch
+                        trackColor={{ false: "#767577", true: "#f26522" }}
+                        // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#e8e8e8"
+                        onValueChange={(text) => setFieldValue("ticket_off", text)}
+                        value={values["ticket_off"]}
+                        />
+                      */}
                       <Switch
                       
-                      onValueChange={toggleSwitchMatin}
-                      value={switchMatin}
+                      onValueChange={toggleTicketOff}
+                      value={switchTicketOff}
                       />
-                      
-                      
-                      </View>
-                      
-                      <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
-                      
-                      <Text>Apres midi</Text>
-                      <Switch
-                      
-                      onValueChange={toggleSwitchApresMidi}
-                      value={switchApresMidi}
-                      />
-                      
-                      
-                      
-                      
-                      </View>
-                      
-                      <View  style={{width: '33%', textAlign: 'center', alignItems: 'center'}}>
-                      
-                      <Text>Soir</Text>
-                      <Switch
-                      
-                      onValueChange={toggleSwitchSoir}
-                      value={switchSoir}
-                      />
-                      
-                      
-                      
-                      
-                      </View>
                       </View>
                       </View>
                       <View style={styles.Separateur} />
@@ -587,226 +695,129 @@ export default function RechercheModal({ navigation }) {
                         alignItems: "center",
                       }}
                       >
-                      <Pressable
+                      <Text>Accès personnes à mobilité réduite</Text>
+                      <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
+                      {/* <Image
                       style={{
-                        //  padding: 15,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        width: "100%",
-                        alignItems: "center",
+                        resizeMode: "cover",
+                        height: 30,
+                        width: 30,
                       }}
-                      title="Date(s)"
-                      onPress={() => navigation.navigate("ListLieuSpectacle")}
-                      >
-                      <Text>Théâtre ({nb_lieux})</Text>
-                      </Pressable>
-                      </View>
-                      <View style={styles.Separateur} />
-                      
-                      <View
-                      style={{
-                        padding: 15,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        width: "100%",
-                        alignItems: "center",
-                      }}
-                      >
-                      <Pressable
-                      style={{
-                        //  padding: 15,
-                        flexDirection: "row",
-                        alignContent: "space-between",
-                        width: "100%",
-                        alignItems: "center",
-                      }}
-                      title="liste Style"
-                      onPress={() => navigation.navigate("ListAuteurSpectacle")}
-                      ><Text>Auteur ({nb_auteurs})</Text>
-                      {/* <TextInput
-                      style={{
-                        width: "100%",
-                        textAlign: 'right', 
-                        position: "absolute"
-                      }}
-                      autoCapitalize="none"
-                      placeholder="Auteur..."
-                      onChangeText={(text) => setFieldValue("nom", text)}
-                      value={values["nom"]}
+                      source={require("../assets/next.png")}
+                      /> 
+                      <Switch
+                      trackColor={{ false: "#767577", true: "#f26522" }}
+                      // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                      ios_backgroundColor="#e8e8e8"
+                      onValueChange={(text) =>
+                        setFieldValue("acces_handicape", text)
+                      }
+                      value={values["acces_handicape"]}
                       />
                     */}
-                    </Pressable>
+                    <Switch
+                    
+                    onValueChange={toggleHandicap}
+                    value={switchHandicap}
+                    />
+                    
+                    
                     </View>
+                    </View>
+                    
                     <View style={styles.Separateur} />
                     
+                    {/*  
                     <View
                     style={{
-                      padding: 15,
+                      padding: 10,
+                      width: "90%",
+                      margin: 0,
+                      marginLeft: "5%",
                       flexDirection: "row",
                       alignContent: "space-between",
                       width: "100%",
                       alignItems: "center",
                     }}
                     >
-                    <Text>ticket off </Text>
-                    <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
-                    {/* <Image
-                    style={{
-                      resizeMode: "cover",
-                      height: 30,
-                      width: 30,
-                    }}
-                    source={require("../assets/next.png")}
-                    />
+                    <Text>1ere à Avignon</Text>
+                    <View style={{ position: "absolute", right: 40, marginTop: 5 }}>
+                    
                     <Switch
-                    trackColor={{ false: "#767577", true: "#f26522" }}
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
                     // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                    ios_backgroundColor="#e8e8e8"
-                    onValueChange={(text) => setFieldValue("ticket_off", text)}
-                    value={values["ticket_off"]}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={(text) =>
+                      setFieldValue("deja_joue", text)
+                    }
+                    value={values["deja_joue"]}
                     />
+                    </View>
+                    </View>
+                    <View style={styles.Separateur} />
                   */}
-                  <Switch
                   
-                  onValueChange={toggleTicketOff}
-                  value={switchTicketOff}
-                  />
-                  </View>
-                  </View>
-                  <View style={styles.Separateur} />
-                  
-                  <View
+                  {/* <View
                   style={{
-                    padding: 15,
+                    padding: 10,
+                    width: "90%",
+                    margin: 0,
+                    marginLeft: "5%",
                     flexDirection: "row",
                     alignContent: "space-between",
                     width: "100%",
-                    alignItems: "center",
                   }}
                   >
-                  <Text>Accès personnes à mobilité réduite</Text>
-                  <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
-                  {/* <Image
+                  <Text>Autour des spectacles</Text>
+                  <View style={{ position: "absolute", right: 40, marginTop: 5 }}>
+                  <Image
                   style={{
                     resizeMode: "cover",
                     height: 30,
                     width: 30,
                   }}
                   source={require("../assets/next.png")}
-                  /> 
-                  <Switch
-                  trackColor={{ false: "#767577", true: "#f26522" }}
-                  // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                  ios_backgroundColor="#e8e8e8"
-                  onValueChange={(text) =>
-                    setFieldValue("acces_handicape", text)
-                  }
-                  value={values["acces_handicape"]}
                   />
-                */}
-                <Switch
+                  </View>
+                </View> */}
+                {/* <View style={styles.Separateur} /> */}
                 
-                onValueChange={toggleHandicap}
-                value={switchHandicap}
-                />
                 
+                
+                
+                </>
+                
+                )}
+                
+                </Formik>
                 
                 </View>
-                </View>
+                </ScrollView>
                 
-                <View style={styles.Separateur} />
                 
-                {/*  
-                <View
-                style={{
-                  padding: 10,
-                  width: "90%",
-                  margin: 0,
-                  marginLeft: "5%",
-                  flexDirection: "row",
-                  alignContent: "space-between",
-                  width: "100%",
-                  alignItems: "center",
-                }}
+                <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '80%', marginLeft: '15%' }} >
+                
+                
+                
+                
+                
+                <TouchableOpacity
+                onPress={handleSubmit}
+                
                 >
-                <Text>1ere à Avignon</Text>
-                <View style={{ position: "absolute", right: 40, marginTop: 5 }}>
+                <View
+                style={[styles.labelCard, styles.labelAchat, styles.bigButton]}
+                >
+                <Text style={styles.textBigButton}>
+                Afficher les résultats
+                </Text>
+                </View>
+                </TouchableOpacity>
                 
-                <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={(text) =>
-                  setFieldValue("deja_joue", text)
-                }
-                value={values["deja_joue"]}
-                />
+                <Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
+                
+                
                 </View>
                 </View>
-                <View style={styles.Separateur} />
-              */}
-              
-              {/* <View
-              style={{
-                padding: 10,
-                width: "90%",
-                margin: 0,
-                marginLeft: "5%",
-                flexDirection: "row",
-                alignContent: "space-between",
-                width: "100%",
-              }}
-              >
-              <Text>Autour des spectacles</Text>
-              <View style={{ position: "absolute", right: 40, marginTop: 5 }}>
-              <Image
-              style={{
-                resizeMode: "cover",
-                height: 30,
-                width: 30,
-              }}
-              source={require("../assets/next.png")}
-              />
-              </View>
-            </View> */}
-            {/* <View style={styles.Separateur} /> */}
-            
-            
-            
-            
-            </>
-            
-            )}
-            
-            </Formik>
-            
-            </View>
-            </ScrollView>
-            
-            
-            <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '80%', marginLeft: '15%' }} >
-            
-            
-            
-            
-            
-            <TouchableOpacity
-            onPress={handleSubmit}
-            
-            >
-            <View
-            style={[styles.labelCard, styles.labelAchat, styles.bigButton]}
-            >
-            <Text style={styles.textBigButton}>
-            Afficher les résultats
-            </Text>
-            </View>
-            </TouchableOpacity>
-            
-            <Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
-            
-            
-            </View>
-            </View>
-            );
-          }
+                );
+              }
