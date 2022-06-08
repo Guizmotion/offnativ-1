@@ -21,6 +21,8 @@ export default function Fondation({ navigation}) {
     renderLoading={(e) => { return ( <Loader />  );  }}
 
     injectedJavaScript={jsCode}
+   // onMessage={(event) => {}}   
+    //ref={() => {}}
     />
   
       );
