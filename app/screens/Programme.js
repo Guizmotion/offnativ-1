@@ -33,6 +33,14 @@ const url_programme = baseUrl + "api2022.php?a=1&limit=";
 
 
 export default function Programme({ navigation }) {
+
+  //const [visible, setVisible] = useState(false);
+  
+    const toggleOverlay = () => {
+      setVisible(!visible);
+    };
+
+
   const { state, dispatch } = React.useContext(StoreContext);
 
   const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
@@ -54,7 +62,7 @@ export default function Programme({ navigation }) {
   
   const [isLoading, setIsLoading] = useState(false);
   
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   
 
   useEffect(() => {
@@ -95,6 +103,7 @@ export default function Programme({ navigation }) {
 
   const renderData = ({ item, index }) => {
     return (
+
       <ProgrammeCard
 
         item={item}
@@ -120,6 +129,10 @@ export default function Programme({ navigation }) {
     
       return (
         <View>
+
+
+
+
         {isLoading && <Loader />}
         
         
@@ -168,6 +181,12 @@ export default function Programme({ navigation }) {
         
         
         />
+
+
+
+<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+  <Text>Achat Ticket OFF et Mon compte bientot disponible !</Text>
+</Overlay>
         </View>
         );
       }
