@@ -36,7 +36,7 @@ export default function PlacesSpectacles({ navigation }) {
   const { state, dispatch } = React.useContext(StoreContext);
 
 const [Places, setPlaces] = useState([]);
-const [isLoading, setIsLoading] = useState(true);
+const [isLoading, setIsLoading] = useState(false);
  // var axios = require('axios');
 
  const getFactures = async() => {
@@ -57,8 +57,11 @@ var config = {
 
 await axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data));
-  setPlaces(JSON.stringify(response.data));
+ // console.log(response);
+ // console.log(JSON.stringify(response.data.orders));
+  if(response.orders != null){ 
+    setPlaces(JSON.stringify(response.orders));
+  }
 })
 .catch(function (error) {
   console.log(error);
@@ -66,7 +69,7 @@ await axios(config)
 
 
 };
-/*
+
 useEffect(async() => {
 
 await getFactures();
@@ -75,8 +78,24 @@ await getFactures();
 }, []);
 
 
-*/
 
+const _listEmptyComponent = () => {
+  return (
+      <View 
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
+      >
+        <Text>
+          Aucune place disponible pour le moment
+        </Text>
+      </View>
+  );
+}
+    
   
 const renderItem = ({ item,i }) => {
   // console.log(item.photo);
@@ -119,10 +138,10 @@ const renderItem = ({ item,i }) => {
      
      onPress={() => {
        
-       deleteCarteAbonnement(item.id);
+       voirPlace(item.id);
        
      }}
-     ><Text>Supp</Text>
+     ><Text>Voir</Text>
      </Pressable> 
      
      </View>
@@ -158,19 +177,20 @@ const renderItem = ({ item,i }) => {
      <FlatList
       data={Places}
       // extraData={newCartes}
+      ListEmptyComponent={_listEmptyComponent}
       renderItem={(item) => renderItem(item)}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
       style={{ width: "100%", height: "100%" }}
       
-      onEndReached={() => {
+     /* onEndReached={() => {
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
         }
         , 2000);
       }
-    }
+    }*/
     
     onEndReachedThreshold={0.5}
     refreshing={isLoading}
