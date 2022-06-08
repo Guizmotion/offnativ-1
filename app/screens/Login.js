@@ -37,6 +37,7 @@ export const Login = ({ navigation }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
 /*
   const getEmail = async () => {
@@ -252,7 +253,7 @@ onChangeText={(email) => setEmail(email)}
 style={[styles.inputStyle]}
 placeholder="Mot de passe *"
 placeholderTextColor="rgba(0,0,0,0.3)"
-secureTextEntry={true}
+secureTextEntry={modalVisible}
 onChangeText={(password) => setPassword(password)}
 
 />
@@ -272,7 +273,7 @@ onChangeText={(password) => setPassword(password)}
 
 
                   {data.errorMessage && (
-  <Text>{data.errorMessage}</Text>
+  <Text>Erreur lors de la connexion</Text>
   )}
   
   
