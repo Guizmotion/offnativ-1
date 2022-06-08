@@ -62,6 +62,18 @@ import styles from "../../config/styles/StyleGeneral";
   
   export default function MofifierProfil({ navigation }) {
     const { state, dispatch } = React.useContext(StoreContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [Nom, setNom] = useState("");
+    const [Prenom, setPrenom] = useState("");
+    const [DateNaissance, setDateNaissance] = useState("");
+    const [Pays, setPays] = useState("");
+    const [Ville, setVille] = useState("");
+    const [CodePostal, setCodePostal] = useState("");
+    const [Styles, setStyles] = useState("");
+    const [Audience, setAudience] = useState("");
+    const[Newsletter, setNewsletter] = useState(false);
+    const [Stats, setStats] = useState(false);
     const pickerStyle = {
       inputIOS: {
         textAlign: 'right',
@@ -79,14 +91,28 @@ import styles from "../../config/styles/StyleGeneral";
       height: '100%'}}>
       <ScrollView style={{flex: 1}}>
  
-      <TextInput style={styles.inputStyle} placeholder="Prénom" placeholderTextColor="rgba(0,0,0,0.3)" />
-      <TextInput style={styles.inputStyle} placeholder="Nom"  placeholderTextColor="rgba(0,0,0,0.3)" />
-      <TextInput style={styles.inputStyle} placeholder="Email" placeholderTextColor="rgba(0,0,0,0.3)"  />
-      <TextInput style={styles.inputStyle} placeholder="Mot de passe"  placeholderTextColor="rgba(0,0,0,0.3)" />
+      <TextInput style={styles.inputStyle}  placeholder="Prénom" placeholderTextColor="rgba(0,0,0,0.3)"
+      value={Prenom}
+      />
+      <TextInput style={styles.inputStyle} placeholder="Nom"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      value={Nom}
+      />
+      <TextInput style={styles.inputStyle} placeholder="Email" placeholderTextColor="rgba(0,0,0,0.3)"  
+      value={email}
+      />
+      <TextInput style={styles.inputStyle} placeholder="Mot de passe"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      value={password}
+        />
       <TextInput style={styles.inputStyle} placeholder="Confirmation mot de passe" placeholderTextColor="rgba(0,0,0,0.3)"  />
-      <TextInput style={styles.inputStyle} placeholder="Date de naissance"  placeholderTextColor="rgba(0,0,0,0.3)" />
-      <TextInput style={styles.inputStyle} placeholder="Code postal"  placeholderTextColor="rgba(0,0,0,0.3)" />
-      <TextInput style={styles.inputStyle} placeholder="Ville"  placeholderTextColor="rgba(0,0,0,0.3)" />
+      <TextInput style={styles.inputStyle} placeholder="Date de naissance"  placeholderTextColor="rgba(0,0,0,0.3)" 
+          value={DateNaissance}
+      />
+      <TextInput style={styles.inputStyle} placeholder="Code postal"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      value={CodePostal}
+      />
+      <TextInput style={styles.inputStyle} placeholder="Ville"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      value={Ville}
+      />
 
       
       <View style={{
@@ -103,6 +129,12 @@ import styles from "../../config/styles/StyleGeneral";
       
       <RNPickerSelect
       style={pickerStyle}
+      onValueChange={(value) =>
+        {
+         console.log(value);
+          
+        }
+      }
       /*
       
       placeholder={{
@@ -142,6 +174,12 @@ import styles from "../../config/styles/StyleGeneral";
       
       <RNPickerSelect
       style={pickerStyle}
+      onValueChange={(value) =>
+        {
+         console.log(value);
+          
+        }
+      }
       /*
       
       placeholder={{

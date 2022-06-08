@@ -157,8 +157,8 @@ export default function RechercheModal({ navigation }) {
     setNb_Dates(countUnique(stateRecherche.DatesRecherches));
     setNb_Auteurs(countUnique(stateRecherche.AuteursRecherches));
     setNb_Lieux(countUnique(stateRecherche.LieusRecherches));
-    console.log('test array id spectacles :');
-    console.log(stateRecherche.SpectaclesIdRecherches);
+   // console.log('test array id spectacles :');
+   // console.log(stateRecherche.SpectaclesIdRecherches);
     
     
   }, [stateRecherche]);
