@@ -184,9 +184,9 @@ export default function Programme({ navigation }) {
 
 
 
-<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-  <Text>Achat Ticket OFF et Mon compte bientot disponible !</Text>
-</Overlay>
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+          <Text>Achat Ticket OFF et Mon compte bientot disponible !</Text>
+        </Overlay>
         </View>
         );
       }
