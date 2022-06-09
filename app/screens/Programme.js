@@ -190,7 +190,7 @@ export default function Programme({ navigation }) {
         style={{padding: 0, margin: 0,backgroundColor: 'red'}}
         >
           <Image style={{height: 300,width: 300, padding: 0, margin: 0,backgroundColor: 'red', borderWidth: 0}} 
-  source={require("../assets/modal-ticket-off.jpg")} />
+  source={require("../assets/images/modal-ticket-off.jpg")} />
 
         </Overlay>
         </View>

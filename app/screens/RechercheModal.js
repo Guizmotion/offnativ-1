@@ -814,8 +814,14 @@ export default function RechercheModal({ navigation }) {
                 </Text>
                 </View>
                 </TouchableOpacity>
-                
-                <Button color={'#221f1f'} type="reset" onPress={resetForm} title="Effacer les critères" />
+
+                <Pressable
+  title="Effacer les critères"
+  onPress={resetForm}
+  type="reset" 
+    >
+    <Text style={{textAlign: 'center', width: '100%', padding: 10}}>Effacer les critères</Text>
+    </Pressable>
                 
                 
                 </View>

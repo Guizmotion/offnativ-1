@@ -190,8 +190,7 @@ const ProgrammeHeader = () => {
     </View>
     
     
-    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
-    style={{padding: 50, backgroundColor: 'red'}}  >
+    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
     {/*<Text>Limite de résultats :</Text>
     
     <TextInput
@@ -212,50 +211,61 @@ const ProgrammeHeader = () => {
   />*/}
   <View><Text style={{marginTop: 10,fontSize: 20, fontWeight: "bold",width: '100%',textAlign: "center", marginBottom: 20}}>Trier par</Text></View>
 <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
-  <View style={{marginRight: 15, marginLeft: 15}}>
-  <Button
+
+  <Pressable
+  style={{padding: 10, marginLeft: '10%', marginRight: '10%'}}
   title="Ordre alphabétique (A - Z)"
+  onPress={() => { 
+     filtrerProgramme("titre_spectacle", "asc");
+     toggleOverlay();
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Ordre alphabétique (A - Z) </Text>
+    </Pressable>
+
+
+  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%',}}></View>
   
-  
-  color= '#221f1f' 
-  onPress={() => {
-    filtrerProgramme("titre_spectacle", "asc");
-    toggleOverlay();
-  }}
-  /> 
-  </View>
-  <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
-  <View >
-  <Button
+  <Pressable
+  style={{padding: 10}}
   title="Ordre alphabétique (Z - A)"
-  color= '#221f1f' 
-  onPress={() => {
+  onPress={() => { 
     filtrerProgramme("titre_spectacle", "desc");
     toggleOverlay();
-  }}
-  />
-  </View>
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Ordre alphabétique (Z - A) </Text>
+    </Pressable>
+  
+  
+  
   <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5, marginLeft: '10%', marginRight:'10%'}}></View>
-  <View >
-  <Button
+  
+  <Pressable
+  style={{padding: 10}}
   title="Le plus tôt"
-  color= '#221f1f' 
-  onPress={() => {
+  onPress={() => { 
     filtrerProgramme("horaire", "asc");
     toggleOverlay();
-  }}
-  />
-  </View>
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Le plus tôt</Text>
+    </Pressable>
+  
   <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
-  <View >
-  <Button
+  
+  <Pressable
+  style={{padding: 10}}
   title="Le plus tard"
-  color= '#221f1f' 
-  onPress={() => {
+  onPress={() => { 
     filtrerProgramme("horaire", "desc");
     toggleOverlay();
-  }}
-  />  
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Le plus tard</Text>
+    </Pressable>
+  
+
   {/*
   </View>
   <View style={{marginBottom:5}}>
@@ -280,33 +290,31 @@ const ProgrammeHeader = () => {
   }}
 /> */}
   
-  </View>
   <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
-  <View >
-  <Button
   
+  
+  <Pressable
+  style={{padding: 10}}
   title="Le moins cher"
-  color= '#221f1f' 
-  onPress={() => {
+  onPress={() => { 
     filtrerProgramme("tarif", "asc");
     toggleOverlay();
-  }}
-  />
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Le moins cher</Text>
+    </Pressable>
   
-  </View>
   <View style={{borderColor: 'rgba(0,0,0,0.2)', borderWidth: 0.5, margin: 5,  marginLeft: '10%', marginRight:'10%'}}></View>
-  <View >
-  <Button
-  
-  
+  <Pressable
+  style={{padding: 10}}
   title="Le plus cher"
-  color= '#221f1f' 
-  onPress={() => {
+  onPress={() => { 
     filtrerProgramme("tarif", "desc");
     toggleOverlay();
-  }}
-  
-  /></View>
+    }}
+    >
+    <Text style={{textAlign: 'center', width: '100%'}}>Le plus cher</Text>
+    </Pressable>
   
   {/*
   <Button
