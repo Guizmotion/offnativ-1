@@ -360,10 +360,11 @@ export default StyleSheet.create({
 
     sideMenuProfileIcon: {
       // resizeMode: 'center',
-       width: 100,
-       height: 100,
+       width: 150,
+       height: 150,
        alignSelf: 'flex-start',
        left: 20,
+       marginBottom: -20
      },
      customItem: {
        padding: 16,
@@ -372,7 +373,7 @@ export default StyleSheet.create({
      },
      closeMenu: {
        position: "absolute",
-       top: 30,
+       top: 50,
        right: 20,
        width: 45,
        height: 40,

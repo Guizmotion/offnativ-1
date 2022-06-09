@@ -49,7 +49,7 @@ const Menu = (props) => {
         title: "Application Android",
       },
       {
-        // Android only:
+        // Android only:r
         dialogTitle: "Partager l'application du festival off avignon",
         // iOS only:
         excludedActivityTypes: ["com.apple.UIKit.activity.PostToTwitter"],
@@ -98,7 +98,7 @@ useLayoutEffect(() => {
   
   
      setPublicite(
-      <Pressable onPress={() => Linking.openURL(url)}  style={{width: '100%'}}>
+      <Pressable onPress={() => Linking.openURL(url)}  style={{width: '100%', backgroundColor: '#221f1f'}}>
              
       <Image
         style={{
@@ -160,7 +160,7 @@ useLayoutEffect(() => {
           </Pressable>
 
           <Image
-            source={{ uri: BASE_PATH + proileImage }}
+            source={require("../assets/logo.png")}
             style={styles.sideMenuProfileIcon}
           />
 
@@ -215,7 +215,7 @@ useLayoutEffect(() => {
 
           <DrawerItem
             style={styles.lienMenu}
-            label="La fondation"
+            label="La fondation AF&C"
             onPress={() => props.navigation.navigate("Fondation")}
           />
 

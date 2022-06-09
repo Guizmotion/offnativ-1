@@ -10,8 +10,8 @@ import Loader from "./Loader";
 
 export default function Partenaires({ navigation}) {
 
-    const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
-  
+  const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
+      
     return (  
     
      
@@ -27,9 +27,9 @@ export default function Partenaires({ navigation}) {
     
 
     injectedJavaScript={jsCode}
+    onMessage={(event) => {}}   
+    ref={() => {}}
     />
   
       );
   }
-  
-  

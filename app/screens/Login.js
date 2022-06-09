@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useContext } from "react";
 import {
   ToastAndroid,
@@ -39,6 +42,7 @@ export const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalmdpVisible, setModalmdpVisible] = useState(false);
   const [EmailMdpOublie, setEmailMdpOublie] = useState("");
 
 
@@ -50,7 +54,7 @@ export const Login = ({ navigation }) => {
   };
 
   const handleMdpOublie = (event) => {
-    setModalVisible(!modalVisible);
+    setModalmdpVisible(!modalmdpVisible);
     let m = "Génération de nouveau mot de passe en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 
   }
@@ -70,7 +74,7 @@ export const Login = ({ navigation }) => {
         "https://api.festivaloffavignon.com/token",
         {
           email: email, //'perodo@gmail.com',//JSON.stringify(data.email),//'perodo@gmail.com',
-          password: "6876#ae57", // password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
+          password: password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
 
           device_id: "71b9555cfb0463ca",
           device_name: "M2007J17G",
@@ -167,7 +171,7 @@ onChangeText={(password) => setPassword(password)}
 
       
       <Pressable
-  onPress={() => setModalVisible(!modalVisible)}
+  onPress={() => setModalmdpVisible(!modalmdpVisible)}
   >
 <Text style={{marginBottom: 15}}>Mot de passe oublié ? <Text style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>Cliquez-ici</Text> !</Text>
 
@@ -191,14 +195,17 @@ onPress={() => navigation.navigate("Inscription")}
                    animationType={'slide'}
                    hardwareAccelerated={true}
                    transparent={false}
-                   visible={modalVisible}
-                   //style={{ margin: 0 }}
+                   visible={modalmdpVisible}
+                   
                    onRequestClose={() => {
                     //Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
+                    setModalmdpVisible(!modalmdpVisible);
                     
                   }}>
-          <Text>Mot de passe oublié ?</Text>
+
+
+                    <View style={{ margin: 0, height: '100%', padding: 30, paddingTop: 100 }}>
+          <Text  style={{fontSize: 16,width: "100%",fontWeight: "bold", textAlign: "center"}}>Mot de passe oublié ?</Text>
           <TextInput
           style={[styles.inputStyle]}
           placeholder="Votre Email *"
@@ -206,17 +213,53 @@ onPress={() => navigation.navigate("Inscription")}
           onChangeText={(email) => setEmailMdpOublie(email)}
           value={EmailMdpOublie}
           />
+
+
+
+
+
+            <TouchableOpacity onPress={handleMdpOublie}             >
+              <View  style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
+                <Text style={styles.textBigButton}>Envoyer</Text>
+              </View>
+            </TouchableOpacity>
+
+                <Pressable
+  onPress={() => setModalmdpVisible(!modalmdpVisible)}
+
+    >
+    <Text style={{textAlign: 'center', width: '100%', padding: 10}}>Annuler</Text>
+    </Pressable>
+                
+
+
+{/* 
+
           <Pressable
-          onPress={() => setModalVisible(!modalVisible)}
+          onPress={() => setModalmdpVisible(!modalmdpVisible)}
           >
           <Text>Annuler</Text>
           </Pressable>
+
+
           <Pressable
           onPress={handleMdpOublie}
           >
           <Text>Envoyer</Text>
           </Pressable>
-                  
+
+*/}
+
+
+
+
+
+
+
+
+
+
+          </View>
         </Modal>
 
 

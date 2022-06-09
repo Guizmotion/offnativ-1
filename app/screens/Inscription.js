@@ -69,35 +69,38 @@ export default function Inscription({ navigation }) {
     const handleInscription = async () => {
        // alert(Platform.OS);
         if (verif()) {
-            try {
-                const response = await axios.post(
-                    "https://api.festivaloffavignon.com/inscription",
-                    {
-                        email,
-                        password,
-                        Nom,
-                        Prenom,
-                        DateNaissance,
-                        Pays,
-                        Ville,
-                        CodePostal,
-                        Styles,
-                        Audience,
-                        Newsletter,
-                        Stats
-                    }
-                    );
-                    console.log(response);
-if (response.data.success) {
-    let m = "Inscription reussie, veuillez vous connecter";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
-} else {
-    let m = "Inscription erreur";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+            
+          //  var data = '{\r\n    "firstname":"Prénom",\r\n    "lastname":"Nom",\r\n    "email":"gdumas9@digito.fr",\r\n    "password":"motdepasse",\r\n    "postalcode":"30000",\r\n    "city":"Nîmes",\r\n    "allow_news": false,\r\n    "allow_localnews": false\r\n}';
+    var data = '{\r\n    "firstname":"'+Prenom+'",\r\n    "lastname":"'+Nom+'",\r\n    "email":"'+email+'",\r\n    "password":"'+password+'",\r\n    "postalcode":"'+CodePostal+'",\r\n    "city":"'+Ville+'",\r\n    "allow_news": '+Newsletter+',\r\n    "allow_localnews": '+Stats+'\r\n}';    
+            var config = {
+              method: 'post',
+              url: 'https://api.festivaloffavignon.com/profile/create',
+              headers: { 
+                'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+                'Content-Type': 'text/plain', 
+              },
+              data : data
+            };
+            
+            axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+              if (response.data.success) {
+                let m = "Inscription reussie, veuillez vous connecter";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+            } else {
+                let m = "Inscription erreur";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+            
+             } 
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            
 
- } 
 
-            } catch (error) {
-                console.log(error);
-            }
+
+
+           
         }
 
                
@@ -146,7 +149,7 @@ if (response.data.success) {
                     value={password}
                     />
                     <TextInput 
-                    onChangeText={(text) => setConfirmationMotDePasse(text)}
+                   // onChangeText={(text) => setConfirmationMotDePasse(text)}
                     style={styles.inputStyle} placeholder="Confirmation mot de passe" placeholderTextColor="rgba(0,0,0,0.3)"  />
                     
                     <TextInput
@@ -254,8 +257,8 @@ if (response.data.success) {
                     
                     <Pressable 
                     onPress={handleInscription}  
-                    style={[styles.labelCard, styles.labelAchat]} >
-                    <Text style={[styles.textBigButton]}>Je m'inscris</Text>
+                    style={[styles.labelCard, styles.labelAchat]}>
+                <Text style={styles.textBigButton}>Je m'inscris</Text>
                     </Pressable>
                     
                     </View>

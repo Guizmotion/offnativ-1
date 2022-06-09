@@ -358,10 +358,14 @@ useEffect(() => {
 
     
     
-    const url_lieu = Platform.select({
+   /* const url_lieu = Platform.select({
       ios: `maps:0,0?q=${item.lieu} ${item.ville}`,
       android: `geo:0,0?q=${item.lieu} ${item.ville}`,
-    })
+    });*/
+
+    const url_lieu = `https://www.google.com/maps/dir/?api=1&destination=${item.lieu} ${item.ville}`;
+
+
     
     
     
