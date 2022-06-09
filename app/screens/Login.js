@@ -39,132 +39,6 @@ export const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
-/*
-  const getEmail = async () => {
-    try {
-      const valueString = await AsyncStorage.getItem('email');
-      const value = JSON.parse(valueString);
-      console.log(valueString + 'test');
-    } catch (error) {
-      console.log(error);
-    }
-  };
- */
-
-  /***connect auto 
-   * 
-   * 
-   * 
-   * 
-   * 
-  
-  useEffect(async () => {
-    
-    
-    if( state.isAuthenticated === false ){
-      
-      try {
-        let userEmail = await AsyncStorage.getItem("email");
-        //let data = JSON.parse(userData);
-        console.log(userEmail);
-        
-        
-        try {
-          let userPwd = await AsyncStorage.getItem("password");
-          //let data = JSON.parse(userData);
-          console.log(userPwd);
-          
-          if(userEmail !== null && userPwd !== null ) {
-            
-            
-            setEmail(userEmail);
-            setPassword(userPwd );
-            
-            axios.post('https://api.festivaloffavignon.com/token', {
-            email    : data.email,//'perodo@gmail.com',
-            password : data.password,//'6876#ae57',// b,
-            
-            device_id: "71b9555cfb0463ca",
-            device_name: "M2007J17G"
-            
-          }, {
-            headers: {
-              'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8',
-            } })
-            
-            .then(user => {
-              
-              
-              dispatch({
-                type: "LOGIN",
-                payload: user.data
-              });
-              // console.log(user.data);
-              navigation.navigate("ProfilMenu");
-            })
-            
-            
-            .catch(error => {
-              console.log('connect nok ' + userEmail);
-              console.log(error);
-              
-              setData({
-                ...data,
-                isSubmitting: false,
-                errorMessage: null,//error.message || error.statusText
-              });
-            });
-            
-            
-          }
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-        } catch (error) {
-          console.log("mauvais mot de passe", error);
-        }
-        
-      } catch (error) {
-        console.log("mauvais email", error);
-      }
-      
-      
-    } 
-    
-    
-    
-    
-  }, []);
-  
-  
-  /****** fin connect auto */
-
-  /*
-console.log(state.favorites);
-console.log('in');
-if(state.isAuthenticated === true){
-// getFavorites(state.token);
-
-// console.log (state.favorites.length);
-
-
-dispatch({
-type: "GET_FAVORITES",
-payload: [11,22]
-});
-
-console.log(state.favorites);
-
-}
-  */
 
   const handleInputChange = (event) => {
     setData({
@@ -253,7 +127,7 @@ onChangeText={(email) => setEmail(email)}
 style={[styles.inputStyle]}
 placeholder="Mot de passe *"
 placeholderTextColor="rgba(0,0,0,0.3)"
-secureTextEntry={modalVisible}
+secureTextEntry={!modalVisible}
 onChangeText={(password) => setPassword(password)}
 
 />

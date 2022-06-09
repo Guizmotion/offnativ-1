@@ -299,7 +299,8 @@ useLayoutEffect(() => {
                 />
               </Pressable>
               <Pressable
-                onPress={() => props.navigation.navigate("Annonces")}
+               // onPress={() => props.navigation.navigate("Annonces")}
+               onPress={() => Linking.openURL('https://www.festivaloffavignon.com/plateforme-solidaire/')}
                 style={styles.iconStyle}
               >
                 <Image
@@ -314,7 +315,9 @@ useLayoutEffect(() => {
 
 
               <Pressable
-                onPress={() => props.navigation.navigate("Archives")}
+               // onPress={() => props.navigation.navigate("Archives")}
+                onPress={() => Linking.openURL('https://www.festivaloffavignon.com/archives-et-ressources/')}
+               
                 style={styles.iconStyle}
               >
                 <Image
@@ -327,10 +330,13 @@ useLayoutEffect(() => {
                 />
               </Pressable>
             </View>
-
+            <Pressable
+                onPress={() => Linking.openURL('https://www.festivaloffavignon.com/mentions-legales/')}
+                >
             <Text style={[styles.smallTextNoir, styles.alignCenter]}>
               festivaloffavignon - V {version_app_offnativ} - Mentions légales
             </Text>
+            </Pressable>
             <View
               style={{
                 width: "90%",

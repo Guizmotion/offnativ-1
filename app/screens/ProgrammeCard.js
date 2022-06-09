@@ -206,58 +206,6 @@ const add_favorite =  (item) => {
     }, 20);  
             };
 
-/*
-      async function add_favorite(id, tok) {
-        console.log(id);
-        console.log(tok);
-    
-        var data = '{\r\n"sh_id": ' + id + "\r\n}";
-    
-        var config = {
-          method: "post",
-          url: "https://api.festivaloffavignon.com/favorite",
-          headers: {
-            "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-            token: tok, //'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvZmYtand0IiwidG9rZW5faWQiOiJlYmU0YzM1MC1mODQwLTRmM2ItYWU5NS04ZjFjZmZkNTJlMTEiLCJ1c2VyX2lkIjo2MjQwMSwiaWF0IjoxNjUyMzY4NTA5LCJleHAiOjE2NTQ5NjA1MDl9.JewUZHVK4sybvGfH9zwRKhRqB6ItcBrd40SVYd-W-TSN-TI3FVcuAp4fY0-i_TqeNWjadOLYNMKwk44VEt60FcrpSKps9O9zdBpoBnx-KD3G0N5BOYyB56IhBC9-OTOR-R-63zjF0eeiu0u4g_RmHRIt79E6v7sJ1380FwPUDW8',
-            "Content-Type": "text/plain",
-            //'Cookie': '.ASPXANONYMOUS=C5AaxfWW2AEkAAAAMjZlMGI5YzUtMzZhNC00ZmI3LWJhOWUtYjcxMzEwNjJmMWZmJnHD8r3JRaHoMX5AiBpQOd6w5NNFbICO7Y56PMvrWz81'
-          },
-          data: data,
-        };
-    
-        await axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-
-    
-      async function rm_favorite(id, tok) {
-        await axios
-          .delete("https://api.festivaloffavignon.com/favorite", {
-            headers: {
-              "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-              token: tok, //state.token
-            },
-            data: {
-              sh_id: id,
-            },
-          })
-    
-          .then((user) => {
-            console.log(user.data);
-          })
-          .catch((error) => {
-            if (error.response) {
-              console.log(error);
-              //console.log(error.response.data); // => the response payload
-            }
-          });
-      }
-    */
 
   const shareData = async () => {
     try {
@@ -409,9 +357,9 @@ useEffect(() => {
 
     
     
-    const url = Platform.select({
-      ios: `maps:0,0?q=${item.lieu}`,
-      android: `geo:0,0?q=${item.lieu}`,
+    const url_lieu = Platform.select({
+      ios: `maps:0,0?q=${item.lieu} ${item.ville}`,
+      android: `geo:0,0?q=${item.lieu} ${item.ville}`,
     })
     
     
@@ -633,7 +581,7 @@ useEffect(() => {
                  
                       
                         <Pressable
-                        onPress={() => Linking.openURL(`geo:0,0?q=${item.lieu} ${itemVille}`)}
+                        onPress={() => Linking.openURL(url_lieu)}
                      /*     onPress={() => {
 
                            let newDate = moment.utc(new Date('2022-07-07')).format('YYYY-MM-DD'
