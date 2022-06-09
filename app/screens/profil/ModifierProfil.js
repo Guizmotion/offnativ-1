@@ -23,7 +23,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNPickerSelect from "react-native-picker-select";
 
 import { StoreContext } from "../../store/store";
-
 import styles from "../../config/styles/StyleGeneral";
 
 
@@ -34,31 +33,8 @@ import styles from "../../config/styles/StyleGeneral";
   
   )}
   */
+
   
-  /*
-  
-  <input type='text' name='uc_firstname' id='uc_firstname' required  placeholder=''><label for='uc_firstname'>Votre Prénom *</label> 
-  <input type='text' name='uc_lastname' id='uc_lastname' required  placeholder=''><label for='uc_lastname'>Votre Nom *</label> 
-  </fieldset> 
-  <input type='email' name='login' id='uc_login' required  placeholder=''><label for='uc_login'>Votre Email *</label> 
-  <input type='password' name='uc_pwd' id='uc_pwd' required  placeholder=''><label for='uc_pwd'>Votre Mdp *</label> 
-  <label for='uc_gender'>Vous êtes </label> 
-  <input type='radio' name='uc_gender' value='1'>Homme   
-  <input type='radio' name='uc_gender' value='2'>Femme  
-  <input type='radio' name='uc_gender' value='4'>Non renseigné 
-  <input type='date' name='uc_birthday' id='uc_birthday' placeholder=''><label for='uc_birthday'>Votre date de naissance </label> 
-  <input type='text' name='uc_postalcode' id='uc_birthday' placeholder=''><label for='uc_postalcode'>Votre code postal </label> 
-  <input type='text' name='uc_city' id='uc_city'  placeholder=''><label for='uc_city'>Votre Ville</label> 
-  <select class='country'></select><label for='uc_country'>Votre Pays</label> 
-  <select class='styles' multiple='yes'></select><label for='uc_styles'>Vos Styles favoris</label> 
-  <select class='audience' multiple='yes'></select><label for='uc_audience'>Venez-vous au festival ? </label> 
-  <input type='checkbox' id='ep_localmailing'/><label for='ep_localmailing'>J’accepte que le courriel que j’ai fourni soit utilisé pour l’envoi de la newsletter du festival OFF.</label> 
-  <input type='checkbox' id='uc_stats'/><label for='uc_stats'>Je refuse l’utilisation de mes données personnelles. </label> 
-  <input type='button' id='btnCreate' value='Créer mon compte'> 
-  
-  <a href="#" id="linkLoginFromCreate">Déjà inscrit ? Connectez-vous !</a>
-  
-  */
   
   export default function MofifierProfil({ navigation }) {
     const { state, dispatch } = React.useContext(StoreContext);
@@ -82,6 +58,37 @@ import styles from "../../config/styles/StyleGeneral";
         
       },
     }
+
+
+    const getProfile = async () => {
+      var data = '';
+    console.log(state.token);
+      var config = {
+        method: 'post',
+        url: 'https://api.festivaloffavignon.com/profile',
+        headers: { 
+          'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+          'token': state.token
+          
+        },
+        data : data
+      };
+      
+      await axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.profile));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+    }
+
+useEffect(() => {
+  getProfile();
+}
+, [state.token]);
+    
     return (
       <View  style={{flexDirection: 'column',
       width: '90%',

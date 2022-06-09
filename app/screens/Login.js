@@ -54,9 +54,31 @@ export const Login = ({ navigation }) => {
   };
 
   const handleMdpOublie = (event) => {
-    setModalmdpVisible(!modalmdpVisible);
     let m = "Génération de nouveau mot de passe en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 
+    var data = '{\r\n    "email": "' + EmailMdpOublie + '"\r\n}';
+
+var config = {
+  method: 'post',
+  url: 'https://api.festivaloffavignon.com/profile/forget',
+  headers: { 
+    'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+    'Content-Type': 'text/plain', 
+     },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  setModalmdpVisible(!modalmdpVisible);
+  let m = "Votre nouveau mot de passe vous a été envoyé par email";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+   
   }
 
 
@@ -74,7 +96,7 @@ export const Login = ({ navigation }) => {
         "https://api.festivaloffavignon.com/token",
         {
           email: email, //'perodo@gmail.com',//JSON.stringify(data.email),//'perodo@gmail.com',
-          password: password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
+          password: 'D2*7#240$',//password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
 
           device_id: "71b9555cfb0463ca",
           device_name: "M2007J17G",
