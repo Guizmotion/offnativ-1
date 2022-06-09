@@ -107,13 +107,32 @@ import styles from "../../config/styles/StyleGeneral";
       
       await axios(config)
       .then(function (response) {
+
         console.log(JSON.stringify(response.profile));
+        if(response.profile == null){
+          let m = "Erreur lors de la récupération de vos informations";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+        }
+        else{
+          setEmail(response.profile.email);
+          setNom(response.profile.nom);
+          setPrenom(response.profile.prenom);
+          setPays(response.profile.pays);
+          setVille(response.profile.ville);
+          setCodePostal(response.profile.code_postal);
+          setNewsletter(response.profile.newsletter);
+          setStats(response.profile.stats);
+        }
+
+
       })
       .catch(function (error) {
         console.log(error);
+        
       });
     
     }
+
+
 
 useEffect(() => {
   getProfile();
