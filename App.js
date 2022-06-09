@@ -8,6 +8,10 @@ import { StoreContainer } from "./app/store/store";
 import { RechercheContainer } from "./app/store/storeRecherche";
 import {FavorisContainer} from './app/store/storeFavoris';
 import { CartesAbonnementContainer } from "./app/store/storeCartesAbonnement";
+import { RootSiblingParent } from 'react-native-root-siblings';
+<RootSiblingParent>
+<AppNavigator />
+</RootSiblingParent>
 
 
 function App() {
@@ -18,7 +22,9 @@ function App() {
          <RechercheContainer>
          <FavorisContainer>
            <CartesAbonnementContainer>
+           <RootSiblingParent>
           <AppNavigator />
+          </RootSiblingParent>
           </CartesAbonnementContainer>
          </FavorisContainer>
           </RechercheContainer>

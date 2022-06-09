@@ -22,7 +22,7 @@ import {
   Platform
 } from "react-native";
 import axios from "axios";
-
+import Toast from 'react-native-root-toast';
 import { Image as ImgLazy, Icon } from "react-native-elements";
 
 import { Card } from "react-native-paper";
@@ -113,8 +113,9 @@ import Loader from "./Loader";
 
 const add_favorite =  (item) => {
    console.log("add_favorite" + item);
-   ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
- 
+  // ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
+  let m = "Inscription erreur"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
    setTimeout(() => {
 
    dispatchFavoris({
