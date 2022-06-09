@@ -95,8 +95,8 @@ axios(config)
       .post(
         "https://api.festivaloffavignon.com/token",
         {
-          email: email, //'perodo@gmail.com',//JSON.stringify(data.email),//'perodo@gmail.com',
-          password: 'D2*7#240$',//password,//'6876#ae57',//JSON.stringify(data.password),//'6876#ae57',
+          email: email, 
+          password: 'D2*7#240$',//password,
 
           device_id: "71b9555cfb0463ca",
           device_name: "M2007J17G",
