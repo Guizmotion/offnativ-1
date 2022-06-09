@@ -17,6 +17,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.nympheastudio.off",
       "supportsTablet": true
     },
     "android": {
