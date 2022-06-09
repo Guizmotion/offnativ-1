@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
+  ToastAndroid,
   Image,
   Text,
   TextInput,
@@ -17,7 +18,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import styles from "../config/styles/StyleGeneral";
-
+import Toast from "react-native-root-toast";
 import { NavigationContainer } from "@react-navigation/native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -38,6 +39,7 @@ export const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [EmailMdpOublie, setEmailMdpOublie] = useState("");
 
 
   const handleInputChange = (event) => {
@@ -46,6 +48,13 @@ export const Login = ({ navigation }) => {
       [event.target.name]: event.target.value,
     });
   };
+
+  const handleMdpOublie = (event) => {
+    setModalVisible(!modalVisible);
+    let m = "Génération de nouveau mot de passe en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
+  }
+
 
   //https://api.festivaloffavignon.com/token
   const handleFormSubmit = (event) => {
@@ -167,14 +176,17 @@ onChangeText={(password) => setPassword(password)}
       
 
       
-
+      <Pressable
+  onPress={() => setModalVisible(!modalVisible)}
+  >
 <Text style={{marginBottom: 15}}>Mot de passe oublié ? <Text style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>Cliquez-ici</Text> !</Text>
 
-
+</Pressable>
 
 
 
 <Text style={{marginBottom: 5}}>Pas encore inscrit ?</Text>
+
 <View  style={{marginBottom: 30}}>
 <Pressable
 
@@ -185,7 +197,39 @@ onPress={() => navigation.navigate("Inscription")}
 
 
 
-      
+<Modal
+                   animationType={'slide'}
+                   hardwareAccelerated={true}
+                   transparent={false}
+                   visible={modalVisible}
+                   //style={{ margin: 0 }}
+                   onRequestClose={() => {
+                    //Alert.alert('Modal has been closed.');
+                    setModalVisible(!modalVisible);
+                    
+                  }}>
+          <Text>Mot de passe oublié ?</Text>
+          <TextInput
+          style={[styles.inputStyle]}
+          placeholder="Votre Email *"
+          placeholderTextColor="rgba(0,0,0,0.3)"
+          onChangeText={(email) => setEmailMdpOublie(email)}
+          value={EmailMdpOublie}
+          />
+          <Pressable
+          onPress={() => setModalVisible(!modalVisible)}
+          >
+          <Text>Annuler</Text>
+          </Pressable>
+          <Pressable
+          onPress={handleMdpOublie}
+          >
+          <Text>Envoyer</Text>
+          </Pressable>
+                  
+        </Modal>
+
+
       </View>
   );
 };

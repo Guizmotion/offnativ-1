@@ -83,15 +83,7 @@ export default function ProfilMenu({ navigation }) {
     });
     
     
-    // map
-    //response.data.favoris.map((ud) => {
-    //  dispatchFavoris({
-    //    type: "SELECT_FAVORIS",
-    //    payload: ud,
-    //  });
-    //});
-    
-    
+   
     
   });
   console.log("favoris enregistrés");
@@ -143,6 +135,8 @@ return (
   
   </View>
   
+  <View style={{display: 'none'}}>
+
   <View style={[styles.blocGris, styles.flexColumn]}>
   <View style={{width: '100%', alignItems: "center"}}>
   <Text style={[styles.colorOrange, styles.ParagraphBold]}>Mes réservations & cartes</Text>
@@ -203,12 +197,14 @@ return (
   
   
   </View>
+
+  </View>
   
   
   <View style={[styles.blocGris, styles.flexColumn]}>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-  onPress={() => Linking.openURL('https://appli.ovh/off/pdf-tcra/test.pdf')}  
+  onPress={() => Linking.openURL('https://appli.ovh/off/programme2022.pdf')}  
   style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
