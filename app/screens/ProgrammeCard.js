@@ -114,7 +114,7 @@ import Loader from "./Loader";
 const add_favorite =  (item) => {
    console.log("add_favorite" + item);
   // ToastAndroid.show("Ajout favori en cours...",ToastAndroid.SHORT);
-  let m = "Inscription erreur"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+  let m = "Ajout favori en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 
    setTimeout(() => {
 
@@ -160,8 +160,9 @@ const add_favorite =  (item) => {
     };
 
     const rm_favorite =  (item) => {
-        ToastAndroid.show("Retrait d'un favori en cours...",ToastAndroid.SHORT);
-          
+       // ToastAndroid.show("Retrait d'un favori en cours...",ToastAndroid.SHORT);
+        let m = "Retrait d'un favori en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
         setTimeout(() => {
 
             dispatchFavoris({

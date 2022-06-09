@@ -53,7 +53,7 @@ export default function Inscription({ navigation }) {
        
         if (email === "" || password === "" || Nom === "" || Prenom === "" ||  Pays === "" || Ville === "" || CodePostal === "" ) {
             
-            let m = "Veuillez remplir tous les champs obligatoires"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+            let m = "Veuillez remplir tous les champs obligatoires";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
            // alert('yo');
                 
             return false;
@@ -89,9 +89,9 @@ export default function Inscription({ navigation }) {
                     );
                     console.log(response);
 if (response.data.success) {
-    let m = "Inscription reussie, veuillez vous connecter"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+    let m = "Inscription reussie, veuillez vous connecter";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 } else {
-    let m = "Inscription erreur"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+    let m = "Inscription erreur";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 
  } 
 
