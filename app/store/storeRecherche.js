@@ -12,7 +12,7 @@ const initialRechercheState = {
     DatesRecherches: [],
     LieusRecherches: [],
     SpectaclesIdRecherches: [],
-    limite: 100,
+    limite: 250,
 };
 
 

@@ -791,6 +791,7 @@ useEffect(() => {
 
 
                 
+<View style={{display:'none'}}>
 
                 
                 <Text>{itemPays}</Text>
@@ -801,18 +802,9 @@ useEffect(() => {
                 
                 <Text>{itemCourriel}</Text>
                 <Text>{itemTelephone}</Text>
-                
-                
-                
-                
+</View>          
                 
                 </View>
-                
-               
-
-                
-                
-                
                 
                 </ScrollView>
                 <View style={{justifyContent: "flex-end", flex: 3, bottom: 0}}>
@@ -833,9 +825,7 @@ useEffect(() => {
       </View>
     );
   };
-  {
-    /*  <Button title="DelFav" onPress={() => rm_favorite(item.id)} /> */
-  }
+  
 
   export default React.memo(ProgrammeCard);
 
