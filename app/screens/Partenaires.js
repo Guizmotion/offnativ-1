@@ -16,14 +16,15 @@ export default function Partenaires({ navigation}) {
     
      
     <WebView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',marginTop: 20 }}
-    source={{ uri: 'https://www.festivaloffavignon.com/partenaires-mecenes/' }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}
+    source={{ uri: 'https://www.festivaloffavignon.com/partenaires-mecenes/?app=1' }}
     
     javaScriptEnabled={true}
     domStorageEnabled={true}
     startInLoadingState={true}
     scalesPageToFit={true}
     renderLoading={(e) => { return ( <Loader />  );  }}
+    
 
     injectedJavaScript={jsCode}
     />

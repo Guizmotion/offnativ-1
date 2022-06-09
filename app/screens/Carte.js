@@ -24,7 +24,7 @@ export default function Carte({ navigation}) {
     domStorageEnabled={true}
     startInLoadingState={true}
     scalesPageToFit={true} 
-    inc
+    incognito={true}
     
     renderLoading={(e) => { return ( <Loader />  );  }}
 

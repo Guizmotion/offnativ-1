@@ -184,8 +184,14 @@ export default function Programme({ navigation }) {
 
 
 
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <Text>Achat Ticket OFF et Mon compte bientot disponible !</Text>
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
+        animationType={'slide'}
+        hardwareAccelerated={true}
+        style={{padding: 0, margin: 0,backgroundColor: 'red'}}
+        >
+          <Image style={{height: 300,width: 300, padding: 0, margin: 0,backgroundColor: 'red', borderWidth: 0}} 
+  source={require("../assets/modal-ticket-off.jpg")} />
+
         </Overlay>
         </View>
         );
