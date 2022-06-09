@@ -64,17 +64,7 @@ export const Login = ({ navigation }) => {
       isSubmitting: true,
       errorMessage: null,
     });
-    /* fetch("https://hookedbe.herokuapp.com/api/login", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      username: data.email,
-      password: data.password
-    })
-  })*/
-    //.data.token
+
     axios
       .post(
         "https://api.festivaloffavignon.com/token",
