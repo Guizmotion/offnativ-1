@@ -302,8 +302,12 @@ onChangeText={(password) => setPassword(password)}
 
 <Text style={{marginBottom: 5}}>Pas encore inscrit ?</Text>
 <View  style={{marginBottom: 30}}>
+<Pressable
+
+onPress={() => navigation.navigate("Inscription")}
+>
 <View   style={[styles.labelCard, styles.labelAchat, styles.bigButton]}><Text  style={styles.textBigButton}>Je m'inscris</Text></View>
-</View>
+</Pressable></View>
 
 
 

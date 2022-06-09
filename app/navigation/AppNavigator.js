@@ -32,6 +32,7 @@ import CreerCarteAbonnement from "../screens/profil/CreerCarteAbonnement";
 import Factures from "../screens/profil/Factures";
 import CartPage from "../screens/CartPage";
 import Partenaires from "../screens/Partenaires";
+import Inscription from "../screens/Inscription";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -396,6 +397,7 @@ const AppNavigator = ({ navigation }) => {
           <Drawer.Screen name="Partenaires" component={Partenaires} />
           
           <Drawer.Screen name="Login" component={Login} />
+          <Drawer.Screen name="Inscription" component={Inscription} />
           <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
           <Drawer.Screen name="Favoris" component={Favoris} />
           <Drawer.Screen name="ModifierProfil" component={ModifierProfil} />

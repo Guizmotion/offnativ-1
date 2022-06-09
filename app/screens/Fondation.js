@@ -5,8 +5,8 @@ import Loader from "./Loader";
 
 export default function Fondation({ navigation}) {
 
-    const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
-  
+    const jsCode = "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none'; document.querySelector('.cc-type-info').style.display='none'; document.querySelector('.cc-theme-classic').style.display='none';document.querySelector('.cc-window.cc-floating').style.display='none';";
+      
     return (  
     
      
@@ -19,10 +19,9 @@ export default function Fondation({ navigation}) {
     startInLoadingState={true}
     scalesPageToFit={true}
     renderLoading={(e) => { return ( <Loader />  );  }}
-
     injectedJavaScript={jsCode}
-   // onMessage={(event) => {}}   
-    //ref={() => {}}
+    onMessage={(event) => {}}   
+    ref={() => {}}
     />
   
       );
