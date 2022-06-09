@@ -259,7 +259,7 @@ useEffect(() => {
 <Pressable
   onPress={() => setModalmdpVisible(!modalmdpVisible)}
   >
-<Text> >> Modifier votre Mot de passe</Text>
+<Text> Modifier votre Mot de passe</Text>
 </Pressable>
 
 </View>
