@@ -27,19 +27,13 @@ import styles from "../../config/styles/StyleGeneral";
 
 
 
-/*
-{state.isAuthenticated && (
-  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
-  
-  )}
-  */
-
-  
   
   export default function MofifierProfil({ navigation }) {
+
+
     const { state, dispatch } = React.useContext(StoreContext);
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+   
     const [Nom, setNom] = useState("");
     const [Prenom, setPrenom] = useState("");
     const [DateNaissance, setDateNaissance] = useState("");
@@ -48,8 +42,13 @@ import styles from "../../config/styles/StyleGeneral";
     const [CodePostal, setCodePostal] = useState("");
     const [Styles, setStyles] = useState("");
     const [Audience, setAudience] = useState("");
-    const[Newsletter, setNewsletter] = useState(false);
+    const [Newsletter, setNewsletter] = useState(false);
     const [Stats, setStats] = useState(false);
+    const [modalmdpVisible, setModalmdpVisible] = useState(false);
+
+    const [newPassword, setNewPassword] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
+
     const pickerStyle = {
       inputIOS: {
         textAlign: 'right',
@@ -59,6 +58,38 @@ import styles from "../../config/styles/StyleGeneral";
       },
     }
 
+
+
+
+  const handleMdpOublie = (event) => {
+    let m = "Vérification de l'ancien mot de passe ...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
+    var axios = require('axios');
+    var data = '{\r\n    "old_password":"' + oldPassword + '",\r\n    "new_password":"' + newPassword + '"\r\n}';
+    
+    var config = {
+      method: 'patch',
+      url: 'https://api.festivaloffavignon.com/profile/password',
+      headers: { 
+        'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+        'token': state.token
+         },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      setModalmdpVisible(!modalmdpVisible);
+      let m = "Merci, votre nouveau mot de passe vous a été enregistré";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+    
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+   
+  }
 
     const getProfile = async () => {
       var data = '';
@@ -107,13 +138,7 @@ useEffect(() => {
       <TextInput style={styles.inputStyle} placeholder="Email" placeholderTextColor="rgba(0,0,0,0.3)"  
       value={email}
       />
-      <TextInput style={styles.inputStyle} placeholder="Mot de passe"  placeholderTextColor="rgba(0,0,0,0.3)" 
-      value={password}
-        />
-      <TextInput style={styles.inputStyle} placeholder="Confirmation mot de passe" placeholderTextColor="rgba(0,0,0,0.3)"  />
-      <TextInput style={styles.inputStyle} placeholder="Date de naissance"  placeholderTextColor="rgba(0,0,0,0.3)" 
-          value={DateNaissance}
-      />
+
       <TextInput style={styles.inputStyle} placeholder="Code postal"  placeholderTextColor="rgba(0,0,0,0.3)" 
       value={CodePostal}
       />
@@ -166,88 +191,8 @@ useEffect(() => {
       ]}
       /></View>
       </View>
+     
       
-      <View style={{
-        padding: 15,
-        flexDirection: "row",
-        alignContent: "space-between",
-        width: "100%",
-        alignItems: "center", 
-      }}>
-      <Text>
-      Style
-      </Text>
-      <View    style={{width: "70%",  right:0,   position: "absolute", minHeight: 30}}>
-      
-      <RNPickerSelect
-      style={pickerStyle}
-      onValueChange={(value) =>
-        {
-         console.log(value);
-          
-        }
-      }
-      /*
-      
-      placeholder={{
-        label: type_public,
-        value: type_public,
-      }}
-      
-      
-      value={type_public}
-      onValueChange={(value) =>
-        {
-          setType_Public(value);
-          
-        }
-      }
-      */
-      items={[
-        { label: "France", value: "France" },
-        { label: "Belgique", value: "Belgique" },
-        { label: "Suisse", value: "Suisse" },
-      ]}
-      /></View>
-      </View>
-      
-      <View style={{
-        padding: 15,
-        flexDirection: "row",
-        alignContent: "space-between",
-        width: "100%",
-        alignItems: "center", 
-      }}>
-      <Text>
-      Audience
-      </Text>
-      <View    style={{width: "70%",  right:0,   position: "absolute", minHeight: 30}}>
-      
-      <RNPickerSelect
-      style={pickerStyle}
-      /*
-      
-      placeholder={{
-        label: type_public,
-        value: type_public,
-      }}
-      
-      
-      value={type_public}
-      onValueChange={(value) =>
-        {
-          setType_Public(value);
-          
-        }
-      }
-      */
-      items={[
-        { label: "France", value: "France" },
-        { label: "Belgique", value: "Belgique" },
-        { label: "Suisse", value: "Suisse" },
-      ]}
-      /></View>
-      </View>
 
       <View
       style={{
@@ -282,22 +227,42 @@ useEffect(() => {
       value=""
       /></View></View>
 
+<View
+      style={{
+        padding: 15,
+        flexDirection: "row",
+        alignContent: "space-between",
+        width: "100%",
+        alignItems: "center",
+        marginTop: -150
+      }}
+      >
+<Pressable
+  onPress={() => setModalmdpVisible(!modalmdpVisible)}
+  >
+<Text> >> Modifier votre Mot de passe</Text>
+</Pressable>
+
+</View>
 
 
 
       
+     
+
       
     
     
-    
+
     
 </ScrollView>
     
-    
+
+
     <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '90%', marginLeft: '5%', textAlign: 'center' }} >
   
                 
-
+    
         <Pressable 
           onPress={() => { navigation.navigate("Profil"); }}  
           style={[styles.labelCard, styles.labelAchat, styles.btnFixed]} >
@@ -307,6 +272,34 @@ useEffect(() => {
     </View>
     
     
+
+    <Modal
+                   animationType={'slide'}
+                   hardwareAccelerated={true}
+                   transparent={false}
+                   visible={modalmdpVisible}
+                   
+                   onRequestClose={() => {
+                    //Alert.alert('Modal has been closed.');
+                    setModalmdpVisible(!modalmdpVisible);
+                    
+                  }}>   
+<TextInput style={styles.inputStyle} placeholder="Saisir l'ancien Mot de passe"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      value={oldPassword}
+      onChangeText={(pwd) => setOldPassword(pwd)}
+        />
+ <TextInput 
+  value={newPassword}
+  onChangeText={(pwd) => setNewPassword(pwd)}
+ style={styles.inputStyle} placeholder="Saisir le nouveau mot de passe" placeholderTextColor="rgba(0,0,0,0.3)"  />
+
+      <TouchableOpacity onPress={handleMdpOublie}             >
+              <View  style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
+                <Text style={styles.textBigButton}>Modifier mon mot de passe</Text>
+              </View>
+            </TouchableOpacity>
+
+</Modal>
     
     </View>
     );
