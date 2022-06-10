@@ -18,16 +18,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-import { ListItem } from 'react-native-elements'
-
-
-
-import axios from "axios";
-
-import { NavigationContainer } from "@react-navigation/native";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import Loader from "../Loader";
 import { useRoute } from "@react-navigation/native";
 import { StoreContext } from "../../store/store";
 
@@ -42,9 +33,8 @@ export default function Favoris({ navigation }) {
   const route = useRoute();
   const [listFavorites, setlistFavorites] = useState([]);
   const [token, setToken] = useState();
-
-  //const filteredData = state.programme;
-
+  const [isLoading, setIsLoading] = useState(false);
+    
   const filteredData = state.programme.filter(
     (x) =>
     stateFavoris.SpectaclesSelected[x.id] === true

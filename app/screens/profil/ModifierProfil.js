@@ -556,6 +556,7 @@ useEffect(() => {
         alignContent: "space-between",
         width: "100%",
         alignItems: "center",
+        paddingBottom: 100
       }}
       >
 <Pressable

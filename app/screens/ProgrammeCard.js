@@ -43,7 +43,8 @@ import Loader from "./Loader";
     const {stateFavoris, dispatchFavoris} = React.useContext(FavorisContext);
 
     const [modalVisible, setModalVisible] = useState(false);
-
+   
+  
     const [itemId, setItemId] = useState([]);
 
     const [itemAcces_handicape, setItemAcces_handicape] = useState([]);
