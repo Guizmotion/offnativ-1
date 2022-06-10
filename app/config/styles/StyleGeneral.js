@@ -1,3 +1,4 @@
+
 import { StyleSheet } from "react-native";
 import { abs } from "react-native-reanimated";
 import colors from "../colors";
@@ -213,10 +214,10 @@ export default StyleSheet.create({
        fontSize: 10,
        padding: 9,
        borderRadius: 30,
-       alignItems: 'flex-end', 
        overflow: "hidden",
        maxWidth: '70%',
      },
+
      btnFixed: {
        fontSize: 36,
        fontWeight: 'bold',

@@ -36,8 +36,6 @@ import Loader from "./Loader";
 
 
 
-
-
   const ProgrammeCard = ({item}) => {
       
     
@@ -603,7 +601,17 @@ useEffect(() => {
                             
                                   }}*/ 
                           >
-                        <Text>{itemLieu}</Text>
+                            <Image
+                      style={{
+                        height: 25,
+                        width: 25,
+                        marginTop: -4,
+                        position: "absolute",
+                        left: 0
+                      }}
+                      source={require("../assets/itineraire.png")}
+                      />
+                        <Text  ellipsizeMode='tail' numberOfLines={1} style={{textAlign: "right",  width: '85%', marginLeft: '15%' }}>{itemLieu}</Text>
                         </Pressable>
                   
                   </View>

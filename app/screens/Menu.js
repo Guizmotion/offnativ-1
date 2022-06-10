@@ -1,5 +1,3 @@
-// Custom Navigation Drawer / Sidebar with Image and Icon in Menu Options
-// https://aboutreact.com/custom-navigation-drawer-sidebar-with-image-and-icon-in-menu-options/
 
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import {
@@ -288,7 +286,8 @@ useLayoutEffect(() => {
                   source={require("../assets/partenaires.png")}
                 />
               </Pressable>
-              <Pressable onPress={async () => {}} style={styles.iconStyle}>
+              <Pressable style={styles.iconStyle}
+              onPress={() => Linking.openURL('https://www.festivaloffavignon.com/documents/programme-festivaloffavignon-2022.pdf?F67A1195F9-597')}>
                 <Image
                   style={{
                     resizeMode: "cover",
@@ -334,7 +333,7 @@ useLayoutEffect(() => {
                 onPress={() => Linking.openURL('https://www.festivaloffavignon.com/mentions-legales/')}
                 >
             <Text style={[styles.smallTextNoir, styles.alignCenter]}>
-              festivaloffavignon - V {version_app_offnativ} - Mentions légales
+              Festival Off Avignon - V {version_app_offnativ} - Mentions légales
             </Text>
             </Pressable>
             <View
