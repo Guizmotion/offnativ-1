@@ -1,4 +1,4 @@
-package com.nympheastudio.off;
+package com.festivalloff.app;
 
 import android.os.Bundle;
 

@@ -43,7 +43,7 @@ const Menu = (props) => {
     Share.share(
       {
         message: "Voici le lien vers la nouvelle application du festival off avignon",
-        url: "https://play.google.com/store/apps/details?id=com.nympheastudio.off",
+        url: "https://play.google.com/store/apps/details?id=com.festivalloff.app",
         title: "Application Android",
       },
       {
