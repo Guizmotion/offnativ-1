@@ -96,7 +96,11 @@ export default function ProfilMenu({ navigation }) {
 
 
 return (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingLeft: 30,paddingRight: 30 }}>
+
+
+    <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%',  paddingTop: 0}}>
+                        
+                        <ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
   {/*
   {state.isAuthenticated && (
     <Text style={{fontSize: 20}}>Bonjour {state.user.prenom}</Text>
@@ -204,8 +208,7 @@ return (
   <View style={[styles.blocGris, styles.flexColumn]}>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-  onPress={() => Linking.openURL('https://www.festivaloffavignon.com/documents/programme-festivaloffavignon-2022.pdf?F67A1195F9-597')}
-              
+  onPress={() => Linking.openURL('https://appli.ovh/off/programme2022.pdf')}  
   style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   
   <Image style={{resizeMode: "cover",height: 35,width: 35,alignItems: 'flex-start'}} 
@@ -230,7 +233,10 @@ return (
     
   )*/}
   
-  <View style={{ flex: 1, justifyContent: 'flex-end', bottom:'15%' }}>
+  </ScrollView>
+                
+                
+                <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '80%', marginLeft: '15%' }} >
   
   <Image
   source={require("../assets/logo.png")}

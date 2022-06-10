@@ -540,7 +540,6 @@ useEffect(() => {
         alignContent: "space-between",
         width: "100%",
         alignItems: "center",
-        marginBottom: 200
       }}
       ><Text>Stats</Text>
       <View style={{ position: "absolute", right: 15, marginTop: 5 }}>
@@ -557,13 +556,13 @@ useEffect(() => {
         alignContent: "space-between",
         width: "100%",
         alignItems: "center",
-        marginTop: -150
       }}
       >
 <Pressable
   onPress={() => setModalmdpVisible(!modalmdpVisible)}
   >
-<Text> Modifier votre Mot de passe</Text>
+    <View  style={[styles.labelCard,styles.bigButton, styles.blackButton]} >
+                <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Modifier votre Mot de passe</Text></View>
 </Pressable>
 
 </View>
@@ -582,19 +581,38 @@ useEffect(() => {
     
 
 
-    <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '90%', marginLeft: '5%', textAlign: 'center' }} >
+    <View style={{   flex: 2, position: 'absolute', bottom: 150, width: '90%', marginLeft: '5%', textAlign: 'center' }} >
   
                 
     
         <Pressable 
           onPress={handleModifierMesinfos}  
-          style={[styles.labelCard, styles.labelAchat]} >
+          style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
             <Text style={[styles.textBigButton]}>Modifier mes infos</Text>
         </Pressable>
 
     </View>
     
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <Modal
                    animationType={'slide'}
@@ -607,6 +625,9 @@ useEffect(() => {
                     setModalmdpVisible(!modalmdpVisible);
                     
                   }}>   
+
+<View style={{ margin: 0, height: '100%', padding: 30, paddingTop: 100 }}>
+<Text  style={{fontSize: 16,width: "100%",fontWeight: "bold", textAlign: "center"}}>Modifier mon mot de passe</Text>
 <TextInput style={styles.inputStyle} placeholder="Saisir l'ancien Mot de passe"  placeholderTextColor="rgba(0,0,0,0.3)" 
       value={oldPassword}
       onChangeText={(pwd) => setOldPassword(pwd)}
@@ -618,12 +639,51 @@ useEffect(() => {
 
       <TouchableOpacity onPress={handleMdpOublie}             >
               <View  style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
-                <Text style={styles.textBigButton}>Modifier mon mot de passe</Text>
+                <Text style={styles.textBigButton}>Valider</Text>
               </View>
             </TouchableOpacity>
+            <Pressable
+  onPress={() => setModalmdpVisible(!modalmdpVisible)}
 
+    >
+    <Text style={{textAlign: 'center', width: '100%', padding: 10}}>Annuler</Text>
+    </Pressable>
+
+
+            </View>
+            
 </Modal>
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </View>
     );
   }

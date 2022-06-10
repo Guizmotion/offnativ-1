@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Festival OFF",
-    "slug": "festival-off-production",
-    "version": "1.0.0",
+    "name": "Festival OFF IOS",
+    "slug": "festival-off-ios",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -18,14 +18,15 @@
     ],
     "ios": {
       "bundleIdentifier": "AVIGNON2019",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "2.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.nympheastudio.off",
+      "package": "com.festivalloff.app",
       "versionCode": 1
     },
     "web": {

@@ -524,13 +524,13 @@ export default function Inscription({ navigation }) {
                     </ScrollView>
                     
                     
-                    <View style={{   flex: 2, position: 'absolute', bottom: 120, width: '90%', marginLeft: '5%', textAlign: 'center' }} >
+                    <View style={{   flex: 2, position: 'absolute', bottom: 150, width: '90%', marginLeft: '5%', textAlign: 'center' }} >
                     
                     
                     
                     <Pressable 
                     onPress={handleInscription}  
-                    style={[styles.labelCard, styles.labelAchat]}>
+                    style={[styles.labelCard, styles.labelAchat, styles.bigButton]}>
                 <Text style={styles.textBigButton}>Je m'inscris</Text>
                     </Pressable>
                     

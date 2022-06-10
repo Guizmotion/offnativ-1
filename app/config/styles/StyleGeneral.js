@@ -1,4 +1,3 @@
-
 import { StyleSheet } from "react-native";
 import { abs } from "react-native-reanimated";
 import colors from "../colors";
@@ -232,7 +231,12 @@ export default StyleSheet.create({
      bigButton: {
        padding: 10,
      },
-
+     blackButton: {
+       color: "#fff",
+       width: '100%',
+       textAlign: 'center',
+       position: 'absolute',
+     },
      textBigButton: {
      textAlign: 'center', 
      width: '100%',
