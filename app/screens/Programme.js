@@ -168,7 +168,7 @@ export default function Programme({ navigation }) {
             return null;
           }
           return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 600 }}>
               <Text>Aucun résultat</Text>
             </View>
           );
