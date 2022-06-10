@@ -80,7 +80,17 @@ export default function Favoris({ navigation }) {
           return index.toString();
         }}
        
-        
+        ListEmptyComponent={() => {
+          if (isLoading) {
+            return null;
+          }
+          return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+              <Text>Aucun résultat</Text>
+            </View>
+          );
+        }
+        }
         
         renderItem={({ item }) => {
           // return renderData(item);

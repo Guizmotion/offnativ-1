@@ -820,7 +820,7 @@ useEffect(() => {
                 
                 </ScrollView>
                 <View style={{justifyContent: "flex-end", flex: 3, bottom: 0}}>
-                {state.isAuthenticated && 
+                {/*state.isAuthenticated && 
                 <TouchableOpacity
                 onPress={() => addTicketToCartState(itemId)}
                 >
@@ -828,7 +828,7 @@ useEffect(() => {
                 <Text style={styles.textBigButton}> Acheter sur Ticket'Off</Text>
                 </View>
                 </TouchableOpacity>
-  }
+              */}
                 </View>
                 
                 </Modal>

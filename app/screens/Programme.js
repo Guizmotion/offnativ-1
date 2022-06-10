@@ -162,6 +162,19 @@ export default function Programme({ navigation }) {
           // console.log("index", index)
           return item.id.toString();
         }}
+
+        ListEmptyComponent={() => {
+          if (isLoading) {
+            return null;
+          }
+          return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+              <Text>Aucun résultat</Text>
+            </View>
+          );
+        }
+        }
+
        
         
         renderItem={renderData2}
