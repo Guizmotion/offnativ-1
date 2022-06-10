@@ -20,6 +20,7 @@ import Loader from "./Loader";
 import { ADD_PRODUCT } from "../store/reducers";
 import { StoreContext } from "../store/store";
 import { RechercheContext } from "../store/storeRecherche";
+import { _ } from "lodash";
 
 //import LikeButton from "../components/LikeButton";
 import ProgrammeCard from "./ProgrammeCard";
@@ -63,7 +64,7 @@ export default function Programme({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   
   const [visible, setVisible] = useState(true);
-  
+  const flatListRef = useRef(); 
 
   useEffect(() => {
     setIsLoading(true);
@@ -72,17 +73,17 @@ export default function Programme({ navigation }) {
       dispatch({ type: "addData", payload: response.data });
       setIsLoading(false);
     });
-        
+    
+
     
   }, [stateRecherche]);
+
+  //force flat list to go on top
+  flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+
+
   
-  
-  /*
-  useEffect(() => {
-    console.log("context cart length from Programme : :" + context.cart.length);
-  }, []);
-  */
-  
+
 
   const filteredData = state.programme;/*searchText
   ? state.programme.filter(
@@ -101,20 +102,9 @@ export default function Programme({ navigation }) {
     { length: 100, offset: 100 * index, index }
   )
 
-  const renderData = ({ item, index }) => {
-    return (
+ 
 
-      <ProgrammeCard
-
-        item={item}
-        index={index}
-
-      />
-
-    );
-  }
-
-  const renderData2 = useCallback(
+  const renderData = useCallback(
     ({ item }) => (
       <ProgrammeCard
 
@@ -143,7 +133,7 @@ export default function Programme({ navigation }) {
         <FlatList style={{paddingTop: 15, marginBottom: 170}}
         
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
-        
+        ref={flatListRef}
         data={filteredData }
        // extraData={stateRecherche} 
         
@@ -177,13 +167,9 @@ export default function Programme({ navigation }) {
 
        
         
-        renderItem={renderData2}
-       /* renderItem={({ item }) => {
-          // return renderData(item);
-          return <ProgrammeCard item={item} />
-        }}*/
-        
-        
+        renderItem={renderData}
+
+       
         refreshControl={
           <RefreshControl
           refreshing={refreshing}

@@ -189,14 +189,7 @@ export default function RechercheModal({ navigation }) {
     const fil = data.filter(
       (item, index) => {
         
-        if (index === 0) {
-          console.log( typeof(parseInt(item.id)))
-        }
-        
-        if( item.id === 31012 ){
-          console.log(item.nom + ' ' + item.id + typeof(item.id));
-        }
-        
+   
         
         let search_ticket_off = '';
         
@@ -208,10 +201,7 @@ export default function RechercheModal({ navigation }) {
         search_date = search_date.replace( /-\d\dh\d\d/g, "");
         
         
-        console.log(
-          
-          item.type_public.toLowerCase() +' ' 
-          )
+      
           if (
             (nb_auteurs !== 0 ?
               stateRecherche.SpectaclesIdRecherches.includes(parseInt(item.id)) : true
@@ -283,6 +273,7 @@ export default function RechercheModal({ navigation }) {
                         setIsLoading(false);
                         
                         navigation.navigate('Programme');
+                   
                       };
                       
                       
