@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.nympheastudio.off",
+      "bundleIdentifier": "AVIGNON2019",
       "supportsTablet": true
     },
     "android": {
