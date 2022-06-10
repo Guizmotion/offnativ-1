@@ -58,13 +58,47 @@ import styles from "../../config/styles/StyleGeneral";
       },
     }
 
+    const handleModifierMesinfos = () => {
+      let m = "Modification en cours...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+
+      //var data = '{\r\n    "firstname":"Testeur",\r\n    "lastname":"DIGITO",\r\n    "postalcode":"84000",\r\n    "city":"Avignon ",\r\n    "country":"ES",\r\n    "allow_news": true,\r\n    "allow_localnews": false\r\n}';
+      let data = '{\r\n    "firstname":"' + Nom + '",\r\n    "lastname":"' + Prenom + '",\r\n    "postalcode":"' + CodePostal + '",\r\n    "city":"' + Ville + '",\r\n    "country":"' + Pays + '",\r\n    "allow_news": ' + Newsletter + ',\r\n    "allow_localnews": ' + Stats + '\r\n}';
+      console.log(data);
+
+      let config = {
+        method: 'patch',
+        url: 'https://api.festivaloffavignon.com/profile',
+        headers: { 
+          'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+          'token': state.token
+           },
+        data : data
+      };
+
+      axios(config)
+        .then(function (response) {
+          if (response.data.success== true) {
+
+            let m = "Modification effectuée avec succès";;"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+            navigation.navigate("ProfilMenu");
+          } else {
+            let m = "Erreur lors de la modification";;"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
+          }
+        }
+        )
+        .catch(function (error) {
+          console.log(error);
+        }
+        );
+    }
+
 
 
 
   const handleMdpOublie = (event) => {
     let m = "Vérification de l'ancien mot de passe ...";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
 
-    var axios = require('axios');
+   // var axios = require('axios');
     var data = '{\r\n    "old_password":"' + oldPassword + '",\r\n    "new_password":"' + newPassword + '"\r\n}';
     
     var config = {
@@ -107,20 +141,21 @@ import styles from "../../config/styles/StyleGeneral";
       
       await axios(config)
       .then(function (response) {
+//{"firstname":"Nicolas","lastname":"PERAUDEAU","email":"perodo@gmail.com","postalcode":"84000","city":"Avignon","country":"ZW","allow_news":true,"allow_localnews":true,"pro":false}
 
-        console.log(JSON.stringify(response.profile));
-        if(response.profile == null){
+       // console.log(JSON.stringify(response.data.profile));
+        if(response.data.profile == null){
           let m = "Erreur lors de la récupération de vos informations";"ios"===Platform.OS?Toast.show(m,Toast.SHORT):ToastAndroid.show(m,ToastAndroid.SHORT);
         }
         else{
-          setEmail(response.profile.email);
-          setNom(response.profile.nom);
-          setPrenom(response.profile.prenom);
-          setPays(response.profile.pays);
-          setVille(response.profile.ville);
-          setCodePostal(response.profile.code_postal);
-          setNewsletter(response.profile.newsletter);
-          setStats(response.profile.stats);
+          setEmail(response.data.profile.email);
+          setNom(response.data.profile.firstname);
+          setPrenom(response.data.profile.lastname);
+          setPays(response.data.profile.country);
+          setVille(response.data.profile.city);
+          setCodePostal(response.data.profile.postalcode);
+          setNewsletter(response.data.profile.allow_news);
+          setStats(response.data.profile.allow_localnews);
         }
 
 
@@ -149,19 +184,24 @@ useEffect(() => {
       <ScrollView style={{flex: 1}}>
  
       <TextInput style={styles.inputStyle}  placeholder="Prénom" placeholderTextColor="rgba(0,0,0,0.3)"
+      onChangeText={(text) => setPrenom(text)}
       value={Prenom}
       />
       <TextInput style={styles.inputStyle} placeholder="Nom"  placeholderTextColor="rgba(0,0,0,0.3)" 
-      value={Nom}
+     onChangeText={(text) => setNom(text)}
+     value={Nom}
       />
       <TextInput style={styles.inputStyle} placeholder="Email" placeholderTextColor="rgba(0,0,0,0.3)"  
-      value={email}
+     onCHangeText={(text) => setEmail(text)}
+     value={email}
       />
 
       <TextInput style={styles.inputStyle} placeholder="Code postal"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      onChangeText={(text) => setCodePostal(text)}
       value={CodePostal}
       />
       <TextInput style={styles.inputStyle} placeholder="Ville"  placeholderTextColor="rgba(0,0,0,0.3)" 
+      onChangeText={(text) => setVille(text)}
       value={Ville}
       />
 
@@ -283,8 +323,8 @@ useEffect(() => {
                 
     
         <Pressable 
-          onPress={() => { navigation.navigate("Profil"); }}  
-          style={[styles.labelCard, styles.labelAchat, styles.btnFixed]} >
+          onPress={handleModifierMesinfos}  
+          style={[styles.labelCard, styles.labelAchat]} >
             <Text style={[styles.textBigButton]}>Modifier mes infos</Text>
         </Pressable>
 

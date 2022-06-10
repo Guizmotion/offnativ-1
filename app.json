@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "offnativ",
-    "slug": "snack-130f7a07-01f8-4b95-a957-280b83352c79",
+    "name": "Festival OFF",
+    "slug": "festival-off-production",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -25,7 +25,8 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.nympheastudio.off"
+      "package": "com.nympheastudio.off",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
