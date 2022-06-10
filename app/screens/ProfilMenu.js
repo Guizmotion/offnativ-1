@@ -204,7 +204,7 @@ return (
   <View style={[styles.blocGris, styles.flexColumn]}>
   <View style={{width: '100%', flexDirection: 'row'}}>
   <Pressable 
-  onPress={() => Linking.openURL('https://www.festivaloffavignon.com/documents/programme-festivaloffavignon-2022.pdf?F67A1195F9-597')}>
+  onPress={() => Linking.openURL('https://www.festivaloffavignon.com/documents/programme-festivaloffavignon-2022.pdf?F67A1195F9-597')}
               
   style={{width: '100%', flexDirection: 'row', alignContent:'center' , alignItems:'center'   }}>
   
