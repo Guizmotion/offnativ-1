@@ -28,7 +28,6 @@
     "expo-image-picker": "~11.0.3",
     "expo-location": "^14.0.2",
     "expo-media-library": "^14.0.1",
-    "expo-notifications": "~0.13.3",
     "expo-permissions": "^13.1.1",
     "expo-splash-screen": "~0.13.5",
     "expo-status-bar": "~1.1.0",

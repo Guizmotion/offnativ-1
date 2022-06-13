@@ -13,48 +13,51 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 
 
 import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
+//import * as Notifications from 'expo-notifications';
 
 import OneSignal from 'react-native-onesignal';
 import Constants from "expo-constants";
-OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
 
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+//Notifications.setNotificationHandler({
+//  handleNotification: async () => ({
+//    shouldShowAlert: true,
+//    shouldPlaySound: false,
+//    shouldSetBadge: false,
+//  }),
+//});
 
 
 function App() {
 
+  
 
-
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  //const [expoPushToken, setExpoPushToken] = useState('');
+  //const [notification, setNotification] = useState(false);
+  //const notificationListener = useRef();
+  //const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  // registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+  // // This listener is fired whenever a notification is received while the app is foregrounded
+  // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+  //   setNotification(notification);
+  // });
 
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+  // // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+  // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+  //   console.log(response);
+  // });
 
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
+  // return () => {
+  //   Notifications.removeNotificationSubscription(notificationListener.current);
+  //   Notifications.removeNotificationSubscription(responseListener.current);
+  // };
+
+    OneSignal.setAppId('609f4f9b-6a53-4071-9ede-d3594dffe6cc');
+
+
+    
   }, []);
   return (
     <StoreContainer>
@@ -75,7 +78,7 @@ function App() {
   );
 }
 
-
+/*
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
 async function sendPushNotification(expoPushToken) {
   const message = {
@@ -127,6 +130,6 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-
+*/
 
 export default App;
