@@ -14,6 +14,12 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+
+import OneSignal from 'react-native-onesignal';
+import Constants from "expo-constants";
+OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
+
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
