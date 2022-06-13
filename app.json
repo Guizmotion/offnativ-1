@@ -32,6 +32,17 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "description": "corrections (no result) avant tests et publications"
+    "extra": {
+      "oneSignalAppId": "609f4f9b-6a53-4071-9ede-d3594dffe6cc"
+    },
+    "description": "corrections (no result) avant tests et publications",
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
+    ]
   }
 }

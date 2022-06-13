@@ -71,18 +71,24 @@ export default function Programme({ navigation }) {
     axios.get(url_programme + stateRecherche.limite ).then(response => {
 
       dispatch({ type: "addData", payload: response.data });
+
+
+
+
       setIsLoading(false);
     });
     
 
+
     
   }, [stateRecherche]);
 
-  //force flat list to go on top
-  flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+ 
+//force flat list to go from RechercheModal
+if(flatListRef.current != undefined) {
+flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+}
 
-
-  
 
 
   const filteredData = state.programme;/*searchText
