@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Festival OFF IOS",
-    "slug": "festival-off-ios",
+    "name": "Festival Off",
+    "slug": "festival-off",
     "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -33,8 +33,6 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-   
-    "description": "corrections (no result) avant tests et publications",
-
+    "description": "corrections (btn mdp & pushs) avant tests et publications"
   }
 }
