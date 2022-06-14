@@ -313,16 +313,11 @@ import styles from "../../config/styles/StyleGeneral";
     }
 
     useEffect(() => {
-     
-      
-      console.log(Pays);
-      console.log(LabelPays);
+
       if(Pays !== ""){
       let currentPaysLabel = listPays.find(item => item.value === Pays).label;
       setLabelPays(currentPaysLabel);
-
-     console.log(currentPaysLabel);
-   
+      
       }
 
 
@@ -562,7 +557,7 @@ useEffect(() => {
 <Pressable
   onPress={() => setModalmdpVisible(!modalmdpVisible)}
   >
-    <View  style={[styles.labelCard,styles.bigButton, styles.blackButton]} >
+    <View  style={[styles.labelCard,styles.bigButton]} >
                 <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Modifier votre Mot de passe</Text></View>
 </Pressable>
 

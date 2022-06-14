@@ -22,6 +22,7 @@
       "buildNumber": "2.0.0"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -32,17 +33,8 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "extra": {
-      "oneSignalAppId": "609f4f9b-6a53-4071-9ede-d3594dffe6cc"
-    },
+   
     "description": "corrections (no result) avant tests et publications",
-    "plugins": [
-      [
-        "onesignal-expo-plugin",
-        {
-          "mode": "development"
-        }
-      ]
-    ]
+
   }
 }

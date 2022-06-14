@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button, Platform, Linking } from 'react-native';
 
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -10,8 +10,9 @@ import { RechercheContainer } from "./app/store/storeRecherche";
 import {FavorisContainer} from './app/store/storeFavoris';
 import { CartesAbonnementContainer } from "./app/store/storeCartesAbonnement";
 import { RootSiblingParent } from 'react-native-root-siblings';
+import PushService from './app/services/PushService';
 
-
+/*
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
@@ -23,14 +24,27 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
+*/
 
 function App() {
 
 
+//call PushService only 1 time
 
+  
+
+
+
+  
+
+
+
+
+/*
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
+
+  const [notificationUrl, setNotificationUrl] = useState('');
   const notificationListener = useRef();
   const responseListener = useRef();
 
@@ -40,6 +54,7 @@ function App() {
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
+      setNotificationUrl(notification.request.content.data.url);
     });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
@@ -47,11 +62,20 @@ function App() {
       console.log(response);
     });
 
+    //Linking.openUrl(url);
+    if(notificationUrl !== ''){
+      //Linking.openURL(notificationUrl);
+      //console.log(noticationUrl);
+    }
+
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
-  }, []);
+  }, [notificationUrl]);
+
+*/
+
   return (
     <StoreContainer>
       <GlobalState>
@@ -60,7 +84,10 @@ function App() {
          <FavorisContainer>
            <CartesAbonnementContainer>
            <RootSiblingParent>
-          <AppNavigator />
+            
+              <AppNavigator />
+              <PushService />
+             
           </RootSiblingParent>
           </CartesAbonnementContainer>
          </FavorisContainer>
@@ -71,7 +98,7 @@ function App() {
   );
 }
 
-
+/*
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
 async function sendPushNotification(expoPushToken) {
   const message = {
@@ -106,8 +133,18 @@ async function registerForPushNotificationsAsync() {
       alert('Failed to get push token for push notification!');
       return;
     }
+
+
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
+   
+    //https://off.appli.ovh/register.php?ExponentPushToken=rENqnHGdPS_oHCwUkM60_n
+    if(token !== ''){
+      console.log('ExponentPushToken='+token);
+    
+        const response = await fetch('https://off.appli.ovh/register.php?ExponentPushToken='+token);
+
+    }
+
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -123,6 +160,6 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-
+*/
 
 export default App;
