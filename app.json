@@ -33,6 +33,6 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "description": "corrections (btn mdp & pushs) avant tests et publications"
+    "description": "app du festival off"
   }
 }
