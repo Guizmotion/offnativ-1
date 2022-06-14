@@ -18,80 +18,63 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-import Loader from "../Loader";
-import { useRoute } from "@react-navigation/native";
-import { StoreContext } from "../../store/store";
+import { ListItem } from "react-native-elements";
 
-import { FavorisContext } from "../../store/storeFavoris";
+import axios from "axios";
+
+import { NavigationContainer } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useRoute } from "@react-navigation/native";
+// import { StoreContext } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+
+// import { FavorisContext } from "../../store/storeFavoris";
 import ProgrammeCard from "../ProgrammeCard";
 
-
 export default function Favoris({ navigation }) {
-  const { state, dispatch } = React.useContext(StoreContext);
-  const {stateFavoris, dispatchFavoris} = React.useContext(FavorisContext);
+  // const { state, dispatch } = React.useContext(StoreContext);
+  const state = useSelector((state) => state.user);
+  const stateFavoris = useSelector((state) => state.user);
+
+  // const { stateFavoris, dispatchFavoris } = React.useContext(FavorisContext);
 
   const route = useRoute();
   const [listFavorites, setlistFavorites] = useState([]);
   const [token, setToken] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-    
+
+  //const filteredData = state.programme;
+
   const filteredData = state.programme.filter(
-    (x) =>
-    stateFavoris.SpectaclesSelected[x.id] === true
-    )
-   ;
-    
-   // const memoizedValue = useMemo(() => renderItem, [state.programme]);
-      
-   
-    
-      return (
-        <View>
-        
-       
-        <FlatList
-        
+    (x) => stateFavoris.SpectaclesSelected[x.id] === true
+  );
+  // const memoizedValue = useMemo(() => renderItem, [state.programme]);
+
+  return (
+    <View>
+      <FlatList
         //  ListHeaderComponent={() => { return <ProgrammeHeader />}}
-      
-        data={filteredData }
-        
+
+        data={filteredData}
         removeClippedSubviews={true}
-        // updateCellsBatchingPeriod={5} 
+        // updateCellsBatchingPeriod={5}
         maxToRenderPerBatch={12}
         initialNumToRender={4}
-       // getItemLayout={() => getItemLayout() }
-        
+        // getItemLayout={() => getItemLayout() }
+
         onEndReached={({ distanceFromEnd }) => {
           if (distanceFromEnd < 0) return;
         }}
-
         keyExtractor={(item, index) => {
           // console.log("index", index)
           return index.toString();
         }}
-       
-        ListEmptyComponent={() => {
-          if (isLoading) {
-            return null;
-          }
-          return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 600 }}>
-              <Text>Aucun résultat</Text>
-            </View>
-          );
-        }
-        }
-        
         renderItem={({ item }) => {
           // return renderData(item);
-          return <ProgrammeCard item={item} />
+          return <ProgrammeCard item={item} />;
         }}
-        
-        
-       
-        
-        
-        />
-        </View>
-        );
-      }
+      />
+    </View>
+  );
+}

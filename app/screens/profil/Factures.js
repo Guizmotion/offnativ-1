@@ -23,8 +23,7 @@ import RNPickerSelect from "react-native-picker-select";
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 
 import styles from "../../config/styles/StyleGeneral";
-import { FlatList, State } from "react-native-gesture-handler";
-import { StoreContext } from "../../store/store";
+import { FlatList } from "react-native-gesture-handler";
 
 
 /*
@@ -36,32 +35,92 @@ import { StoreContext } from "../../store/store";
 
 export default function Factures({ navigation }) {
  
-  const { state, dispatch } = React.useContext(StoreContext);
 
   const [isLoading, setIsLoading] = useState(true);
   
   
  
-  var axios = require('axios');
-  var data = '';
+const Factures = {
+    
+ 
+  Tickets: 
+      
+
+          [ 
+             {
+              "id": 1,    
+              "statut" : "achetée",
+                  "numero_carte" : "123456789",
+                  "code_promo": "",
+                  "structure": "",
+                  "nom" : "perodo",
+                  "prenom" : "nico",
+                  "adresse" : "rue de la paix",
+                  "ville" : "paris",
+                  "codePostal" : "75000",
+                  "telephone" : "0123456789",
+                  "pays" : "france",
+                  "livraison" : "courrier",
+                 
+              },
+              {
+                  "id": 2,
+                  "statut" : "achetée",
+                  "numero_carte" : "123456789",
+                  "code_promo": "",
+                  "structure": "",
+                  "nom" : "perodo2",
+                  "prenom" : "nico",
+                  "adresse" : "rue de la paix",
+                  "ville" : "paris",
+                  "codePostal" : "75000",
+                  "telephone" : "0123456789",
+                  "pays" : "france",
+                  "livraison" : "courrier",
+                
+              },
+          ],
+  Cartes: 
+      
+
+          [ 
+             {
+              "id": 1,    
+              "statut" : "achetée",
+                  "numero_carte" : "123456789",
+                  "code_promo": "",
+                  "structure": "",
+                  "nom" : "perodo",
+                  "prenom" : "nico",
+                  "adresse" : "rue de la paix",
+                  "ville" : "paris",
+                  "codePostal" : "75000",
+                  "telephone" : "0123456789",
+                  "pays" : "france",
+                  "livraison" : "courrier",
+                 
+              },
+              {
+                  "id": 2,
+                  "statut" : "achetée",
+                  "numero_carte" : "123456789",
+                  "code_promo": "",
+                  "structure": "",
+                  "nom" : "perodo2",
+                  "prenom" : "nico",
+                  "adresse" : "rue de la paix",
+                  "ville" : "paris",
+                  "codePostal" : "75000",
+                  "telephone" : "0123456789",
+                  "pays" : "france",
+                  "livraison" : "courrier",
+                
+              },
+          ]
   
-  var config = {
-    method: 'post',
-    url: 'https://api.festivaloffavignon.com/profile/invoices',
-    headers: { 
-      'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
-      'token': state.token },
-    data : data
-  };
+
   
-  axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
+      };
 
 
 const handleDownload = ({ item }) => {

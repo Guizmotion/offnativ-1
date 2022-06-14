@@ -18,17 +18,20 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import axios from "axios";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNPickerSelect from "react-native-picker-select";
-
-import { StoreContext } from "../../store/store";
 import styles from "../../config/styles/StyleGeneral";
-
+import { useDispatch, useSelector } from "react-redux";
+//import Token from "../../hooks/Token";
 
 
   
   export default function MofifierProfil({ navigation }) {
+
+   // const dispatch = useDispatch();
+    const state = useSelector((state) => state.user);
+    //const token = state.token;
+   // console.log(token);
 
     const  listPays= [
    
@@ -283,10 +286,7 @@ import styles from "../../config/styles/StyleGeneral";
   ];
 
 
-
-  const { state, dispatch } = React.useContext(StoreContext);
-    const [email, setEmail] = useState("");
-   
+    const [email, setEmail] = useState("");   
     const [Nom, setNom] = useState("");
     const [Prenom, setPrenom] = useState("");
     const [DateNaissance, setDateNaissance] = useState("");
@@ -299,7 +299,6 @@ import styles from "../../config/styles/StyleGeneral";
     const [Newsletter, setNewsletter] = useState(false);
     const [Stats, setStats] = useState(false);
     const [modalmdpVisible, setModalmdpVisible] = useState(false);
-
     const [newPassword, setNewPassword] = useState("");
     const [oldPassword, setOldPassword] = useState("");
 
@@ -336,7 +335,7 @@ import styles from "../../config/styles/StyleGeneral";
         url: 'https://api.festivaloffavignon.com/profile',
         headers: { 
           'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
-          'token': state.token
+          'token':state.token
            },
         data : data
       };
@@ -392,8 +391,9 @@ import styles from "../../config/styles/StyleGeneral";
   }
 
     const getProfile = async () => {
+
+      console.log('token : ' + state.token);
       var data = '';
-    console.log(state.token);
       var config = {
         method: 'post',
         url: 'https://api.festivaloffavignon.com/profile',

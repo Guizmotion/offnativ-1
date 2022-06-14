@@ -7,8 +7,7 @@ import { ActivityIndicator, Colors } from "react-native-paper";
 import { AlphabetList } from "react-native-section-alphabet-list";
 import axios from "axios";
 
-import { StoreContext } from "../../store/store";
-import { RechercheContext } from "../../store/storeRecherche";
+// import { RechercheContext } from "../../store/storeRecherche";
 import styles from "../../config/styles/StyleGeneral";
 
 import { ListItem } from 'react-native-elements'
@@ -16,13 +15,17 @@ import { ScrollView } from "react-native-gesture-handler";
 //import auteurs from "./auteurs";
 import {_, rebounce} from "lodash";
 import uniq from "lodash/uniq";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const ListAuteurSpectacle = ({ navigation}) =>  {
   
   
   
   const [checked, setChecked] = useState(false);
-  const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
+  const dispatch = useDispatch();
+
+  // const { stateRecherche, dispatchRecherche } = React.useContext(RechercheContext);
   
   
   
@@ -45,7 +48,7 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
       
       if (item.checked === true ) {
         
-        dispatchRecherche({
+        dispatch({
           type: "ADD_AUTEURS_RECHERCHES",
           payload: item,
         });
@@ -53,7 +56,7 @@ const ListAuteurSpectacle = ({ navigation}) =>  {
         
         
       }else{
-        dispatchRecherche({
+        dispatch({
           type: "DELETE_AUTEURS_RECHERCHES",
           payload: item,
         });

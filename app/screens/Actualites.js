@@ -11,8 +11,8 @@ export default function Actualites({ navigation}) {
      
     <WebView
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
-    source={{ uri: 'https://www.festivaloffavignon.com/nymphea/agenda-actu-appli?app=1' }}
-    incognito={true}
+    source={{ uri: 'https://www.festivaloffavignon.com/agenda-actualites?app=1' }}
+    
     javaScriptEnabled={true}
     domStorageEnabled={true}
     startInLoadingState={true}
