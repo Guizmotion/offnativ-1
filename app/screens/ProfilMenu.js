@@ -176,7 +176,7 @@ export default function ProfilMenu({ navigation }) {
         </View>
       </View>
 
-      <View style={{ display: "none" }}>
+      <View >
         <View style={[styles.blocGris, styles.flexColumn]}>
           <View style={{ width: "100%", alignItems: "center" }}>
             <Text style={[styles.colorOrange, styles.ParagraphBold]}>

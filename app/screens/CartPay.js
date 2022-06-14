@@ -20,6 +20,7 @@ export default function CartPay({ navigation }) {
       domStorageEnabled={true}
       startInLoadingState={true}
       scalesPageToFit={true}
+    //  incognito={true}
       renderLoading={(e) => {
         return <Loader />;
       }}
