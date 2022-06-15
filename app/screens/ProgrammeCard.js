@@ -225,19 +225,19 @@ const ProgrammeCard = ({ item }) => {
       title: item.titre_spectacle,
       price: [
         {
-          price: 0.5,
+          price: item.tarif,
           quantity: 1,
         },
         {
-          price: 0.5,
+          price: item.tarif_adh,
           quantity: 0,
         },
         {
-          price: 0.5,
+          price: item.tarif_enfant,
           quantity: 0,
         },
         {
-          price: 0.5,
+          price: item.tarif_adh,
           quantity: 0,
         },
       ],
