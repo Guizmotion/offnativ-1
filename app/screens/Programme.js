@@ -11,11 +11,8 @@ import axios from "axios";
 // import { ShopContext } from "../store/ShopContext";
 // import { FavorisContext } from "../store/FavorisContext";
 import Loader from "./Loader";
-import { ADD_PRODUCT } from "../store/reducers";
-// import { StoreContext } from "../store/store";
-// import { RechercheContext } from "../store/storeRecherche";
+import { _ } from "lodash";
 
-//import LikeButton from "../components/LikeButton";
 import ProgrammeCard from "./ProgrammeCard";
 import ProgrammeHeader from "./ProgrammeHeader";
 
@@ -60,32 +57,58 @@ export default function Programme({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [visible, setVisible] = useState(true);
+  const flatListRef = useRef(); 
 
   useEffect(() => {
-    token;
     setIsLoading(true);
-    axios.get(url_programme + stateRecherche.limite).then((response) => {
-      dispatch({ type: "addData", payload: response.data });
-      setIsLoading(false);
+  
+    axios.get(url_programme + stateRecherche.limite ).then(response => {
+
+      let programme_aleatoire =  _.shuffle(response.data);
+     
+
+     dispatch({ type: "addData", payload: programme_aleatoire });
+     
+     setIsLoading(false);
     });
+
+   // shuffleProgramme();
+    
+    
   }, [stateRecherche]);
 
-  /*
-  useEffect(() => {
-    console.log("context cart length from Programme : :" + context.cart.length);
-  }, []);
-  */
+ 
 
-  const filteredData = state.programme; /*searchText
-  ? state.programme.filter(
-    (x) =>
-    x.description.toLowerCase().includes(searchText.toLowerCase()) ||
-    x.nom.toLowerCase().includes(searchText.toLowerCase()) ||
-    x.lieu.toLowerCase().includes(searchText.toLowerCase())
-    )
-    : state.programme;*/
 
-  // const memoizedValue = useMemo(() => renderItem, [state.programme]);
+  const filtrerProgramme = (col,orderby) => {
+    let programme = state.programme;
+    
+    let result = _.orderBy(programme, col, orderby);
+    
+    dispatch({ type: "addData", payload: result });
+    
+    // console.log(result);
+  };
+
+
+  const shuffleProgramme = () => {
+    let programme = state.programme;
+   let progshuffle =  _.shuffle(programme);
+    dispatch({ type: "addData", payload: progshuffle});
+
+     console.log(Object.keys(state.programme).length);
+
+  };
+
+
+//force flat list to go from RechercheModal
+if(flatListRef.current != undefined) {
+flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+}
+
+
+
+  const filteredData = state.programme;
 
   const getItemLayout = (data, index) => ({
     length: 100,

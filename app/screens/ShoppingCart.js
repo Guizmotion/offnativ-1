@@ -26,6 +26,9 @@ import Loader from "./Loader";
 import { Button } from "react-native-paper";
 
 import Toast from "react-native-root-toast";
+import { CommonActions } from '@react-navigation/native';
+
+
 
 moment.locale("fr");
 
@@ -38,6 +41,7 @@ const ShoppingCart = ({ navigation }) => {
   const [isChecked, setChecked] = useState(false);
   const [cart, setCart] = useState("");
   const [fees,setFees] = useState(0);
+  const [totalDistant,setTotalDistant] = useState(0);
  
   const pickerRef = useRef();
 
@@ -89,6 +93,7 @@ function close() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
+        setTotalDistant(response.data.basket.tko_price);
 
         //update fees
         /*
@@ -98,7 +103,7 @@ function close() {
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
         
         //frais = fees_nb x fees_unit_price
-        setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
+       // setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
 
 
       })
@@ -220,6 +225,8 @@ function close() {
             .catch(error => console.log('error', error));
 
             dispatch({ type: "removeCart", payload: id });
+
+
         }
 
         };
@@ -404,7 +411,7 @@ function close() {
                     }
                     )
                     .then((user) => {
-                      console.log("success 2");
+                      console.log("success : ajout du contact au billet");
                     })
                     
                     .catch((error) => {
@@ -421,9 +428,24 @@ function close() {
                     },
                   })
                   .then((user) => {
-                    console.log("success 2");
+                    console.log("success login CMS" + totalDistant);
                     setLoading(false);
-                    navigation.navigate("CartPay");
+                    navigation.dispatch(
+                      CommonActions.reset({
+                        index: 1,
+                        routes: [
+                          { name: 'CartPay' },
+        
+                        ],
+                      })
+                    );
+                    navigation.navigate(
+                      "CartPay",
+                      {tko_id: tko_id,
+                      total: totalDistant
+                      },
+                      
+                      );
                   })
                   
                   .catch((error) => {
@@ -1281,10 +1303,13 @@ function close() {
                             }}
                             >
                             <Feather name="shopping-bag" size={50} color="black" />
-                            
+                            <Pressable
+                            onPress={() => getDistantCart()}
+                            >
                             <Text style={{ fontSize: 24, fontWeight: "bold" }}>
                             Votre panier est vide !{" "}
                             </Text>
+                            </Pressable>
                             </View>
                             </View>
                             )}
