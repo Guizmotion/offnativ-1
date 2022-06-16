@@ -103,7 +103,7 @@ function close() {
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
         
         //frais = fees_nb x fees_unit_price
-       // setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
+        setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
 
 
       })
