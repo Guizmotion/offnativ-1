@@ -18,7 +18,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-root-toast";
 import { Storage } from 'expo-storage';
 import RNPickerSelect from "react-native-picker-select";
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
@@ -88,7 +88,56 @@ export default function CartesAbonnement({ navigation }) {
       console.log(error);
     }
   }
-  
+
+  const cardToBasket = async (item) => {
+    
+    let data = JSON.stringify({
+  "fes_id": 22,
+  "card_firstname": item.nom,
+  "card_lastname": item.prenom,
+  "card_birthday": "12/12/1960",
+  "card_postalcode": "30000",
+  "card_country": "FR",
+  "card_type_id": 1,
+  "card_photo": 'data:image/jpeg;base64,' + item.photo
+
+});
+
+let config = {
+  method: 'patch',
+  url: 'https://api.festivaloffavignon.com/cards/basket',
+  headers: { 
+    'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+    'token': user.token
+   },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+
+
+  if(response.data.status == 'success'){
+   
+    let m = "Carte ajoutée au panier";
+    "ios" === Platform.OS
+      ? Toast.show(m, Toast.SHORT)
+      : ToastAndroid.show(m, ToastAndroid.SHORT);
+  }
+  else{
+    let m = 'Erreur lors de l\'ajout de la carte au panier';
+    "ios" === Platform.OS
+      ? Toast.show(m, Toast.SHORT)
+      : ToastAndroid.show(m, ToastAndroid.SHORT);
+  }
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+
+  }
   
   
   
@@ -180,8 +229,10 @@ export default function CartesAbonnement({ navigation }) {
         deleteCarteAbonnement(item.id);
         
       }}
-      ><Text>Supp</Text>
+      ><Text>Supprimer</Text>
       </Pressable> 
+     
+
       
       </View>
       <View style={styles.carteAbonnement_body_right}>
@@ -191,6 +242,16 @@ export default function CartesAbonnement({ navigation }) {
       source={{ uri: 'data:image/jpeg;base64,' + item.photo }}
       style={{ width: 100, height: 100 }}
       />
+
+<Pressable
+      
+      onPress={() => {
+        
+      cardToBasket(item);
+        
+    }}
+    ><Text>ajouter au panier</Text>
+    </Pressable> 
       
       </View>
       
