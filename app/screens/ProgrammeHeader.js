@@ -167,21 +167,23 @@ const ProgrammeHeader = () => {
             </Pressable>
           </View>
         </View>
-        <View style={{ width: "15%", flexDirection: "row", marginLeft: "10%" }}>
-          <Pressable
-            onPress={toggleOverlay}
-            style={[styles.labelCard, styles.btnBig]}
-          >
-            <Image
-              style={{
-                resizeMode: "cover",
-                height: 25,
-                width: 25,
-              }}
-              source={require("../assets/filtre.png")}
-            />
-          </Pressable>
-        </View>
+        <View style={{width:'15%', flexDirection: 'row', right: 0, position: 'absolute', alignSelf: 'flex-end'}}>
+    
+    <Pressable
+    onPress={toggleOverlay} 
+    style={[styles.labelCard, styles.btnBig, styles.alignRight]}
+    >
+    <Image
+    style={{
+      resizeMode: "cover",
+      height: 25,
+      width: 25,
+
+    }}
+    source={require("../assets/filtre.png")}
+    />
+    </Pressable>
+    </View>
       </View>
 
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>

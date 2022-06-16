@@ -128,6 +128,14 @@ export default StyleSheet.create({
      alignSelf: "flex-start",
 
     },
+    TextGros: {
+      fontSize: 16,
+      width: "80%",
+      fontWeight: "bold",
+      padding: '1%',
+      alignSelf: "flex-start",
+ 
+     },
     ParagraphBold: {
      fontWeight: "bold",
     },
@@ -145,6 +153,10 @@ export default StyleSheet.create({
     smallText: {
        color: '#fff',
        fontSize: 8,
+    },
+    moyenText: {
+      color: '#221f1f',
+     fontSize: 10,
     },
     headView: {
      width: '100%',
@@ -311,6 +323,16 @@ export default StyleSheet.create({
       marginTop: 10,
       marginBottom:10,
     },
+    TextBigCart: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#221f1f',
+    },
+    TextMiddleCart: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: '#221f1f',
+    },
     justifyElement: {
       width: '100%',
       textAlign: "center",
@@ -422,6 +444,36 @@ export default StyleSheet.create({
       headerLeft: {
         paddingLeft: 15,
       },
+      panierIcon: {
+        backgroundColor: "#F0F0F3",
+        padding: 8,
+        borderRadius: 100
+      },
+      btnIconGeneral: {
+        fontSize: 16,
+        color: "#221f1f",
+        backgroundColor: "#F0F0F3",
+        padding: 8,
+        borderRadius: 100,
+      },
+      fondbtnIconGeneral: {
+        position: "absolute",
+        right: 0,
+        top: 0,
+        borderRadius: 30,
+        overflow: 'hidden'
+      }, 
+      linePriceCart: {
+        flexDirection: 'row',
+        minHeight: 40,
+        alignContent: 'flex-start',
+        width: '100%', 
+      },
+      btnQty: {
+        padding: 0,
+        borderRadius: 30,
+        overflow: 'hidden',
+      }
 
 
     });

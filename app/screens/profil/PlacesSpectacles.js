@@ -26,29 +26,26 @@ import { CartesAbonnementContext } from "../../store/storeCartesAbonnement";
 import styles from "../../config/styles/StyleGeneral";
 import { useDispatch, useSelector } from "react-redux";
 
-/*
-{state.isAuthenticated && (
-  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
-  
-  )}
-*/
 
 export default function PlacesSpectacles({ navigation }) {
-  const state = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
-  const [Places, setPlaces] = useState([]);
+  const [Places, setPlaces] = useState();
   const [isLoading, setIsLoading] = useState(false);
   // var axios = require('axios');
 
   const getFactures = async () => {
-    var data = "{\r\n    fes_id : 21\r\n}";
+
+
+
+    var data = "{\r\n    fes_id : 22\r\n}";
 
     var config = {
       method: "post",
       url: "https://api.festivaloffavignon.com/tickets",
       headers: {
         "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-        token: state.token,
+        token: user.token,
         "Content-Type": "text/plain",
       },
       data: data,
@@ -56,10 +53,11 @@ export default function PlacesSpectacles({ navigation }) {
 
     await axios(config)
       .then(function (response) {
-        // console.log(response);
+      //  console.log(response.data.orders);
         // console.log(JSON.stringify(response.data.orders));
-        if (response.orders != null) {
-          setPlaces(JSON.stringify(response.orders));
+        if (response.data.orders != null) {
+
+          setPlaces(response.data.orders);
         }
       })
       .catch(function (error) {
@@ -69,7 +67,7 @@ export default function PlacesSpectacles({ navigation }) {
 
   useEffect(async () => {
     await getFactures();
-  }, []);
+  }, [Places]);
 
   const _listEmptyComponent = () => {
     return (
@@ -88,38 +86,43 @@ export default function PlacesSpectacles({ navigation }) {
 
   const renderItem = ({ item, i }) => {
     // console.log(item.photo);
-    //item data
-    /*
-   "id": 1,    
-   "statut" : "brouillon",
-   "numero_carte" : "123456789",
-   "code_promo": "",
-   "structure": "",
-   "nom" : "perodo",
-   "prenom" : "nico",
-   "adresse" : "rue de la paix",
-   "ville" : "paris",
-   "codePostal" : "75000",
-   "telephone" : "0123456789",
-   "pays" : "france",
-   "livraison" : "courrier",
-   "photo": ""
+  
+/*
+Object {
+        "sh_date": "/Date(1658408700000+0200)/",
+        "sh_date_id": 2183971,
+        "sh_date_string": "2022-07-21T15:05:00.0000000",
+        "sh_id": 31680,
+        "sh_name": "Un crime, ça ne s'improvise pas   \"Alea jacta est\"",
+        "ticket_barcode": "51CC3A392D",
+        "ticket_card": Object {
+          "card_key": "W02753TQWW",
+          "card_name": "Thomas Hauguel",
+        },
+        "ticket_key": "JEU21-1505-UNCR-51CC3-A392D-TA-0005",
+        "ticket_location": Object {
+          "th_address": "149, rue de la carreterie",
+          "th_city": "Avignon",
+          "th_id": 4771,
+          "th_name": "HUMANUM",
+          "th_postal_code": "84000",
+        },
+        "ticket_price": 1000,
+        "ticket_type": 2,
+        "tkto_id": 633456,
+      },
 
-   "fes_id": 22,
-   "card_birthday" : "12/12/1960",
-   "card_type_id" : 1,
-     "skip_step" : false,
- "transport_card" : true,
- "culture_card" : true,
- "partner_festival" : true,
- "reduced_card" : true
-   */
+      
+*/
+
+console.log(item.tko_tickets[0].sh_name);
+
 
     return (
-      <View style={styles.carteAbonnement} key={item.tko_id}>
+      <View style={styles.carteAbonnement} key={item.sh_id}>
         <View style={styles.carteAbonnement_header}>
           <Text style={styles.carteAbonnement_header_text}>
-            Carte Abonnement
+            Places de spectacles
           </Text>
         </View>
         <View style={styles.carteAbonnement_body}>
@@ -134,7 +137,7 @@ export default function PlacesSpectacles({ navigation }) {
           </View>
           <View style={styles.carteAbonnement_body_right}>
             <Text style={styles.carteAbonnement_header_text}>
-              {item.tko_tickets["name"]} {item.ticket_card["card_name"]}
+              {item.sh_name} 
             </Text>
 
             <Image
@@ -147,6 +150,8 @@ export default function PlacesSpectacles({ navigation }) {
     );
   };
 
+
+  //console.log(Places);
   return (
     <View
       style={{
@@ -161,7 +166,7 @@ export default function PlacesSpectacles({ navigation }) {
         // extraData={newCartes}
         ListEmptyComponent={_listEmptyComponent}
         renderItem={(item) => renderItem(item)}
-        keyExtractor={(item) => item.tko_id}
+        keyExtractor={(item) => item.sh_id}
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: "black" }} />
         )}

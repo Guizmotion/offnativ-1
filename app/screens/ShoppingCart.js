@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useRef } from "react";
 import {
+  ToastAndroid,
   View,
   Text,
   ScrollView,
@@ -23,6 +24,9 @@ import moment from "moment";
 import "moment/min/locales";
 import Loader from "./Loader";
 import { Button } from "react-native-paper";
+
+import Toast from "react-native-root-toast";
+
 moment.locale("fr");
 
 const ShoppingCart = ({ navigation }) => {
@@ -284,7 +288,7 @@ function close() {
               .then(async (result) => {
                 tko_id = result.data.basket.tko_id;
                 console.log("resultaado", result.data);
-                console.log(result.message);
+               // console.log(result.data.message);
 
                 //update fees
                 /*
@@ -293,8 +297,18 @@ function close() {
       "fees_unit_price": 100,
     },*/
             
-                if(result.success === false){
-                  alert(result.message);
+                if(result.data.success === false){
+                  
+                  let m = result.data.message;
+
+                  if(m === 'Le nombre de places souhaitÃ©es est supÃ©rieur aux disponibilitÃ©s.'){
+
+                    m= 'Erreur : Le nombre de places souhaitées est supérieur aux disponibilités.';
+                  }
+                  "ios" === Platform.OS
+                    ? Toast.show(m, Toast.SHORT)
+                    : ToastAndroid.show(m, ToastAndroid.SHORT);
+
                   setLoading(false);
                 }
                 else{
@@ -370,7 +384,7 @@ function close() {
                     setLoading(false);
                   });
 
-                }
+              
 
                   await axios
                   .post(
@@ -397,6 +411,8 @@ function close() {
                       console.log(error);
                       setLoading(false);
                     });
+
+
                     await axios
                     .get("https://api.festivaloffavignon.com/cms/login", {
                     headers: {
@@ -414,6 +430,9 @@ function close() {
                     console.log(error);
                     setLoading(false);
                   });
+
+                }//fin else erreur ajout panier
+
                 })
                 
                 .catch((error) => {

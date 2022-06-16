@@ -913,7 +913,7 @@ const ProgrammeCard = ({ item }) => {
         <View style={{ justifyContent: "flex-end", flex: 3, bottom: 0 }}>
           {state.isAuthenticated && (
             <TouchableOpacity
-              style={[styles.labelCard, styles.labelAchat, styles.btnFixed]}
+            style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
               onPress={() => addCart(item)}
             >
               <Text style={styles.textBigButton}> Acheter sur Ticket'Off</Text>
