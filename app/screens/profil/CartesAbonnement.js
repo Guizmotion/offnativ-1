@@ -89,7 +89,32 @@ export default function CartesAbonnement({ navigation }) {
     }
   }
 
+  /*
+  Le fonctionnement serait le suivant :
+
+CARTES PANIER  Obtention pour obtenir les cartes en cours
+
+CARTES PANIER Choix carte (Qui en fonction des critères , détermine la carte à créer : normale, 12/15, transport, tarif réduit, culture et le tarif associé)
+
+CARTES PANIER Ajout carte pour ajouter la carte au panier en cours
+
+CARTES PANIER Validation  pour verrouiller la panier et interdire l’ajout de nouvelles cartes avant paiement
+
+Après il faudrait basculer sur la page de paiement à créer
+
+ 
+
+CARTES PANIER Annulation permet de déverrouiller le panier et ajouter à nouveau des cartes
+
+ 
+
+Suivant le type de carte , il y a un justificatif à envoyer également.
+
+Je l’ai géré au base64 comme pour les photos. Je n’ai pas reussi à combiner POST du justificatif et RAW de la demande
+*/
+
   const cardToBasket = async (item) => {
+    
     
     let data = JSON.stringify({
   "fes_id": 22,
@@ -99,9 +124,11 @@ export default function CartesAbonnement({ navigation }) {
   "card_postalcode": "30000",
   "card_country": "FR",
   "card_type_id": 1,
-  "card_photo": item.photo
+  "card_photo": 'data:image/jpeg;base64,' +item.photo
 
 });
+
+console.log('envoi donnée carte brouillon' + data);
 
 let config = {
   method: 'patch',
@@ -118,7 +145,7 @@ axios(config)
   console.log(JSON.stringify(response.data));
 
 
-  if(response.data.status == 'success'){
+  if(response.data.success == true){
    
     let m = "Carte ajoutée au panier";
     "ios" === Platform.OS
