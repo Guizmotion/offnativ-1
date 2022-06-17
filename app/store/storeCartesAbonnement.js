@@ -63,11 +63,7 @@ const reducer = (stateCartesAbonnement, action) => {
         
         //console.log(action.payload)
         if (action.payload) {
-        //  AsyncStorage.setItem("carte_"+action.payload.id, JSON.stringify(action.payload));
-         //save with AsyncStorage
-        // AsyncStorage.setItem('CartesAbonnement', JSON.stringify(stateCartesAbonnement.Cartes));
 
-         
             return {
                 ...stateCartesAbonnement,
                 Cartes: [...stateCartesAbonnement.Cartes, action.payload]
@@ -115,13 +111,7 @@ export const CartesAbonnementContainer = ({ children }) => {
 
 // Loading initial Satte
 useEffect(() => {
-   // AsyncStorage.getItem("CartesAbonnement").then(value => {
-   //     if (value ) {
-   //         console.log("SET_CARTES_ABONNEMENT", value);
-   //         dispatchCartesAbonnement({ type: "SET_CARTES_ABONNEMENT", payload: JSON.parse(value) });
-   //     }
-   // }
-   // );
+
 
      // declare the data fetching function
   const fetchCartes = async () => {

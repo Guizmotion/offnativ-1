@@ -91,7 +91,7 @@ export default function CartesAbonnement({ navigation }) {
 
   /*
   Le fonctionnement serait le suivant :
-
+setTheArray(currentArray => [...currentArray, newElement])
 CARTES PANIER  Obtention pour obtenir les cartes en cours
 
 CARTES PANIER Choix carte (Qui en fonction des critères , détermine la carte à créer : normale, 12/15, transport, tarif réduit, culture et le tarif associé)
