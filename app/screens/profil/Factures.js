@@ -141,7 +141,7 @@ import { FlatList } from "react-native-gesture-handler";
         top: "10%",
       }}
       ><FlatList
-      data={invoices}
+      data={() => invoices}
       renderItem={(item) => renderItem(item)}
       keyExtractor={(item) => item.invoice_number}
       
