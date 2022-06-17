@@ -1,8 +1,6 @@
 import React from "react";
 
-
-
-import { View, Text,Image,Dimensions,Pressable } from "react-native";
+import { View, Text, Image, Dimensions, Pressable, Alert } from "react-native";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Programme from "../screens/Programme";
@@ -19,7 +17,6 @@ import CarteAbonnementWebview from "../screens/CarteAbonnementWebview";
 import Photo from "../screens/Photo";
 import Login from "../screens/Login";
 import RechercheModal from "../screens/RechercheModal";
-import RechercheAuteurs from "../screens/RechercheAuteurs";
 import ListStyleSpectacle from "../screens/recherche/ListStyleSpectacle";
 import ListDateSpectacle from "../screens/recherche/ListDateSpectacle";
 import ListAuteurSpectacle from "../screens/recherche/ListAuteurSpectacle";
@@ -30,15 +27,16 @@ import PlacesSpectacles from "../screens/profil/PlacesSpectacles";
 import CartesAbonnement from "../screens/profil/CartesAbonnement";
 import CreerCarteAbonnement from "../screens/profil/CreerCarteAbonnement";
 import Factures from "../screens/profil/Factures";
-import ShoppingCart from "../screens/ShoppingCart";
-import CartPay from "../screens/CartPay";
 import Partenaires from "../screens/Partenaires";
 import Inscription from "../screens/Inscription";
+import { useDispatch, useSelector } from "react-redux";
+import { Feather } from "@expo/vector-icons";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import styles from "../config/styles/StyleGeneral";
-
+import ShoppingCart from "../screens/ShoppingCart";
+import CartPay from "../screens/CartPay";
 const Drawer = createDrawerNavigator();
 
 
@@ -46,7 +44,7 @@ const Drawer = createDrawerNavigator();
 const DEVICE_WIDTH = Dimensions.get("screen").width - 115;
 
 const AppNavigator = ({ navigation }) => {
-  
+const state = useSelector((state) => state);
   
   function HeaderPrincipal() {
     
@@ -284,10 +282,56 @@ const AppNavigator = ({ navigation }) => {
     
     return (
       <View style={[styles.headView]}>
-      
-      <Text style={styles.titrePage}>{titre}</Text>
-      
-      </View>
+      <Text style={[styles.titrePage, { alignSelf: "flex-start" }]}>
+        {titre}
+      </Text>
+      <Pressable
+        onPress={() =>
+          state.user.isAuthenticated
+            ? navigation.navigate("ShoppingCart")
+            : Alert.alert(
+                "Vous n'êtes pas connecté !",
+                "Vous devez vous connecter pour acheter une place",
+                [
+                  {
+                    text: "OK",
+                    onPress: () => console.log("OK Pressed"),
+                  },
+                ]
+              )
+        }
+        style={{
+          position: "absolute",
+          top: 100,
+          right: -40,
+          width: 60,
+          height: 60,
+          padding: 17,
+          backgroundColor: '#221f1f',
+          borderRadius: 30
+        }}
+      >
+        <View
+          style={{
+            position: "absolute",
+            top: 10,
+            borderRadius: 16,
+            width: 20,
+            height: 20,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#f26522",
+            zIndex: 1, 
+            marginLeft: 8,
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>
+            {state.listings.cartItems.length}
+          </Text>
+        </View>
+        <Feather name="shopping-bag" size={25} color="white" />
+      </Pressable>
+    </View>
       );
     }
     
