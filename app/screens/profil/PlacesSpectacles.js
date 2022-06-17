@@ -65,7 +65,7 @@ export default function PlacesSpectacles({ navigation }) {
   
   useEffect(() => {
     getPlaces();
-  }, [Places]);
+  }, []);
   
   const _listEmptyComponent = () => {
     return (
@@ -121,7 +121,7 @@ export default function PlacesSpectacles({ navigation }) {
           let hadCardLinked = item.tko_tickets[i].ticket_card;
           
           list.push(
-            <View style={styles.listItem} key={item.tko_tickets[i].barcode}>
+            <View style={styles.listItem} key={item.tko_tickets[i].tkto_id}>
             <Text style={styles.listItemText}>
             {item.tko_tickets[i].sh_name}
             </Text>
@@ -129,7 +129,7 @@ export default function PlacesSpectacles({ navigation }) {
            
             
             <Text style={styles.listItemText}>
-            {item.tko_tickets[i].ticket_key}
+            Code Ticket : {item.tko_tickets[i].ticket_key}
             
             </Text>
             
@@ -148,9 +148,10 @@ export default function PlacesSpectacles({ navigation }) {
             );
           }
 
-        //  let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+          let random = Math.floor(Math.random() * 16777215);
+          console.log('random : ' + random);
           return (
-            <View key={Math.floor(Math.random() * 16777215)}>
+            <View key={random}>
             {list}
             </View>
           )
