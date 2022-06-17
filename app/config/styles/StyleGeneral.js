@@ -473,7 +473,33 @@ export default StyleSheet.create({
         padding: 0,
         borderRadius: 30,
         overflow: 'hidden',
-      }
+      },
+      listItem: {
+        flexDirection: 'row',
+        width: '100%',
+        height: 200,
+        alignSelf: "center",
+        marginBottom: 15
+      },
+      listItemText: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignSelf: "flex-start",
+      },
+      listItemBloc: { 
+        alignSelf: "center",
+        padding: 15
+      },
+      listItemLieu: {
+        padding: 10,
+        backgroundColor: '#e8e8e8',
+        borderRadius: 30,
+        height:35,
+        marginTop: 15,
+        
+      },
 
 
     });
+    
+    

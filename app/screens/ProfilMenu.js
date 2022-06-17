@@ -3,39 +3,19 @@ import {
   Linking,
   Image,
   Text,
-  TextInput,
-  DrawerContentScrollView,
   View,
-  StyleSheet,
-  ScrollViewButton,
   ScrollView,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Modal,
   Pressable,
-  TouchableWithoutFeedback,
 } from "react-native";
-
 import { useRoute } from "@react-navigation/native";
-
 import styles from "../config/styles/StyleGeneral";
-
 import axios from "axios";
-
-// import { StoreContext } from "../store/store";
-// import { FavorisContext } from "../store/storeFavoris";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ProfilMenu({ navigation }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-
-  // const { state, dispatch } = React.useContext(StoreContext);
-  // const { stateFavoris, dispatchFavoris } = React.useContext(FavorisContext);
-
   const route = useRoute();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -59,7 +39,17 @@ export default function ProfilMenu({ navigation }) {
   };
 
   useEffect(() => {
-    axios
+
+    getDistantFavorites();
+
+
+  }, []);
+
+
+  const getDistantFavorites = async () => {
+    console.log("Download des favoris distant: "+state.token );
+
+    await axios
       .get("https://api.festivaloffavignon.com/favorite", {
         headers: {
           "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
@@ -67,8 +57,7 @@ export default function ProfilMenu({ navigation }) {
         },
       })
       .then((response) => {
-        console.log("query fav: " + response.data.favoris);
-
+        
         dispatch({
           type: "SET_FAVORITES",
           //SET_FAVORITE
@@ -80,20 +69,19 @@ export default function ProfilMenu({ navigation }) {
           //SET_FAVORITE
           payload: response.data.favoris,
         });
+        console.log("favoris distants : " + response.data.favoris);
+
       });
-    console.log("favoris enregistrés");
-  }, []);
+    
+  }
+
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        paddingLeft: 30,
-        paddingRight: 30,
-      }}
-    >
+    <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%',  paddingTop: 0}}>
+         
+
+<ScrollView style={{height: '100%', width: '100%', display: 'flex'}}>
+
       {/*
   {state.isAuthenticated && (
     <Text style={{fontSize: 20}}>Bonjour {state.user.prenom}</Text>
@@ -377,8 +365,9 @@ export default function ProfilMenu({ navigation }) {
     
   )*/}
 
-      <View style={{ flex: 1, justifyContent: "flex-end", bottom: "15%" }}>
-        <Image
+</ScrollView>
+<View style={{   flex: 2, position: 'absolute', bottom: 120, width: '80%', marginLeft: '15%' }} >
+    <Image
           source={require("../assets/logo.png")}
           style={{
             position: "absolute",

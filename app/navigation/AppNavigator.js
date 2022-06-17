@@ -306,7 +306,7 @@ const state = useSelector((state) => state);
           right: -40,
           width: 60,
           height: 60,
-          padding: 17,
+          padding: 15,
           backgroundColor: '#221f1f',
           borderRadius: 30
         }}
@@ -329,7 +329,15 @@ const state = useSelector((state) => state);
             {state.listings.cartItems.length}
           </Text>
         </View>
-        <Feather name="shopping-bag" size={25} color="white" />
+        <Image
+                style={{
+                  resizeMode: "cover",
+                  height: 30,
+                  width: 30,
+                  alignItems: "flex-start",
+                }}
+             //   source={require("../assets/profil-panier-blanc.png")}
+              />
       </Pressable>
     </View>
       );
@@ -353,9 +361,9 @@ const state = useSelector((state) => state);
       
       let icon_menu = require("../assets/menu.png");
 
+      
 
-
-      if ((route.name=="Favoris") || (route.name=="ModifierProfil")) {
+      if ((route.name=="Favoris") || (route.name=="ModifierProfil") || (route.name=="CartesAbonnement")  || (route.name=="PlacesSpectacles") || (route.name=="Factures")) {
 
         return (
         <View style={[styles.headerLeft]}>

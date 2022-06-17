@@ -54,7 +54,7 @@ export default function PlacesSpectacles({ navigation }) {
     
     await axios(config)
     .then(function (response) {
-     // console.log(JSON.stringify(response.data.orders));
+      // console.log(JSON.stringify(response.data.orders));
       setPlaces(response.data.orders);
       // }
     })
@@ -122,113 +122,146 @@ export default function PlacesSpectacles({ navigation }) {
           
           list.push(
             <View style={styles.listItem} key={item.tko_tickets[i].tkto_id}>
-            <Text style={styles.listItemText}>
+            <View>
+            <Image
+            style={{
+              resizeMode: "cover",
+              height: 200,
+              width: 120,
+              //marginTop: -30,
+            }}
+            //    source={require("../../assets/images/photo_carte-abonnement.jpg")}
+            /></View>
+            <View style={[styles.blocContent, styles.listItemBloc]}>
+            <Text  ellipsizeMode="tail" numberOfLines={1} style={styles.Titre}>
             {item.tko_tickets[i].sh_name}
             </Text>
             
-           
+            
             
             <Text style={styles.listItemText}>
-            Code Ticket : {item.tko_tickets[i].ticket_key}
+            <Text style={styles.ParagraphBold}>Code Ticket</Text> {item.tko_tickets[i].ticket_key}
             
             </Text>
             
-            <Text style={styles.listItemText}>
-            Theatre : {item.tko_tickets[i].ticket_location.th_name}
-            
-            </Text>
             
             <Text style={styles.listItemText}>
-            Carte abo lié : {hadCardLinked ? item.tko_tickets[i].ticket_card.card_name : "Aucune"}
-            
+            <Text style={styles.ParagraphBold}>Carte d'abonnement renseignée</Text> {hadCardLinked ? item.tko_tickets[i].ticket_card.card_name : "Aucune"}            
             </Text>
             
-          
-           </View>
+            
+            
+            <View style={styles.listItemLieu}>
+            <Pressable
+            onPress={() => Linking.openURL(url_lieu)}
+            
+            >
+            
+            <Image
+            style={{
+              height: 25,
+              width: 25,
+              marginTop: -4,
+              position: "absolute",
+              left: 0
+            }}
+            source={require("../../assets/itineraire.png")}
+            />
+            <Text  ellipsizeMode='tail' numberOfLines={1}
+            style={{textAlign: "right",  width: '85%', marginLeft: '15%' }}>{item.tko_tickets[i].ticket_location.th_name}</Text>
+            
+            </Pressable>
+            </View>
+            </View>
+            </View>
+            
             );
+            
           }
-
           let random = Math.floor(Math.random() * 16777215);
           console.log('random : ' + random);
           return (
             <View key={random}>
             {list}
             </View>
-          )
-        }
-        
-        
-        return (
-          <View style={styles.carteAbonnement} key={item.tko_id}>
-          <View style={styles.carteAbonnement_header}>
-          <Text style={styles.carteAbonnement_header_text}>
-          Facture  n°{item.tko_bill_number}
-          </Text> 
-          <Text>Panier n° {item.tko_id} </Text>
-          </View>
-          <View style={styles.carteAbonnement_body}>
-          <View style={styles.carteAbonnement_body_left}>
+            )
+          }
           
-          </View>
-          <View style={styles.carteAbonnement_body_right}>
-          <Text style={styles.carteAbonnement_header_text}>
           
-          Liste des Tickets  {'\n'}    
-          </Text>
-        
-           {listTko_tickets(item)}
-       
+          return (
+            <View style={{paddingTop: 20,flexDirection: 'column',width: '90%', marginLeft: '5%', marginRight: '5%',
+            height: '100%'}} key={item.tko_id}>
+            <View style={styles.carteAbonnement_header}>
+            <Text style={styles.TextSousTitre}>
+            Facture  n°{item.tko_bill_number}
+            </Text> 
+            <Text>Panier n° {item.tko_id} </Text>
+            </View>
+            <View style={styles.carteAbonnement_body}>
+            <View style={styles.carteAbonnement_body_left}>
+            
+            </View>
+            <View style={styles.carteAbonnement_body_right}>
+            <Text style={styles.TextSousTitre}>
+            
+            Mes places {'\n'}    
+            </Text>
+            
+            {listTko_tickets(item)}
+            
+            
+            <Image
+            source={{ uri: item.sh_id }}
+            style={{ width: 100, height: 100 }}
+            />
+            </View>
+            </View>
+            </View>
+            );
+          };
           
-          <Image
-          source={{ uri: item.sh_id }}
-          style={{ width: 100, height: 100 }}
-          />
-          </View>
-          </View>
-          </View>
-          );
-        };
-        
-        
-        //console.log(Places);
-        return (
-          <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            top: "10%",
-          }}
-          >
-          <FlatList
-          data={Places}
-          // extraData={newCartes}
-          ListEmptyComponent={_listEmptyComponent}
-          renderItem={(item) => renderItem(item)}
-          keyExtractor={(item) => item.tko_id}
-          ItemSeparatorComponent={() => (
-            <View style={{ height: 1, backgroundColor: "black" }} />
-            )}
-            style={{ width: "100%", height: "100%" }}
-            /* onEndReached={() => {
+          
+          //console.log(Places);
+          return (
+            <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              top: 0,
+            }}
+            >
+            <FlatList
+            data={Places}
+            // extraData={newCartes}
+            ListEmptyComponent={_listEmptyComponent}
+            renderItem={(item) => renderItem(item)}
+            keyExtractor={(item) => item.tko_id}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 1, backgroundColor: "black" }} />
+              
+              )}
+              style={{ width: "100%", height: "100%" }}
+              /* onEndReached={() => {
+                setIsLoading(true);
+                setTimeout(() => {
+                  setIsLoading(false);
+                }
+                , 2000);
+              }
+            }*/
+            
+            onEndReachedThreshold={0.5}
+            refreshing={isLoading}
+            onRefresh={() => {
               setIsLoading(true);
               setTimeout(() => {
                 setIsLoading(false);
-              }
-              , 2000);
-            }
-          }*/
+              }, 2000);
+            }}
+            />
+            
+            </View>
+            );
+          }
           
-          onEndReachedThreshold={0.5}
-          refreshing={isLoading}
-          onRefresh={() => {
-            setIsLoading(true);
-            setTimeout(() => {
-              setIsLoading(false);
-            }, 2000);
-          }}
-          />
-          </View>
-          );
-        }
-        

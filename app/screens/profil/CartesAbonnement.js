@@ -1,47 +1,30 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  useIsFocused,
   ToastAndroid,
   Image,
   Text,
-  TextInput,
-  DrawerContentScrollView,
   View,
-  StyleSheet,
-  ScrollViewButton,
-  ScrollView,
-  Button,
-  Switch,
   TouchableOpacity,
-  Modal,
   Pressable,
-  TouchableWithoutFeedback,
+
 } from "react-native";
 import axios from "axios";
 import Toast from "react-native-root-toast";
 import { Storage } from 'expo-storage';
-import RNPickerSelect from "react-native-picker-select";
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../config/styles/StyleGeneral";
 import { FlatList } from "react-native-gesture-handler";
 
-
 export default function CartesAbonnement({ navigation }) {
   
   const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
   const user = useSelector((state) => state.user);
-
   const [Cartes, setCartes] = useState([]);
   const [CartesAchetees, setCartesAchetees] = useState({});
-  
   const [isLoading, setIsLoading] = useState(true);
   
-  
- 
-  
-
-      const getCartesAchetees = async () => {
+  const getCartesAchetees = async () => {
         let data = '{"fes_id":22}';
         
         let config = {
@@ -196,27 +179,23 @@ axios(config)
      
      return(
        <View style={styles.carteAbonnement} key={item.card_key}>
-       <View style={styles.carteAbonnement_header}>
-       <Text style={styles.carteAbonnement_header_text}>{item.card_type}</Text>
-       </View>
-       <View style={styles.carteAbonnement_body}>
-       <View style={styles.carteAbonnement_body_left}>
-       <Text>carte n° {item.card_key}</Text>
-       <Text>prix {item.card_price/100} Eur</Text>
-      
-       
-       </View>
-       <View style={styles.carteAbonnement_body_right}>
-       <Text style={styles.carteAbonnement_header_text}>{item.card_longname}</Text>
-       
-       <Image
-       source={{ uri:  item.card_photo }}
-       style={{ width: 100, height: 100 }}
-       />
-       
-       </View>
-       
-       </View>
+        <View style={styles.blocImage}>
+          <Image
+        source={{ uri:  item.card_photo }}
+        style={{ width: 80, height:100 }}
+        />
+        </View>
+          
+        
+        
+        <View style={[styles.blocContent, {backgroundColor: 'none', width: '70%', marginLeft: 100}]}>
+          <Text ellipsizeMode="tail" numberOfLines={1}  style={styles.ParagraphBold}>{item.card_type}</Text>
+            <Text>carte n° {item.card_key}</Text>
+            <Text>{item.card_price/100} €</Text>
+          
+          <Text style={[styles.ParagraphBold, {marginTop: 10}]}>{item.card_longname}</Text>
+        </View>
+        
        </View>
        
        );
@@ -242,47 +221,55 @@ axios(config)
     
     
     return(
-      <View style={styles.carteAbonnement} key={item.id}>
-      <View style={styles.carteAbonnement_header}>
-      <Text style={styles.carteAbonnement_header_text}>Carte Abonnement</Text>
-      </View>
-      <View style={styles.carteAbonnement_body}>
-      <View style={styles.carteAbonnement_body_left}>
+      <View key={item.id}>
+       <View style={{flexDirection: 'row', margin: 20}}>
+       
+        <View style={{width: '20%', flex: 1}}>
       
-      <Pressable
-      
-      onPress={() => {
-        
-        deleteCarteAbonnement(item.id);
-        
-      }}
-      ><Text>Supprimer</Text>
-      </Pressable> 
+        <TouchableOpacity
+                  style={ {backgroundColor: "#e8e8e8", padding: 10, width: 40, height: 40, borderRadius: 30}}
+                  onPress={() => {    
+                    deleteCarteAbonnement(item.id);
+
+                  }}>
+                  <Image
+                style={{
+                  resizeMode: "cover",
+                  height: 20,
+                  width: 20,
+                }}
+                source={require("../../assets/delete.png")}
+              />
+                  </TouchableOpacity>
+
+
+
      
 
       
       </View>
-      <View style={styles.carteAbonnement_body_right}>
-      <Text style={styles.carteAbonnement_header_text}>{item.nom} {item.prenom}</Text>
+          
+      <View style={{width: '80%'}}>
+      <Text style={styles.ParagraphBold}>Carte d'abonnement</Text>
       
-      <Image
+      <Text style={styles.ParagraphBold}>{item.nom} {item.prenom}</Text>
+      </View>
+      </View>
+      
+      {/*<Image
       source={{ uri: 'data:image/jpeg;base64,' + item.photo }}
       style={{ width: 100, height: 100 }}
-      />
+              />*/}
+
 
 <Pressable
+  onPress={() => {  cardToBasket(item) }}
+  ><View  style={[styles.labelCard,styles.bigButton, {width: '80%', marginLeft: '10%'}]} >
+    <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Ajouter au panier</Text>
+    </View></Pressable>
+
+
       
-      onPress={() => {
-        
-      cardToBasket(item);
-        
-    }}
-    ><Text>ajouter au panier</Text>
-    </Pressable> 
-      
-      </View>
-      
-      </View>
       </View>
       
       );
@@ -301,18 +288,28 @@ axios(config)
         alignItems: "center",
         justifyContent: "center",
         top: "0%",
+        padding: 20,
+        paddingTop: 0,
+        marginTop: 0
       }}
       
       key="listecartes"
       >
-      <Text style={{ fontSize: 20 }}>Mes cartes achetés</Text>
+        <View style={[styles.blocGris, {flexDirection: 'column', height: 310, width: '100%'} ]}>
+
+          <View >
+      <Text style={[styles.colorOrange, styles.ParagraphBold,
+        {textAlign: "center", marginBottom: 30} ]}>
+          Mes cartes achetés</Text>
+          </View>
+      
       <FlatList
       data={CartesAchetees}
       // extraData={newCartes}
       renderItem={(item) => renderCarteAchetee(item)}
       keyExtractor={(item) => item.card_key}
-      ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
-      style={{ width: "100%", height: "100%" }}
+      //ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
+      style={{ width: "100%", paddingTop: 15 }}
       
       onEndReached={() => {
         setIsLoading(true);
@@ -339,23 +336,33 @@ axios(config)
    
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 100 }}>
-        <Text>Aucune cartes achetées</Text>
+        <Text>Aucune carte achetée</Text>
       </View>
     );
   }
   }
   
   />
-  <Button title="Découvrez tous les avantages" onPress={() => navigation.navigate("Avantages")} />
+  </View>
 
-      <Text style={{ fontSize: 20 }}>Mes brouillons</Text>
+  <Pressable
+  onPress={() => props.navigation.navigate("CarteAbonnementWebview")}
+  >
+    <View  style={[styles.labelCard,styles.bigButton, {width: '80%', marginTop: -35}]} >
+                <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Découvrez tous les avantages</Text></View>
+</Pressable>
+
+
+<Text style={[styles.colorOrange, styles.ParagraphBold, styles.textMiddleNoColor,
+        {textAlign: "center", marginTop: 15} ]}>Mes brouillons</Text>
+        <Text>(Finaliser et payer)</Text>
       
       <FlatList
       data={Cartes}
       // extraData={newCartes}
       renderItem={(item) => renderItem(item)}
       keyExtractor={(item) => item.id}
-      ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
+      //ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "black" }} />}
       style={{ width: "100%", height: "100%" }}
       
       onEndReached={() => {
@@ -383,15 +390,17 @@ axios(config)
   
   />
   
-  
-  
-  <Button
-  title="Créer un brouillon"
-  onPress={() => navigation.navigate("CreerCarteAbonnement")}
-  />
+
+
+  <Pressable
+onPress={() => navigation.navigate("CreerCarteAbonnement")}
+>
+  <View  style={[styles.labelCard,styles.bigButton, styles.labelAchat]} >
+              <Text style={styles.textBigButton}> Créer un brouillon</Text></View>
+</Pressable>
+
   
   </View>
   );
 }
-
 

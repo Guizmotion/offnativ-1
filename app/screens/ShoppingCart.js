@@ -17,7 +17,7 @@ import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
-
+import styles from "../config/styles/StyleGeneral";
 import { FontAwesome } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import moment from "moment";
@@ -494,17 +494,15 @@ function close() {
                   key={data.key}
                   style={{
                     width: "100%",
-                    height: 260,
                     marginVertical: 6,
                     flexDirection: "row",
                     alignItems: "center",
-                    marginBottom: 60,
+                    marginBottom: 10,
                   }}
                   >
                   <View
                   style={{
                     flex: 1,
-                    height: "100%",
                     justifyContent: "space-around",
                   }}
                   >
@@ -513,53 +511,33 @@ function close() {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: 30,
                   }}
                   >
                   <TouchableOpacity
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                  }}
+                  style={[styles.fondbtnIconGeneral]}
                   onPress={() => removeItemFromCart(data)}
                   >
                   <FontAwesome
                   name="trash-o"
-                  style={{
-                    fontSize: 16,
-                    color: "#777777",
-                    backgroundColor: "#F0F0F3",
-                    padding: 8,
-                    borderRadius: 100,
-                  }}
+                  style={[styles.btnIconGeneral]}
                   />
                   </TouchableOpacity>
-                  <Text
-                  style={{
-                    fontSize: 14,
-                    maxWidth: "100%",
-                    color: "#000000",
-                    fontWeight: "600",
-                    letterSpacing: 1,
-                    fontWeight: "bold",
-                    alignSelf: "flex-start",
-                    position: "absolute",
-                  }}
-                  >
+                  <Text style={[styles.TextSousTitre]}>
                   {data.title}
                   </Text>
                   </View>
                   
                   <View style={{ marginBottom: 15, marginTop: 15 }}>
+                  <View style={{marginBottom: 10,alignSelf: 'center', flexDirection: 'row' }}>
+                  <Text style={{ fontWeight: "bold" }}>1/ </Text><Text>Choisissez la date et l'heure</Text>
+                  </View>
                   
                   <Pressable
                     onPress={() => {populateDate(data.id);}}
                   >
+                    <Text style={{textAlign: 'center'}}> {data.id}</Text>
 
-                  <Text style={{ marginTop: 10, fontWeight: "bold" }}>
-                  1/ Choisir Date et heure {data.id} :
-                  </Text>
+                  
                  
                   </Pressable>
                   <Picker
@@ -594,117 +572,80 @@ function close() {
                         <Picker.Item label="Téléchargement des horaires..." value="0" />
                         )}
                         </Picker>
+                        <View style={{marginBottom: 10,alignSelf: 'center', flexDirection: 'column' }}>
+                        <Text  style={[styles.moyenText, {textAlign: 'center', fontWeight: 'bold'}]}>
+                          Si la date est indisponible, </Text>
+                          <Text  style={[styles.moyenText]}>rapprochez-vous du théâtre pour vérifier les disponibilités</Text>
+                          </View>
+
                         </View>
-                        <View style={{ marginBottom: 30 }}>
-                        <Text style={{ fontWeight: "bold" }}>2/ Choisir Tickets:</Text>
+                        <View style={{marginBottom: 10,alignSelf: 'center', flexDirection: 'row' }}>
+                        <Text style={{fontWeight: "bold" }}>2/ </Text><Text>Choisissez le nombre de places</Text>
                         </View>
+
+
+
+                        <View  style={[styles.linePriceCart]} >
+                        
+                        <View style={{ flexDirection: "row", width: '60%' ,paddingTop: 10}}  >
+                        
+                        <Text>Plein Tarif</Text>
+                        
+                        </View>
+                        <View style={{ flexDirection: "row", width: '15%', paddingTop: 10,alignContent: 'flex-end'}}  >
+                        <Text style={{ fontWeight: "bold",  textAlign: 'right', width: '100%'}}>
+                        {" "}  {data.price[0].price} €
+                        </Text>
+                        </View>
+
+
+
                         <View
                         style={{
                           flexDirection: "row",
                           alignItems: "center",
-                          marginBottom: 25,
-                        }}
-                        >
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
+                          position: "absolute",
+                          right: 0
                         }}
                         >
                         <TouchableOpacity
                         onPress={() => test(data)}
-                        style={{
-                          borderRadius: 100,
-                          marginRight: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="minus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
-                        <Text>{data.price[0].quantity}</Text>
+                        <Text style={{marginLeft: 5, marginRight: 5}}>{data.price[0].quantity}</Text>
                         <TouchableOpacity
                         onPress={() => dispatch({ type: "cart", payload: data })}
-                        style={{
-                          borderRadius: 100,
-                          marginLeft: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
-                        >
-                        <MaterialCommunityIcons
-                        name="plus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
-                        />
+                        style={[styles.btnQty]}>
+                        <MaterialCommunityIcons  name="plus"
+                        style={[styles.btnIconGeneral]}  />
                         </TouchableOpacity>
                         </View>
-                        <View
-                        style={{
-                          marginTop: 4,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          alignSelf: "center",
-                          opacity: 0.6,
-                          marginLeft: 20,
-                        }}
-                        >
-                        <Text
-                        style={{
-                          fontSize: 12,
-                        }}
-                        >
-                        Plein Tarif :
-                        <Text style={{ fontWeight: "bold" }}>
+                        </View>
+
+
+
+
+
+
+                        <View  style={[styles.linePriceCart]}  >
+
+                        <View style={{ flexDirection: "row", width: '60%' ,paddingTop: 10}}  >
+                        <Text>Tarif carte abonnement</Text>
+                        
+                        </View>
+                        <View style={{ flexDirection: "row", width: '15%', paddingTop: 10, alignContent: 'flex-end' }}  >
+                        <Text style={{ fontWeight: "bold", textAlign: 'right', width: '100%' }}>
                         {" "}
-                        {data.price[0].price} €
-                        </Text>
+                        {data.price[1].price} €
                         </Text>
                         </View>
-                        <TouchableOpacity
-                        style={{
-                          position: "absolute",
-                          right: 0,
-                          top: 0,
-                        }}
-                        onPress={() => dispatch({ type: "resetCart", payload: data })}
-                        >
-                        <FontAwesome
-                        name="trash-o"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                          backgroundColor: "#F0F0F3",
-                          padding: 8,
-                          borderRadius: 100,
-                        }}
-                        />
-                        </TouchableOpacity>
-                        </View>
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          marginBottom: 25,
-                        }}
-                        >
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}
+
+                        <View   style={{ flexDirection: "row", alignItems: "center", position: "absolute", right: 0   }}
                         >
                         <TouchableOpacity
                         onPress={() =>
@@ -713,200 +654,108 @@ function close() {
                             payload: data,
                           })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginRight: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="minus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
-                        <Text>{data.price[1].quantity}</Text>
+                        <Text style={{marginLeft: 5, marginRight: 5}}>{data.price[1].quantity}</Text>
                         <TouchableOpacity
                         onPress={() =>
                           dispatch({ type: "cartAbonnement", payload: data })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginLeft: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="plus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
                         </View>
-                        <View
-                        style={{
-                          marginTop: 4,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          opacity: 0.6,
-                          marginLeft: 20,
-                        }}
-                        >
-                        <Text
-                        style={{
-                          fontSize: 12,
-                        }}
-                        >
-                        Tarif carte abonnement :
-                        <Text style={{ fontWeight: "bold" }}>
+                        </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+                
+
+                        <View  style={[styles.linePriceCart]}  >
+
+                        <View style={{ flexDirection: "row", width: '60%' ,paddingTop: 10}}  >
+                        <Text>Tarif moins de 12 ans</Text>
+                        </View>
+
+
+                        <View style={{ flexDirection: "row", width: '15%', paddingTop: 10, alignContent: 'flex-end' }}  >
+                        <Text style={{ fontWeight: "bold", textAlign: 'right', width: '100%' }}>
                         {" "}
-                        {data.price[1].price} €
-                        </Text>
+                        {data.price[2].price} €
                         </Text>
                         </View>
-                        <TouchableOpacity
-                        style={{
-                          position: "absolute",
-                          right: 0,
-                          top: 0,
-                        }}
-                        onPress={() =>
-                          dispatch({ type: "resetCartTarifAbonnement", payload: data })
-                        }
-                        >
-                        <FontAwesome
-                        name="trash-o"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                          backgroundColor: "#F0F0F3",
-                          padding: 8,
-                          borderRadius: 100,
-                        }}
-                        />
-                        </TouchableOpacity>
-                        </View>
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          marginBottom: 25,
-                        }}
-                        >
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}
+                        
+                        <View   style={{ flexDirection: "row", alignItems: "center", position: "absolute", right: 0   }}
                         >
                         <TouchableOpacity
                         onPress={() =>
                           dispatch({ type: "decreaseCartTarifMoins", payload: data })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginRight: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="minus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
-                        <Text>{data.price[2].quantity}</Text>
+                        <Text style={{marginLeft: 5, marginRight: 5}}>{data.price[2].quantity}</Text>
                         <TouchableOpacity
                         onPress={() =>
                           dispatch({ type: "cartTarifMoins", payload: data })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginLeft: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="plus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
                         </View>
-                        <View
-                        style={{
-                          marginTop: 4,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          opacity: 0.6,
-                          marginLeft: 20,
-                        }}
-                        >
-                        <Text
-                        style={{
-                          fontSize: 12,
-                        }}
-                        >
-                        Tarif moins de 12 ans :
-                        <Text style={{ fontWeight: "bold" }}>
+                        </View>
+
+
+
+
+                        <View  style={[styles.linePriceCart]}  >
+
+                        <View style={{ flexDirection: "row", width: '60%' ,paddingTop: 10}}  >
+                        <Text>Tarif jeune abonné 12/25 ans</Text>
+                        </View>
+                        
+                        <View style={{ flexDirection: "row", width: '15%', paddingTop: 10, alignContent: 'flex-end' }}  >
+                        <Text style={{ fontWeight: "bold", textAlign: 'right', width: '100%' }}>
                         {" "}
                         {data.price[2].price} €
                         </Text>
-                        </Text>
                         </View>
-                        <TouchableOpacity
-                        style={{
-                          position: "absolute",
-                          right: 0,
-                          top: 0,
-                        }}
-                        onPress={() =>
-                          dispatch({ type: "resetCartTarifMoins", payload: data })
-                        }
-                        >
-                        <FontAwesome
-                        name="trash-o"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                          backgroundColor: "#F0F0F3",
-                          padding: 8,
-                          borderRadius: 100,
-                        }}
-                        />
-                        </TouchableOpacity>
-                        </View>
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}
-                        >
-                        <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}
+
+
+
+
+
+                        <View   style={{ flexDirection: "row", alignItems: "center", position: "absolute", right: 0   }}
                         >
                         <TouchableOpacity
                         onPress={() =>
@@ -915,14 +764,7 @@ function close() {
                             payload: data,
                           })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginRight: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnIconGeneral]}
                         >
                         <MaterialCommunityIcons
                         name="minus"
@@ -932,71 +774,35 @@ function close() {
                         }}
                         />
                         </TouchableOpacity>
-                        <Text>{data.price[3].quantity}</Text>
+                        <Text style={{marginLeft: 5, marginRight: 5}}>{data.price[3].quantity}</Text>
                         <TouchableOpacity
                         onPress={() =>
                           dispatch({ type: "cartTarifJeuneAbonne", payload: data })
                         }
-                        style={{
-                          borderRadius: 100,
-                          marginLeft: 20,
-                          padding: 4,
-                          borderWidth: 1,
-                          borderColor: "#B9B9B9",
-                          opacity: 0.5,
-                        }}
+                        style={[styles.btnQty]}
                         >
                         <MaterialCommunityIcons
                         name="plus"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                        }}
+                        style={[styles.btnIconGeneral]}
                         />
                         </TouchableOpacity>
                         </View>
-                        <View
-                        style={{
-                          marginTop: 4,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          opacity: 0.6,
-                          marginLeft: 20,
-                        }}
-                        >
-                        <Text
-                        style={{
-                          fontSize: 12,
-                        }}
-                        >
-                        Tarif jeune abonné 12/25 ans :
-                        <Text style={{ fontWeight: "bold" }}>
-                        {" "}
-                        {data.price[2].price} €
-                        </Text>
-                        </Text>
-                        </View>
-                        <TouchableOpacity
-                        style={{
-                          position: "absolute",
-                          right: 0,
-                          top: 0,
-                        }}
-                        onPress={() =>
-                          dispatch({ type: "resetCartTarifJeuneAbonne", payload: data })
-                        }
-                        >
-                        <FontAwesome
-                        name="trash-o"
-                        style={{
-                          fontSize: 16,
-                          color: "#777777",
-                          backgroundColor: "#F0F0F3",
-                          padding: 8,
-                          borderRadius: 100,
-                        }}
-                        />
-                        </TouchableOpacity>
+
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </View>
                         </View>
                         </View>
@@ -1013,7 +819,7 @@ function close() {
                             height: "100%",
                             backgroundColor: "#ffffff",
                             position: "relative",
-                            paddingTop: 20,
+                            padding: 20
                           }}
                           >
                           {loading && <Loader />}
@@ -1022,7 +828,7 @@ function close() {
                           style={{
                             width: "100%",
                             flexDirection: "row",
-                            paddingTop: 16,
+                            paddingTop: 30,
                             paddingHorizontal: 16,
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1032,62 +838,37 @@ function close() {
                           <MaterialCommunityIcons
                           name="chevron-left"
                           style={{
-                            fontSize: 18,
-                            color: "#777777",
+                            fontSize: 22,
+                            color: "#221f1f",
                             padding: 12,
-                            backgroundColor: "#F0F0F3",
-                            borderRadius: 12,
+                            backgroundColor: "#fff",
                           }}
                           />
                           </TouchableOpacity>
                           <Text
                           style={{
                             fontSize: 20,
-                            color: "#000000",
+                            color: "#221f1f",
                             fontWeight: "400",
                             fontWeight: "bold",
+                            right:20,
+                            position: 'absolute',
+                            paddingTop: 25
                           }}
                           >
                           Ma réservation
                           </Text>
-                          <View></View>
                           </View>
                           
-                          <Text
-                          style={{
-                            fontSize: 20,
-                            color: "#000000",
-                            fontWeight: "bold",
-                            letterSpacing: 1,
-                            paddingTop: 20,
-                            paddingLeft: 16,
-                            marginBottom: 10,
-                          }}
-                          >
-                          Tickets
-                          </Text>
-                          <View style={{ paddingHorizontal: 16 }}>
+                          <View>
                           {programmes ? programmes.cartItems.map(renderProducts) : null}
                           </View>
+
+
+
+
                           <View>
-                          <View
-                          style={{
-                            paddingHorizontal: 16,
-                            marginTop: 40,
-                            marginBottom: 80,
-                          }}
-                          >
-                          <Text
-                          style={{
-                            fontSize: 16,
-                            color: "#000000",
-                            fontWeight: "500",
-                            letterSpacing: 1,
-                            marginBottom: 20,
-                          }}
-                          >
-                          Informations de la réservation
-                          </Text>
+
                           
                           <View
                           style={{
@@ -1097,23 +878,12 @@ function close() {
                           }}
                           >
                           <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "400",
-                            maxWidth: "80%",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextMiddleCart]}
                           >
                           Frais de gestion par place
                           </Text>
                           <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "500",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextMiddleCart]}
                           >
                           {fees} €
                           </Text>
@@ -1127,53 +897,32 @@ function close() {
                           }}
                           >
                           <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "400",
-                            maxWidth: "80%",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextMiddleCart]}
                           >
                           {getPlaces()} places
                           </Text>
                           <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "500",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextMiddleCart]}
                           >
                           {getTotal()} €
                           </Text>
                           </View>
+                          <View style={styles.Separateur}></View>
                           <View
                           style={{
                             flexDirection: "row",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            marginTop: 20,
+                            width: '100%',
                           }}
                           >
                           <Text
-                          style={{
-                            fontSize: 18,
-                            fontWeight: "400",
-                            maxWidth: "80%",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextBigCart]}
                           >
                           TOTAL (FRAIS INCLUS)
                           </Text>
                           <Text
-                          style={{
-                            fontSize: 18,
-                            fontWeight: "500",
-                            color: "#000000",
-                            fontWeight: "bold",
-                          }}
+                          style={[styles.TextBigCart]}
                           >
                           {getTotal() + 1 * getPlaces()} €
                           </Text>
@@ -1197,16 +946,12 @@ function close() {
                           color={isChecked ? "#f26522" : undefined}
                           />
                           <Text
-                          style={{
-                            fontSize: 13,
-                            width: "90%",
-                          }}
+                          style={[styles.moyenText, {maxWidth: '90%'}]}
                           >
                           En cochant cette case , j'accepte et je reconnais avoir pris
                           connaissance des Conditions Générales de Vente du service de
                           billettrie en ligne
                           </Text>
-                          </View>
                           </View>
                           </View>
                           </ScrollView>
@@ -1215,7 +960,8 @@ function close() {
                             position: "absolute",
                             bottom: 10,
                             height: "8%",
-                            width: "100%",
+                            width: "95%",
+                            marginLeft: '9%',
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -1223,14 +969,7 @@ function close() {
                           <TouchableOpacity
                           // onPress={() => (total != 0 ? checkOut() : null)}
                           onPress={() => validateCart()}
-                          style={{
-                            width: "86%",
-                            height: "70%",
-                            backgroundColor: colors.primary,
-                            borderRadius: 30,
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
+                          style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
                           disabled={
                             programmes.cartItems[0].date && isChecked === true
                             ? false
@@ -1238,13 +977,7 @@ function close() {
                           }
                           >
                           <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "bold",
-                            letterSpacing: 1,
-                            color: "#ffffff",
-                            textTransform: "uppercase",
-                          }}
+                          style={styles.textBigButton}
                           >
                           Valider mon panier (€ {getTotal() + fees * getPlaces()} )
                           </Text>
@@ -1276,9 +1009,9 @@ function close() {
                             name="chevron-left"
                             style={{
                               fontSize: 18,
-                              color: "#777777",
+                              color: "#221f1f",
                               padding: 12,
-                              backgroundColor: "#F0F0F3",
+                              backgroundColor: "#fff",
                               borderRadius: 12,
                             }}
                             />
@@ -1316,28 +1049,6 @@ function close() {
                             </>
                             );
                           };
-                          const styles = StyleSheet.create({
-                            container: {
-                              flex: 1,
-                              backgroundColor: "#fff",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            },
-                            text: {
-                              fontSize: 100,
-                              fontWeight: "bold",
-                            },
-                            button: {
-                              width: 100,
-                              height: 50,
-                              margin: 1,
-                              justifyContent: "center",
-                              alignItems: "center",
-                              borderRadius: 10,
-                              borderColor: "black",
-                              borderStyle: "solid",
-                              borderWidth: 2,
-                            },
-                          });
+                          
                           export default ShoppingCart;
                           
