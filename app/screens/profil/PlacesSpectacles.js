@@ -25,21 +25,22 @@ import { CartesAbonnementContext } from "../../store/storeCartesAbonnement";
 
 import styles from "../../config/styles/StyleGeneral";
 import { useDispatch, useSelector } from "react-redux";
+import { random } from "lodash";
 
 
 export default function PlacesSpectacles({ navigation }) {
   const user = useSelector((state) => state.user);
-
-  const [Places, setPlaces] = useState();
+  
+  const [Places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   // var axios = require('axios');
-
-  const getFactures = async () => {
-
-
-
-    var data = "{\r\n    fes_id : 22\r\n}";
-
+  
+  const getPlaces = async () => {
+    
+    
+    
+    var data = "{ fes_id : 22 }";
+    
     var config = {
       method: "post",
       url: "https://api.festivaloffavignon.com/tickets",
@@ -50,45 +51,42 @@ export default function PlacesSpectacles({ navigation }) {
       },
       data: data,
     };
-
+    
     await axios(config)
-      .then(function (response) {
-      //  console.log(response.data.orders);
-        // console.log(JSON.stringify(response.data.orders));
-        if (response.data.orders != null) {
-
-          setPlaces(response.data.orders);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then(function (response) {
+     // console.log(JSON.stringify(response.data.orders));
+      setPlaces(response.data.orders);
+      // }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
-
-  useEffect(async () => {
-    await getFactures();
+  
+  useEffect(() => {
+    getPlaces();
   }, [Places]);
-
+  
   const _listEmptyComponent = () => {
     return (
       <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 20,
-        }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
       >
-        <Text>Aucune place disponible pour le moment</Text>
+      <Text>Aucune place disponible pour le moment</Text>
       </View>
-    );
-  };
-
-  const renderItem = ({ item, i }) => {
-    // console.log(item.photo);
-  
-/*
-Object {
+      );
+    };
+    
+    const renderItem = ({ item, i }) => {
+      // console.log(item.photo);
+      
+      /*
+      Object {
         "sh_date": "/Date(1658408700000+0200)/",
         "sh_date_id": 2183971,
         "sh_date_string": "2022-07-21T15:05:00.0000000",
@@ -111,84 +109,118 @@ Object {
         "ticket_type": 2,
         "tkto_id": 633456,
       },
-
       
-*/
-
-console.log(item.tko_tickets[0].sh_name);
-
-
-    return (
-      <View style={styles.carteAbonnement} key={item.sh_id}>
-        <View style={styles.carteAbonnement_header}>
+      
+      */
+      
+      //console.log(item.tko_tickets[0].sh_name);
+      const listTko_tickets = (item) => {
+        var list = [];
+        for (var i = 0; i < item.tko_tickets.length; i++) {
+          
+          let hadCardLinked = item.tko_tickets[i].ticket_card;
+          
+          list.push(
+            <View style={styles.listItem} key={item.tko_tickets[i].barcode}>
+            <Text style={styles.listItemText}>
+            {item.tko_tickets[i].sh_name}
+            </Text>
+            
+            <View style={styles.listItem} key={item.tko_tickets[i].barcode + random()}>
+            
+            <Text style={styles.listItemText}>
+            {item.tko_tickets[i].ticket_key}
+            
+            </Text>
+            
+            <Text style={styles.listItemText}>
+            Theatre : {item.tko_tickets[i].ticket_location.th_name}
+            
+            </Text>
+            
+            <Text style={styles.listItemText}>
+            Carte abo lié : {hadCardLinked ? item.tko_tickets[i].ticket_card.card_name : "Aucune"}
+            
+            </Text>
+            
+            </View>
+           </View>
+            );
+          }
+          return list;
+        }
+        
+        
+        return (
+          <View style={styles.carteAbonnement} key={item.tko_id}>
+          <View style={styles.carteAbonnement_header}>
           <Text style={styles.carteAbonnement_header_text}>
-            Places de spectacles
-          </Text>
-        </View>
-        <View style={styles.carteAbonnement_body}>
+          Facture  n°{item.tko_bill_number}
+          </Text> 
+          <Text>Panier n° {item.tko_id} </Text>
+          </View>
+          <View style={styles.carteAbonnement_body}>
           <View style={styles.carteAbonnement_body_left}>
-            <Pressable
-              onPress={() => {
-                voirPlace(item.id);
-              }}
-            >
-              <Text>Voir {item.sh_id}</Text>
-            </Pressable>
+          
           </View>
           <View style={styles.carteAbonnement_body_right}>
-            <Text style={styles.carteAbonnement_header_text}>
-              {item.sh_name} 
-            </Text>
-
-            <Image
-              source={{ uri: item.sh_id }}
-              style={{ width: 100, height: 100 }}
-            />
+          <Text style={styles.carteAbonnement_header_text}>
+          
+          Liste des Tickets :  {'\n'}    
+          </Text>
+          {listTko_tickets(item)}
+          
+          
+          <Image
+          source={{ uri: item.sh_id }}
+          style={{ width: 100, height: 100 }}
+          />
           </View>
-        </View>
-      </View>
-    );
-  };
-
-
-  //console.log(Places);
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        top: "10%",
-      }}
-    >
-      <FlatList
-        data={Places}
-        // extraData={newCartes}
-        ListEmptyComponent={_listEmptyComponent}
-        renderItem={(item) => renderItem(item)}
-        keyExtractor={(item) => item.sh_id}
-        ItemSeparatorComponent={() => (
-          <View style={{ height: 1, backgroundColor: "black" }} />
-        )}
-        style={{ width: "100%", height: "100%" }}
-        /* onEndReached={() => {
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
+          </View>
+          </View>
+          );
+        };
+        
+        
+        //console.log(Places);
+        return (
+          <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            top: "10%",
+          }}
+          >
+          <FlatList
+          data={Places}
+          // extraData={newCartes}
+          ListEmptyComponent={_listEmptyComponent}
+          renderItem={(item) => renderItem(item)}
+          keyExtractor={(item) => item.tko_id}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: 1, backgroundColor: "black" }} />
+            )}
+            style={{ width: "100%", height: "100%" }}
+            /* onEndReached={() => {
+              setIsLoading(true);
+              setTimeout(() => {
+                setIsLoading(false);
+              }
+              , 2000);
+            }
+          }*/
+          
+          onEndReachedThreshold={0.5}
+          refreshing={isLoading}
+          onRefresh={() => {
+            setIsLoading(true);
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 2000);
+          }}
+          />
+          </View>
+          );
         }
-        , 2000);
-      }
-    }*/
-
-        onEndReachedThreshold={0.5}
-        refreshing={isLoading}
-        onRefresh={() => {
-          setIsLoading(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 2000);
-        }}
-      />
-    </View>
-  );
-}
+        

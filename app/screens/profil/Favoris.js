@@ -36,7 +36,7 @@ import ProgrammeCard from "../ProgrammeCard";
 export default function Favoris({ navigation }) {
   // const { state, dispatch } = React.useContext(StoreContext);
   const state = useSelector((state) => state.user);
-  const stateFavoris = useSelector((state) => state.user);
+  const stateFavoris = useSelector((state) => state.favoris);
 
   // const { stateFavoris, dispatchFavoris } = React.useContext(FavorisContext);
 
