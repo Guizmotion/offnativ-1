@@ -911,7 +911,7 @@ const ProgrammeCard = ({ item }) => {
           </View>
         </ScrollView>
         <View style={{ justifyContent: "flex-end", flex: 3, bottom: 0 }}>
-          {state.isAuthenticated && (
+          {item.ticket_off == 'Oui'  && (
             <TouchableOpacity
             style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
               onPress={() => addCart(item)}

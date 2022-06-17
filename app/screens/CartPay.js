@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState } from "react";
-import { or } from "react-native-reanimated";
+import { BackHandler } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { WebView } from "react-native-webview";
 import Loader from "./Loader";
@@ -16,7 +16,13 @@ export default function CartPay({ route,navigation }) {
   //= useState("https://www.festivaloffavignon.com/ws/pay_basket.aspx?r=" + Math.random());
   = useState();
   
-  //const [tko_id, setTko_id] = useState(0);
+  //bloquer btn retour android
+  /*
+  
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+    return () => backHandler.remove()
+  }, [])*/
   
   const jsCode =
   "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
