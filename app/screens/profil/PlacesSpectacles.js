@@ -126,7 +126,7 @@ export default function PlacesSpectacles({ navigation }) {
             {item.tko_tickets[i].sh_name}
             </Text>
             
-            <View style={styles.listItem} key={item.tko_tickets[i].barcode + random()}>
+           
             
             <Text style={styles.listItemText}>
             {item.tko_tickets[i].ticket_key}
@@ -143,11 +143,17 @@ export default function PlacesSpectacles({ navigation }) {
             
             </Text>
             
-            </View>
+          
            </View>
             );
           }
-          return list;
+
+        //  let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+          return (
+            <View key={Math.floor(Math.random() * 16777215)}>
+            {list}
+            </View>
+          )
         }
         
         
@@ -166,10 +172,11 @@ export default function PlacesSpectacles({ navigation }) {
           <View style={styles.carteAbonnement_body_right}>
           <Text style={styles.carteAbonnement_header_text}>
           
-          Liste des Tickets :  {'\n'}    
+          Liste des Tickets  {'\n'}    
           </Text>
-          {listTko_tickets(item)}
-          
+        
+           {listTko_tickets(item)}
+       
           
           <Image
           source={{ uri: item.sh_id }}

@@ -164,6 +164,19 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
             onRefresh={() =>
               dispatch({ type: "addData", payload: filteredData })
             }
+
+            ListEmptyComponent={() => {
+              if (isLoading) {
+                return null;
+              }
+              return (
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 600 }}>
+                  <Text>Aucun résultat</Text>
+                </View>
+              );
+            }
+            }
+    
           />
         }
       />

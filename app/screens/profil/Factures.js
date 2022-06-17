@@ -2,29 +2,22 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   useIsFocused,
   ToastAndroid,
-  Image,
+
   Text,
-  TextInput,
-  DrawerContentScrollView,
+
   View,
   Linking,
   Pressable,
-  TouchableWithoutFeedback,
+
 } from "react-native";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNPickerSelect from "react-native-picker-select";
+import Toast from "react-native-root-toast";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../config/styles/StyleGeneral";
 import { FlatList } from "react-native-gesture-handler";
 
 
-/*
-{state.isAuthenticated && (
-  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
-  
-  )}
-  */
+
   
   export default function Factures({ navigation }) {
     
@@ -47,7 +40,7 @@ import { FlatList } from "react-native-gesture-handler";
         
         await axios(config)
         .then(function (response) {
-          console.log(JSON.stringify(response.data.invoices));
+          console.log(JSON.stringify(response.data));
           setInvoices(response.data.invoices);
           
         })
@@ -59,7 +52,7 @@ import { FlatList } from "react-native-gesture-handler";
       
       useEffect(() => { 
         getInvoices();
-        setIsLoading(false);
+       // setIsLoading(false);
       }
       , []);
       
@@ -176,7 +169,16 @@ import { FlatList } from "react-native-gesture-handler";
     }
   }
   
-  
+  ListEmptyComponent={() => {
+   
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 600 }}>
+        <Text>Aucune Factures</Text>
+      </View>
+    );
+  }
+  }
+
   
   />
   </View>

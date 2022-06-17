@@ -187,7 +187,7 @@ export default function ProfilMenu({ navigation }) {
           <View style={{ width: "100%", flexDirection: "row" }}>
             <Pressable
               onPress={() => {
-                navigation.navigate("CartPage");
+                navigation.navigate("ShoppingCart");
               }}
               style={{
                 width: "100%",

@@ -99,7 +99,7 @@ export default function CartesAbonnement({ navigation }) {
   "card_postalcode": "30000",
   "card_country": "FR",
   "card_type_id": 1,
-  "card_photo": 'data:image/jpeg;base64,' + item.photo
+  "card_photo": item.photo
 
 });
 
@@ -308,7 +308,15 @@ axios(config)
     }
   }
   
-  
+  ListEmptyComponent={() => {
+   
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 100 }}>
+        <Text>Aucune cartes achetées</Text>
+      </View>
+    );
+  }
+  }
   
   />
   <Button title="Découvrez tous les avantages" onPress={() => navigation.navigate("Avantages")} />
