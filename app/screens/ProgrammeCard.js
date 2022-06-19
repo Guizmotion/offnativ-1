@@ -220,6 +220,19 @@ const ProgrammeCard = ({ item }) => {
   };
 
   const addCart = (item) => {
+
+    if(!state.isAuthenticated){
+
+      let m = "Vous devez vous connecter pour ajouter un spectacle à votre panier";
+
+        "ios" === Platform.OS
+          ? Toast.show(m, Toast.SHORT)
+          : ToastAndroid.show(m, ToastAndroid.SHORT);
+        
+      return;
+      
+    }
+
     const product = {
       id: item.id,
       title: item.titre_spectacle,
@@ -241,7 +254,7 @@ const ProgrammeCard = ({ item }) => {
           quantity: 0,
         },
       ],
-      image: item.image,
+    //  image: item.image,
     };
 
     dispatch({ type: "cart", payload: product });

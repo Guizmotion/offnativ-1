@@ -50,7 +50,7 @@ const ShoppingCart = ({ navigation }) => {
   
   useEffect(() => {
     getTotal();
-    // getDistantCart();
+     getDistantCart();
     console.log(programmes.tko_id);
   }, []);
 
@@ -94,6 +94,13 @@ const ShoppingCart = ({ navigation }) => {
       await axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+
+        if(response.data.basket.tko_id > 0){
+
+
+        console.log('expiration du panier distant : ' + response.data.basket.tko_expiration_string);//tko_expiration_string
+
+
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
         setTotalDistant(response.data.basket.tko_price);
         
@@ -106,7 +113,7 @@ const ShoppingCart = ({ navigation }) => {
         
         //frais = fees_nb x fees_unit_price
         setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
-        
+        }
         
       })
       .catch(function (error) {

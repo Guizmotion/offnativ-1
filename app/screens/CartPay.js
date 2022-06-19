@@ -18,7 +18,7 @@ export default function CartPay({ route,navigation }) {
   
   //bloquer btn retour android
   /*
-  
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
     return () => backHandler.remove()
@@ -144,7 +144,7 @@ export default function CartPay({ route,navigation }) {
       if(!e.url.includes('paybox') ){
 
         if(!e.url.includes('PBX_TOTAL='+ total) ){
-          setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+ tko_idDistant);
+         // setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+ tko_idDistant);
 
         }
 
