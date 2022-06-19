@@ -8,10 +8,7 @@ import { CartesAbonnementContainer } from "./app/store/storeCartesAbonnement";
 import { RootSiblingParent } from "react-native-root-siblings";
 import PushService from './app/services/PushService';
 
-
 function App() {
-
-
 
   return (
     <Provider store={store}>
@@ -28,6 +25,5 @@ function App() {
     </Provider>
   );
 }
-
 
 export default App;
