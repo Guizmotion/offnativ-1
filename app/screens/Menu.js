@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import {
-  Dimensions,
+  Plateform,
   Share,
   SafeAreaView,
   View,
@@ -39,10 +39,17 @@ const Menu = (props) => {
   const proileImage = "logo.png";
 
   function share() {
+
+    let url_android = 'https://play.google.com/store/apps/details?id=com.festivalloff.app';
+    let url_ios = 'https://apps.apple.com/us/app/festival-off/id1469197386';
+
+    let url_shared = Platform.OS === 'android' ? url_android : url_ios;
+
+
     Share.share(
       {
         message: "Voici le lien vers la nouvelle application du festival off avignon",
-        url: "https://play.google.com/store/apps/details?id=com.festivalloff.app",
+        url: url_shared,
         title: "Application Android",
       },
       {
