@@ -47,7 +47,7 @@ export default function ProfilMenu({ navigation }) {
 
 
   const getDistantFavorites = async () => {
-    console.log("Download des favoris distant: "+state.token );
+    console.log("Download des favoris distant: "+ state.token );
 
     await axios
       .get("https://api.festivaloffavignon.com/favorite", {
