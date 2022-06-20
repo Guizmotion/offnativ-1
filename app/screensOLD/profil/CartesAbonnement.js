@@ -1,26 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  useIsFocused,
   ToastAndroid,
   Image,
   Text,
-  TextInput,
-  DrawerContentScrollView,
   View,
-  StyleSheet,
-  ScrollViewButton,
-  ScrollView,
-  Button,
-  Switch,
   TouchableOpacity,
-  Modal,
   Pressable,
-  TouchableWithoutFeedback,
+
 } from "react-native";
 import axios from "axios";
 import Toast from "react-native-root-toast";
 import { Storage } from 'expo-storage';
-import RNPickerSelect from "react-native-picker-select";
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../config/styles/StyleGeneral";
@@ -30,17 +20,11 @@ export default function CartesAbonnement({ navigation }) {
   
   const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
   const user = useSelector((state) => state.user);
-
   const [Cartes, setCartes] = useState([]);
   const [CartesAchetees, setCartesAchetees] = useState({});
-  
   const [isLoading, setIsLoading] = useState(true);
   
-  
- 
-  
-
-      const getCartesAchetees = async () => {
+  const getCartesAchetees = async () => {
         let data = '{"fes_id":22}';
         
         let config = {
@@ -204,7 +188,7 @@ axios(config)
           
         
         
-        <View style={styles.blocContent, {backgroundColor: 'none', width: '70%', marginLeft: 100}}>
+        <View style={[styles.blocContent, {backgroundColor: 'none', width: '70%', marginLeft: 100}]}>
           <Text ellipsizeMode="tail" numberOfLines={1}  style={styles.ParagraphBold}>{item.card_type}</Text>
             <Text>carte n° {item.card_key}</Text>
             <Text>{item.card_price/100} €</Text>
@@ -279,7 +263,7 @@ axios(config)
 
 
 <Pressable
-  onPress={() => {  cardToBasket(item); }}
+  onPress={() => {  cardToBasket(item) }}
   ><View  style={[styles.labelCard,styles.bigButton, {width: '80%', marginLeft: '10%'}]} >
     <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Ajouter au panier</Text>
     </View></Pressable>

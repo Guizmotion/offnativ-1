@@ -1,22 +1,29 @@
 import React, {useRef, useEffect, useState } from "react";
-import { or } from "react-native-reanimated";
+import { BackHandler } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { WebView } from "react-native-webview";
 import Loader from "./Loader";
 import axios from "axios";
+import { Button, Overlay } from "react-native-elements";
 
 export default function CartPay({ route,navigation }) {
   
   const user = useSelector((state) => state.user);
   const { tko_id, total } = route.params;
-  
+  //const [visible, setVisible] = useState(false);
   const [tko_idDistant, setTko_idDistant] = useState('');
   
   const [urlPaiement, setUrlPaiement] 
   //= useState("https://www.festivaloffavignon.com/ws/pay_basket.aspx?r=" + Math.random());
   = useState();
   
-  //const [tko_id, setTko_id] = useState(0);
+  //bloquer btn retour android
+  /*
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+    return () => backHandler.remove()
+  }, [])*/
   
   const jsCode =
   "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
@@ -29,7 +36,7 @@ export default function CartPay({ route,navigation }) {
     
     console.log('total->', total);
     
-    getDistantCart();
+    //getDistantCart();
     // console.log('tko_idDistant' + tko_idDistant);
     
    // if(tko_idDistant!=0 && tko_id != 0 && tko_idDistant == tko_id){
@@ -138,7 +145,7 @@ export default function CartPay({ route,navigation }) {
       if(!e.url.includes('paybox') ){
 
         if(!e.url.includes('PBX_TOTAL='+ total) ){
-          setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+ tko_idDistant);
+         // setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+ tko_idDistant);
 
         }
 

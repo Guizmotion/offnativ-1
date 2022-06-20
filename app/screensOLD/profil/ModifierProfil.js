@@ -449,6 +449,7 @@ useEffect(() => {
       marginRight: '5%',
       height: '100%'}}>
       <ScrollView style={{flex: 1}}>
+ 
       <TextInput style={styles.inputStyle}  placeholder="Prénom" placeholderTextColor="rgba(0,0,0,0.3)"
       onChangeText={(text) => setPrenom(text)}
       value={Prenom}
@@ -461,6 +462,7 @@ useEffect(() => {
      onCHangeText={(text) => setEmail(text)}
      value={email}
       />
+
       <TextInput style={styles.inputStyle} placeholder="Code postal"  placeholderTextColor="rgba(0,0,0,0.3)" 
       onChangeText={(text) => setCodePostal(text)}
       value={CodePostal}

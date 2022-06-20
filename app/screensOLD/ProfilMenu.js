@@ -3,39 +3,19 @@ import {
   Linking,
   Image,
   Text,
-  TextInput,
-  DrawerContentScrollView,
   View,
-  StyleSheet,
-  ScrollViewButton,
   ScrollView,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Modal,
   Pressable,
-  TouchableWithoutFeedback,
 } from "react-native";
-
 import { useRoute } from "@react-navigation/native";
-
 import styles from "../config/styles/StyleGeneral";
-
 import axios from "axios";
-
-// import { StoreContext } from "../store/store";
-// import { FavorisContext } from "../store/storeFavoris";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ProfilMenu({ navigation }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-
-  // const { state, dispatch } = React.useContext(StoreContext);
-  // const { stateFavoris, dispatchFavoris } = React.useContext(FavorisContext);
-
   const route = useRoute();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -59,7 +39,17 @@ export default function ProfilMenu({ navigation }) {
   };
 
   useEffect(() => {
-    axios
+
+    getDistantFavorites();
+
+
+  }, []);
+
+
+  const getDistantFavorites = async () => {
+    console.log("Download des favoris distant: "+ state.token );
+
+    await axios
       .get("https://api.festivaloffavignon.com/favorite", {
         headers: {
           "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
@@ -67,8 +57,7 @@ export default function ProfilMenu({ navigation }) {
         },
       })
       .then((response) => {
-        console.log("query fav: " + response.data.favoris);
-
+        
         dispatch({
           type: "SET_FAVORITES",
           //SET_FAVORITE
@@ -80,13 +69,12 @@ export default function ProfilMenu({ navigation }) {
           //SET_FAVORITE
           payload: response.data.favoris,
         });
+        console.log("favoris distants : " + response.data.favoris);
+
       });
-    console.log("favoris enregistrés");
-  }, []);
+    
+  }
 
-  //test test 2 test Teste2
-
-  
 
   return (
     <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%',  paddingTop: 0}}>

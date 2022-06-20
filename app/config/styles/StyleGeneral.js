@@ -474,6 +474,7 @@ export default StyleSheet.create({
         borderRadius: 30,
         overflow: 'hidden',
       },
+      
       listItem: {
         flexDirection: 'row',
         width: '100%',
@@ -498,8 +499,12 @@ export default StyleSheet.create({
         marginTop: 15,
         
       },
+      carteAbonnement: {
+        height: 120,
+      },
+      textMiddleNoColor: {
+        fontSize: 18
+      },
 
 
     });
-    
-    

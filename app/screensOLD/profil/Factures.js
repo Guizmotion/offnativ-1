@@ -173,7 +173,7 @@ import { FlatList } from "react-native-gesture-handler";
    
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: 600 }}>
-        <Text>Aucune facture à afficher</Text>
+        <Text>Aucune Factures</Text>
       </View>
     );
   }
