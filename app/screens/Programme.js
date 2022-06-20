@@ -24,17 +24,22 @@ const baseUrl = "https://appli.ovh/off/app/";
 const url_programme = baseUrl + "api2022.php?a=1&limit=";
 
 export default function Programme({ navigation }) {
+
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
+  //const user = useSelector((state) => state.user);
   const stateRecherche = useSelector((state) => state.recherche);
   const token = Token();
-
-  console.log(token);
-
+ 
   //const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
-    setVisible(!visible);
+    setPubVisible(false);
+    //state.pubAccueil
+    dispatch({
+      type: "SET_PUB_ACCUEIL",
+      payload: false,
+    });
   };
 
   // const { stateRecherche, dispatchRecherche } =
@@ -57,6 +62,7 @@ export default function Programme({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [visible, setVisible] = useState(true);
+  const [pubVisible, setPubVisible] = useState(true);
   const flatListRef = useRef(); 
 
   useEffect(() => {
@@ -68,7 +74,7 @@ export default function Programme({ navigation }) {
      
 
      dispatch({ type: "addData", payload: programme_aleatoire });
-     
+
      setIsLoading(false);
     });
 
@@ -180,13 +186,14 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
           />
         }
       />
-
+{ state.pubAccueil && (
       <Overlay
-        isVisible={visible}
+        isVisible={pubVisible}
         onBackdropPress={toggleOverlay}
         animationType={"slide"}
         hardwareAccelerated={true}
         style={{ padding: 0, margin: 0 }}
+ 
       >
         <Image
           style={{
@@ -200,6 +207,7 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
           source={require("../assets/images/modal-ticket-off.jpg")}
         />
       </Overlay>
+    )}
     </View>
   );
 }

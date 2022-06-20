@@ -7,10 +7,26 @@ const INITIAL_STATE = {
   favorites: [], //[27722,29126,28685,28895,27916,27977,28749,28194,28770,28832,28942],
   programme: [],
   carteAbonnement: [],
+  pubAccueil: true,
 };
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    
+    case "SET_PUB_ACCUEIL":
+      return {
+        ...state,
+        pubAccueil: action.payload,
+      };
+
+    case "GET_PUB_ACCUEIL":
+      return {
+        ...state,
+        pubAccueil: action.payload,
+      };
+      
+
+    
     case "addData":
       return { ...state, programme: action.payload };
 
