@@ -336,7 +336,7 @@ const state = useSelector((state) => state);
                   width: 30,
                   alignItems: "flex-start",
                 }}
-             //   source={require("../assets/profil-panier-blanc.png")}
+                source={require("../assets/profil-panier-blanc.png")}
               />
       </Pressable>
     </View>
