@@ -42,23 +42,25 @@ const ShoppingCart = ({ navigation }) => {
   const [cart, setCart] = useState("");
   const [fees,setFees] = useState(0);
   const [totalDistant,setTotalDistant] = useState(0);
- 
+  
   const pickerRef = useRef();
+  
 
-function open() {
-  pickerRef.current.focus();
-}
-
-function close() {
-  pickerRef.current.blur();
-}
-
-
+  
+  
   useEffect(() => {
     getTotal();
-    getDistantCart();
+     getDistantCart();
     console.log(programmes.tko_id);
   }, []);
+
+  function open() {
+    pickerRef.current.focus();
+  }
+  
+  function close() {
+    pickerRef.current.blur();
+  }
   
   const getTotal = () => {
     const total = programmes.cartItems.reduce((accumulator, object) => {
@@ -73,9 +75,9 @@ function close() {
       return total;
     };
     
-
+    
     const getDistantCart = async() => {
-
+      
       
       var data = '';
       
@@ -85,37 +87,44 @@ function close() {
         headers: { 
           'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
           'token': user.token,
-         },
+        },
         data : data
       };
       
       await axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+
+        if(response.data.basket.tko_id > 0){
+
+
+        console.log('expiration du panier distant : ' + response.data.basket.tko_expiration_string);//tko_expiration_string
+
+
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
         setTotalDistant(response.data.basket.tko_price);
-
+        
         //update fees
         /*
-{"basket":{"tko_id":130496,"tko_payed":0,"tko_expiration":"/Date(1655256214860+0200)/","tko_expiration_string":"2022-06-15T03:23:34.8600000","tko_expiration_paybox":"/Date(1655256952297+0200)/","tko_expiration_paybox_string":"2022-06-15T03:35:52.2970000","tko_tickets":[{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1657956600000+0200)/","sh_date_string":"2022-07-16T09:30:00.0000000","sh_date_id":2111180,"ticket_type":1,"ticket_price":1000},{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1658475000000+0200)/","sh_date_string":"2022-07-22T09:30:00.0000000","sh_date_id":2111186,"ticket_type":1,"ticket_price":1000},{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1658475000000+0200)/","sh_date_string":"2022-07-22T09:30:00.0000000","sh_date_id":2111186,"ticket_type":1,"ticket_price":1000}],"tko_ticket_fees":{"fees_nb":3,"fees_unit_price":100},"tko_price":3300}}
+        {"basket":{"tko_id":130496,"tko_payed":0,"tko_expiration":"/Date(1655256214860+0200)/","tko_expiration_string":"2022-06-15T03:23:34.8600000","tko_expiration_paybox":"/Date(1655256952297+0200)/","tko_expiration_paybox_string":"2022-06-15T03:35:52.2970000","tko_tickets":[{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1657956600000+0200)/","sh_date_string":"2022-07-16T09:30:00.0000000","sh_date_id":2111180,"ticket_type":1,"ticket_price":1000},{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1658475000000+0200)/","sh_date_string":"2022-07-22T09:30:00.0000000","sh_date_id":2111186,"ticket_type":1,"ticket_price":1000},{"sh_id":29389,"sh_name":"Dans les bois","sh_date":"/Date(1658475000000+0200)/","sh_date_string":"2022-07-22T09:30:00.0000000","sh_date_id":2111186,"ticket_type":1,"ticket_price":1000}],"tko_ticket_fees":{"fees_nb":3,"fees_unit_price":100},"tko_price":3300}}
         */
-
+        
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
         
         //frais = fees_nb x fees_unit_price
         setFees(response.data.basket.tko_ticket_fees.fees_nb * response.data.basket.tko_ticket_fees.fees_unit_price / 100);
-
-
+        }
+        
       })
       .catch(function (error) {
         console.log(error);
       });
       
-
-
-
+      
+      
+      
     }
-
+    
     const getPlaces = () => {
       const places = programmes.cartItems.reduce((accumulator, object) => {
         return (
@@ -133,10 +142,10 @@ function close() {
       
       const removeItemFromCart = async (id) => {
         
-
-
-
-       /* 
+        
+        
+        
+        /* 
         programmes.tko_id
         ? await axios
         .delete(
@@ -160,75 +169,75 @@ function close() {
           })
           : null;*/
           if(programmes.tko_id){
-
-          console.log(programmes.tko_id + 'en cours de suppression');
-
-      console.log(user.token);
-          let config = {
-            method: 'delete',
-            url: 'https://api.festivaloffavignon.com/basket',
-            headers: { 
-              'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
-              'token': user.token,
+            
+            console.log(programmes.tko_id + 'en cours de suppression');
+            
+            console.log(user.token);
+            let config = {
+              method: 'delete',
+              url: 'https://api.festivaloffavignon.com/basket',
+              headers: { 
+                'api-key': '8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8', 
+                'token': user.token,
               },
-            data : '{ "tko_id": ' + programmes.tko_id + ' }'
-          };
-      /*    
-         // await axios(config)
-         await axios.delete('https://api.festivaloffavignon.com/basket', 
-          
-         {
-          data: {
-            tko_id: programmes.tko_id,
-          },
-          {
-            headers: {
-              "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-              'token': user.token,
-            },
-          }
-        }
-          
-          
-          
-          
-          ).then(function (response) {
-
-            console.log(JSON.stringify(response.data));
-
-            dispatch({ type: "removeCart", payload: id });
-
-            console.log("supprimé");
-
-          })
-          .catch(function (error) {
-            console.log(error);
-            console.log("tko_id non supprimé");
-          });*/
-
-          var myHeaders = new Headers();
-          myHeaders.append("api-key", "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8");
-          myHeaders.append("token", user.token);
-
-          var raw = "{\r\n    \"tko_id\": " + programmes.tko_id + "\r\n}";
-          
-          var requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          
-         await fetch("https://api.festivaloffavignon.com/basket", requestOptions)
+              data : '{ "tko_id": ' + programmes.tko_id + ' }'
+            };
+            /*    
+            // await axios(config)
+            await axios.delete('https://api.festivaloffavignon.com/basket', 
+            
+            {
+              data: {
+                tko_id: programmes.tko_id,
+              },
+              {
+                headers: {
+                  "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
+                  'token': user.token,
+                },
+              }
+            }
+            
+            
+            
+            
+            ).then(function (response) {
+              
+              console.log(JSON.stringify(response.data));
+              
+              dispatch({ type: "removeCart", payload: id });
+              
+              console.log("supprimé");
+              
+            })
+            .catch(function (error) {
+              console.log(error);
+              console.log("tko_id non supprimé");
+            });*/
+            
+            var myHeaders = new Headers();
+            myHeaders.append("api-key", "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8");
+            myHeaders.append("token", user.token);
+            
+            var raw = "{\r\n    \"tko_id\": " + programmes.tko_id + "\r\n}";
+            
+            var requestOptions = {
+              method: 'DELETE',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            
+            await fetch("https://api.festivaloffavignon.com/basket", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
+            
             dispatch({ type: "removeCart", payload: id });
-
-
-        }
-
+            
+            
+          }
+          
         };
         
         const populateDate = async (id) => {
@@ -256,21 +265,22 @@ function close() {
             )
             
             .catch((error) => {
+              console.log(error);
               console.log("connect nok");
             });
           };
-
-
-
-
+          
+          
+          
+          
           const test = (data) => {
             console.log("hi");
             dispatch({ type: "decreaseCart", payload: data });
             console.log("bi");
           };
-
-
-
+          
+          
+          
           
           const validateCart = async () => {
             setLoading(true);
@@ -295,174 +305,174 @@ function close() {
               .then(async (result) => {
                 tko_id = result.data.basket.tko_id;
                 console.log("resultaado", result.data);
-               // console.log(result.data.message);
-
+                // console.log(result.data.message);
+                
                 //update fees
                 /*
-                 "tko_ticket_fees": Object {
-      "fees_nb": 1,
-      "fees_unit_price": 100,
-    },*/
-            
+                "tko_ticket_fees": Object {
+                  "fees_nb": 1,
+                  "fees_unit_price": 100,
+                },*/
+                
                 if(result.data.success === false){
                   
                   let m = result.data.message;
-
+                  
                   if(m === 'Le nombre de places souhaitÃ©es est supÃ©rieur aux disponibilitÃ©s.'){
-
+                    
                     m= 'Erreur : Le nombre de places souhaitées est supérieur aux disponibilités.';
                   }
                   "ios" === Platform.OS
-                    ? Toast.show(m, Toast.SHORT)
-                    : ToastAndroid.show(m, ToastAndroid.SHORT);
-
+                  ? Toast.show(m, Toast.SHORT)
+                  : ToastAndroid.show(m, ToastAndroid.SHORT);
+                  
                   setLoading(false);
                 }
                 else{
-                //data.tko_id = result.data.basket.tko_id;
-                dispatch({ type: "addTkoId", payload: result.data.basket.tko_id });
-                setCart(result.data);
-                await axios
-                .post(
-                  "https://api.festivaloffavignon.com/basket/validate",
-                  {
-                    sh_date_id: programmes.cartItems[0].date,
-                    tickets_tn: programmes.cartItems[0].price[0].quantity,
-                    tickets_ta: programmes.cartItems[0].price[1].quantity,
-                    tickets_te: programmes.cartItems[0].price[2].quantity,
-                    tickets_tja: programmes.cartItems[0].price[3].quantity,
-                  }
-                
-                  ,
-                  {
-                    headers: {
-                      "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-                      token: user.token,
-                    },
-                  }
-
-                
-
-                  )
-                  .then((result) => {
-                    console.log("success", result.data);
-                    //afficher les bon prix
-                    /*
-                    success Object {
-  "basket": Object {
-    "tko_expiration": "/Date(1655252767890+0200)/",
-    "tko_expiration_paybox": "/Date(1655254393020+0200)/",
-    "tko_expiration_paybox_string": "2022-06-15T02:53:13.0200000",
-    "tko_expiration_string": "2022-06-15T02:26:07.8900000",
-    "tko_id": 130495,
-    "tko_payed": 0,
-    "tko_price": 4300,
-    "tko_ticket_fees": Object {
-      "fees_nb": 3,
-      "fees_unit_price": 100,
-    },
-    "tko_tickets": Array [
-      Object {
-        "place_price": 1000,
-        "place_type": 1,
-        "sh_date": "/Date(1658475000000+0200)/",
-        "sh_date_id": 2111186,
-        "sh_date_string": "2022-07-22T09:30:00.0000000",
-        "sh_id": 29389,
-        "sh_name": "Dans les bois",
-      },
-      Object {
-        "place_price": 1500,
-        "place_type": 1,
-        "sh_date": "/Date(1658995200000+0200)/",
-        "sh_date_id": 2108220,
-        "sh_date_string": "2022-07-28T10:00:00.0000000",
-        "sh_id": 29382,
-        "sh_name": "La méthode du Dr. Spongiak",
-      },
-      */
-
-
-                  })
-                  
-                  .catch((error) => {
-                    console.log(error);
-                    console.log("NOK");
-                    setLoading(false);
-                  });
-
-              
-
+                  //data.tko_id = result.data.basket.tko_id;
+                  dispatch({ type: "addTkoId", payload: result.data.basket.tko_id });
+                  setCart(result.data);
                   await axios
                   .post(
-                    "https://api.festivaloffavignon.com/basket/contact",
+                    "https://api.festivaloffavignon.com/basket/validate",
                     {
-                      tko_id: tko_id,
-                      tko_firstname: user.user.prenom,
-                      tko_lastname: user.user.nom,
-                      tko_phone: "0606060606",
-                      tko_email: user.user.email,
-                    },
+                      sh_date_id: programmes.cartItems[0].date,
+                      tickets_tn: programmes.cartItems[0].price[0].quantity,
+                      tickets_ta: programmes.cartItems[0].price[1].quantity,
+                      tickets_te: programmes.cartItems[0].price[2].quantity,
+                      tickets_tja: programmes.cartItems[0].price[3].quantity,
+                    }
+                    
+                    ,
                     {
                       headers: {
                         "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
                         token: user.token,
                       },
                     }
-                    )
-                    .then((user) => {
-                      console.log("success : ajout du contact au billet");
-                    })
                     
-                    .catch((error) => {
-                      console.log(error);
-                      setLoading(false);
-                    });
-
-
-                    await axios
-                    .get("https://api.festivaloffavignon.com/cms/login", {
-                    headers: {
-                      "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
-                      token: user.token,
-                    },
-                  })
-                  .then((user) => {
-                    console.log("success login CMS" + totalDistant);
-                    setLoading(false);
-                    navigation.dispatch(
-                      CommonActions.reset({
-                        index: 1,
-                        routes: [
-                          { name: 'CartPay' },
-        
-                        ],
-                      })
-                    );
-                    navigation.navigate(
-                      "CartPay",
-                      {tko_id: tko_id,
-                      total: totalDistant
-                      },
-                      
-                      );
-                  })
-                  
-                  .catch((error) => {
-                    console.log(error);
-                    setLoading(false);
-                  });
-
-                }//fin else erreur ajout panier
-
-                })
-                
-                .catch((error) => {
-                  console.log(error);
-                  console.log("her");
-                  setLoading(false);
-                });
-              };
+                    
+                    
+                    )
+                    .then((result) => {
+                      console.log("success", result.data);
+                      //afficher les bon prix
+                      /*
+                      success Object {
+                        "basket": Object {
+                          "tko_expiration": "/Date(1655252767890+0200)/",
+                          "tko_expiration_paybox": "/Date(1655254393020+0200)/",
+                          "tko_expiration_paybox_string": "2022-06-15T02:53:13.0200000",
+                          "tko_expiration_string": "2022-06-15T02:26:07.8900000",
+                          "tko_id": 130495,
+                          "tko_payed": 0,
+                          "tko_price": 4300,
+                          "tko_ticket_fees": Object {
+                            "fees_nb": 3,
+                            "fees_unit_price": 100,
+                          },
+                          "tko_tickets": Array [
+                            Object {
+                              "place_price": 1000,
+                              "place_type": 1,
+                              "sh_date": "/Date(1658475000000+0200)/",
+                              "sh_date_id": 2111186,
+                              "sh_date_string": "2022-07-22T09:30:00.0000000",
+                              "sh_id": 29389,
+                              "sh_name": "Dans les bois",
+                            },
+                            Object {
+                              "place_price": 1500,
+                              "place_type": 1,
+                              "sh_date": "/Date(1658995200000+0200)/",
+                              "sh_date_id": 2108220,
+                              "sh_date_string": "2022-07-28T10:00:00.0000000",
+                              "sh_id": 29382,
+                              "sh_name": "La méthode du Dr. Spongiak",
+                            },
+                            */
+                            
+                            
+                          })
+                          
+                          .catch((error) => {
+                            console.log(error);
+                            console.log("NOK");
+                            setLoading(false);
+                          });
+                          
+                          
+                          
+                          await axios
+                          .post(
+                            "https://api.festivaloffavignon.com/basket/contact",
+                            {
+                              tko_id: tko_id,
+                              tko_firstname: user.user.prenom,
+                              tko_lastname: user.user.nom,
+                              tko_phone: "0606060606",
+                              tko_email: user.user.email,
+                            },
+                            {
+                              headers: {
+                                "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
+                                token: user.token,
+                              },
+                            }
+                            )
+                            .then((user) => {
+                              console.log("success : ajout du contact au billet");
+                            })
+                            
+                            .catch((error) => {
+                              console.log(error);
+                              setLoading(false);
+                            });
+                            
+                            
+                            await axios
+                            .get("https://api.festivaloffavignon.com/cms/login", {
+                            headers: {
+                              "api-key": "8eq+GmvX;]#.t_h-(nwT68ZXf-{2&Pr8",
+                              token: user.token,
+                            },
+                          })
+                          .then((user) => {
+                            console.log("success login CMS" + totalDistant);
+                            setLoading(false);
+                            navigation.dispatch(
+                              CommonActions.reset({
+                                index: 1,
+                                routes: [
+                                  { name: 'CartPay' },
+                                  
+                                ],
+                              })
+                              );
+                              navigation.navigate(
+                                "CartPay",
+                                {tko_id: tko_id,
+                                  total: totalDistant
+                                },
+                                
+                                );
+                              })
+                              
+                              .catch((error) => {
+                                console.log(error);
+                                setLoading(false);
+                              });
+                              
+                            }//fin else erreur ajout panier
+                            
+                          })
+                          
+                          .catch((error) => {
+                            console.log(error);
+                            console.log("her");
+                            setLoading(false);
+                          });
+                        };
               const renderProducts = (data, index) => {
                // populateDate(data.id);
                 return (
