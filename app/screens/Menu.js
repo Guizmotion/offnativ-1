@@ -73,6 +73,7 @@ const Menu = (props) => {
 }
 
 const delayChangePub = 5000;
+const nb_pubs = 2;
 
 useLayoutEffect(() => {
 
@@ -81,8 +82,10 @@ useLayoutEffect(() => {
 
 
     getPublicite().then(data => {
-   
-      const rndIdPub = Math.floor(Math.random() * 3) ;
+      
+      if(data.length > 0){
+
+      const rndIdPub = Math.floor(Math.random() * nb_pubs) ;
       //console.log("rndIdPub : " + rndIdPub);
   
       let pub = data[rndIdPub].split("|");
@@ -111,7 +114,8 @@ useLayoutEffect(() => {
   
      
   }
-  
+  }
+
     
   
     });
