@@ -220,6 +220,19 @@ const ProgrammeCard = ({ item }) => {
   };
 
   const addCart = (item) => {
+
+    if(!state.isAuthenticated){
+
+      let m = "Vous devez vous connecter pour ajouter un spectacle à votre panier";
+
+        "ios" === Platform.OS
+          ? Toast.show(m, Toast.SHORT)
+          : ToastAndroid.show(m, ToastAndroid.SHORT);
+        
+      return;
+      
+    }
+
     const product = {
       id: item.id,
       title: item.titre_spectacle,
@@ -241,7 +254,7 @@ const ProgrammeCard = ({ item }) => {
           quantity: 0,
         },
       ],
-      image: item.image,
+    //  image: item.image,
     };
 
     dispatch({ type: "cart", payload: product });
@@ -599,9 +612,9 @@ const ProgrammeCard = ({ item }) => {
     */}
               </View>
               <View style={styles.labelBigplace}>
-              <Pressable
-                        onPress={() => Linking.openURL(url_lieu)}
-                     /*     onPress={() => {
+                <Pressable
+                  onPress={() => Linking.openURL(url_lieu)}
+                  /*     onPress={() => {
 
                            let newDate = moment.utc(new Date('2022-07-07')).format('YYYY-MM-DD'
                             )+'T193000Z';
@@ -615,20 +628,10 @@ const ProgrammeCard = ({ item }) => {
                               'à%20' + itemHoraire + '%20- Durée%20' + itemDuree +
                               '&location='+itemLieu);
                             
-                                  }}*/ 
-                          >
-                            <Image
-                      style={{
-                        height: 25,
-                        width: 25,
-                        marginTop: -4,
-                        position: "absolute",
-                        left: 0
-                      }}
-                      source={require("../assets/itineraire.png")}
-                      />
-                        <Text  ellipsizeMode='tail' numberOfLines={1} style={{textAlign: "right",  width: '85%', marginLeft: '15%' }}>{itemLieu}</Text>
-                        </Pressable>
+                                  }}*/
+                >
+                  <Text>{itemLieu}</Text>
+                </Pressable>
               </View>
             </View>
             <View style={{ marginTop: "5%" }}>
@@ -920,8 +923,8 @@ const ProgrammeCard = ({ item }) => {
             </View>
           </View>
         </ScrollView>
-        <View style={{ justifyContent: "flex-end", flex: 3, bottom: 10, padding: 15 }}>
-          {state.isAuthenticated && (
+        <View style={{ justifyContent: "flex-end", flex: 3, bottom: 0 }}>
+          {item.ticket_off == 'Oui'  && (
             <TouchableOpacity
             style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
               onPress={() => addCart(item)}

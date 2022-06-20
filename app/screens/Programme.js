@@ -186,7 +186,7 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
         onBackdropPress={toggleOverlay}
         animationType={"slide"}
         hardwareAccelerated={true}
-        style={{ padding: 0, margin: 0, backgroundColor: "red" }}
+        style={{ padding: 0, margin: 0 }}
       >
         <Image
           style={{
@@ -194,7 +194,7 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
             width: 300,
             padding: 0,
             margin: 0,
-            backgroundColor: "red",
+          
             borderWidth: 0,
           }}
           source={require("../assets/images/modal-ticket-off.jpg")}
