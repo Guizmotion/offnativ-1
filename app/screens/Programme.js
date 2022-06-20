@@ -186,7 +186,7 @@ flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
         onBackdropPress={toggleOverlay}
         animationType={"slide"}
         hardwareAccelerated={true}
-        style={{ padding: 0, margin: 0,  }}
+        style={{ padding: 0, margin: 0, backgroundColor: "red" }}
       >
         <Image
           style={{
