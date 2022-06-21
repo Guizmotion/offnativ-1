@@ -7,6 +7,8 @@ import axios from "axios";
 import { Button, Overlay } from "react-native-elements";
 
 export default function CartPay({ route,navigation }) {
+
+
   
   const user = useSelector((state) => state.user);
   const { tko_id, total } = route.params;
@@ -21,9 +23,12 @@ export default function CartPay({ route,navigation }) {
   /*
 
   useEffect(() => {
+    //si retour , forcer panier car on a vider le cache appnavigator
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
     return () => backHandler.remove()
-  }, [])*/
+  }, [])
+  
+  */
   
   const jsCode =
   "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
