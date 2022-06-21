@@ -442,7 +442,7 @@ const ShoppingCart = ({ navigation }) => {
                             setLoading(false);
                             navigation.dispatch(
                               CommonActions.reset({
-                                index: 1,
+                                index: 0,
                                 routes: [
                                   { name: 'CartPay' },
                                   
