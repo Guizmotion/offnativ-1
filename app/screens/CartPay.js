@@ -7,10 +7,9 @@ import axios from "axios";
 import { Button, Overlay } from "react-native-elements";
 
 export default function CartPay({ route,navigation }) {
-
-
   
   const user = useSelector((state) => state.user);
+  
   const { tko_id, total } = route.params;
   //const [visible, setVisible] = useState(false);
   const [tko_idDistant, setTko_idDistant] = useState('');
@@ -23,12 +22,9 @@ export default function CartPay({ route,navigation }) {
   /*
 
   useEffect(() => {
-    //si retour , forcer panier car on a vider le cache appnavigator
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
     return () => backHandler.remove()
-  }, [])
-  
-  */
+  }, [])*/
   
   const jsCode =
   "document.body.style.userSelect = 'none';document.querySelector('.navbar-default').style.display = 'none'; document.querySelector('footer').style.display = 'none';";
@@ -45,10 +41,17 @@ export default function CartPay({ route,navigation }) {
     // console.log('tko_idDistant' + tko_idDistant);
     
    // if(tko_idDistant!=0 && tko_id != 0 && tko_idDistant == tko_id){
-      
+      if(tko_id === null){
+        getDistantCart();
+        //getCmsLogin();  
+        setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+tko_idDistant); 
+      }else{
 
         //getCmsLogin();  
         setUrlPaiement("https://www.festivaloffavignon.com/ws/pay_basket/"+tko_id); 
+      }
+
+        
        
         // webViewRef.current.clearCache();  
         
