@@ -23,7 +23,8 @@ import Checkbox from "expo-checkbox";
 import moment from "moment";
 import "moment/min/locales";
 import Loader from "./Loader";
-import { Button } from "react-native-paper";
+import { Button, Overlay } from "react-native-elements";
+  
 
 import Toast from "react-native-root-toast";
 import { CommonActions } from '@react-navigation/native';
@@ -42,17 +43,34 @@ const ShoppingCart = ({ navigation }) => {
   const [cart, setCart] = useState("");
   const [fees,setFees] = useState(0);
   const [totalDistant,setTotalDistant] = useState(0);
+  const [tko_idDistant,setTko_idDistant] = useState(0);
+  // const { stateRecherche, dispatchRecherche } =
+  
+  const [ModalPanierVisible, setModalPanierVisible] = useState(false);
+  const [displayPicker, setDisplayPicker] = useState(false);
   
   const pickerRef = useRef();
   
+  const toggleOverlay = () => {
+    setModalPanierVisible(false);
+    
+  };
 
   
   
+  
+
   useEffect(() => {
-    getTotal();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getTotal();
      getDistantCart();
-    console.log(programmes.tko_id);
-  }, []);
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+
+
 
   function open() {
     pickerRef.current.focus();
@@ -100,8 +118,25 @@ const ShoppingCart = ({ navigation }) => {
 
         console.log('expiration du panier distant : ' + response.data.basket.tko_expiration_string);//tko_expiration_string
 
+        let mmo = moment(response.data.basket.tko_expiration);
+        let now = moment();
+        let diff = mmo.diff(now, 'days');
+        console.log('difference : ' + diff);
+        if(diff < 0){
+          console.log('panier distant expiré');
+        } 
+
+        let m = 'Un panier distant existe, voulez vous vous rendre directement sur la page de paiement ?';
+
+        "ios" === Platform.OS
+        ? Toast.show(m, Toast.LONG)
+        : ToastAndroid.show(m, ToastAndroid.LONG);
+
+        setModalPanierVisible(true);
+
 
         console.log(response.data.basket.tko_ticket_fees.fees_nb);
+        setTko_idDistant(response.data.basket.tko_id);
         setTotalDistant(response.data.basket.tko_price);
         
         //update fees
@@ -241,6 +276,7 @@ const ShoppingCart = ({ navigation }) => {
         };
         
         const populateDate = async (id) => {
+          
           await axios
           .post(
             "https://api.festivaloffavignon.com/tickets/availability",
@@ -259,8 +295,15 @@ const ShoppingCart = ({ navigation }) => {
               
             })
             .then(() => {
-              //close();
-              //open();
+              //if android
+              if(Platform.OS === 'android'){
+              open();
+              }
+              //if ios
+              if(Platform.OS === 'ios'){
+                setDisplayPicker(true);
+        // pickerRef.current.open();
+              }
             }
             )
             
@@ -283,6 +326,31 @@ const ShoppingCart = ({ navigation }) => {
           
           
           const validateCart = async () => {
+
+            if (totalDistant > 0) {
+/*
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [
+                    { name: 'CartPay' },
+                    
+                  ],
+                  
+                })
+                );
+              navigation.navigate(
+                "CartPay",
+                {tko_id: tko_id,
+                  total: totalDistant
+                },
+                
+                );
+
+                return ;*/
+              }
+
+
             setLoading(true);
             let tko_id = "";
             await axios
@@ -438,33 +506,50 @@ const ShoppingCart = ({ navigation }) => {
                             },
                           })
                           .then((user) => {
-                            console.log("success login CMS" + totalDistant);
-                            setLoading(false);
-                            navigation.dispatch(
-                              CommonActions.reset({
-                                index: 0,
-                                routes: [
-                                  { name: 'CartPay' },
+
+
+                            if(tko_id !== null){
+                              console.log("success login CMS " + totalDistant);
+                              setLoading(false);
+                              navigation.dispatch(
+                                CommonActions.reset({
+                                  index: 1,
+                                  routes: [
+                                    { name: 'CartPay' },
+                                    
+                                  ],
                                   
-                                ],
-                              })
-                              );
-                              navigation.navigate(
-                                "CartPay",
-                                {tko_id: tko_id,
-                                  total: totalDistant
-                                },
-                                
+                                })
                                 );
-                              })
-                              
-                              .catch((error) => {
+                                navigation.navigate(
+                                  "CartPay",
+                                  {tko_id: tko_id,
+                                    total: totalDistant
+                                  },
+                                  
+                                  );
+                            } else {
+                              console.log("erreur ajout panier tko_id vide");
+                            }  
+
+
+                            
+
+
+                              }).catch((error) => {
                                 console.log(error);
                                 setLoading(false);
                               });
+
+                             
                               
                             }//fin else erreur ajout panier
-                            
+
+
+                          
+
+
+
                           })
                           
                           .catch((error) => {
@@ -472,8 +557,15 @@ const ShoppingCart = ({ navigation }) => {
                             console.log("her");
                             setLoading(false);
                           });
+
+                       
+
+
                         };
               const renderProducts = (data, index) => {
+
+                console.log('->'+programmes.cartItems[index].date);
+                console.log (moment(programmes.cartItems[index].date_string).format("LLLL"));
                // populateDate(data.id);
                 return (
                   <View key={index}>
@@ -545,19 +637,32 @@ const ShoppingCart = ({ navigation }) => {
                   <Pressable
                     onPress={() => {populateDate(data.id);}}
                   >
-                    <Text style={{textAlign: 'center'}}> {data.id}</Text>
+                    <Text style={{textAlign: 'center'}}>
+                      
+                       {moment(programmes.cartItems[index].date_string).format("LLLL")}
+                       </Text>
 
                   
                  
                   </Pressable>
                   <Picker
-                 
+                  style={{display: displayPicker ? 'flex' : 'none'}}
                   ref={pickerRef}
+
                   selectedValue={data.date}
+
                   onValueChange={(itemValue, itemIndex) => {
                     
                     let newData = data;
                     newData.date = itemValue;
+                    date.availability.filter((item) => item.sh_date_id == itemValue).map((item) => {
+                      newData.date_string = item.sh_date_string;
+                    }
+                    );
+                    //newData.date_string = 'test';                    
+                    //get label
+                   // newData.date_string =date.availability[itemIndex].label;
+
                     dispatch({ type: "addDateToCart", payload: newData });
                   }}
                   
@@ -582,6 +687,7 @@ const ShoppingCart = ({ navigation }) => {
                         <Picker.Item label="Téléchargement des horaires..." value="0" />
                         )}
                         </Picker>
+
                         <View style={{marginBottom: 10,alignSelf: 'center', flexDirection: 'column' }}>
                         <Text  style={[styles.moyenText, {textAlign: 'center', fontWeight: 'bold'}]}>
                           Si la date est indisponible, </Text>
@@ -934,7 +1040,7 @@ const ShoppingCart = ({ navigation }) => {
                           <Text
                           style={[styles.TextBigCart]}
                           >
-                          {getTotal() + 1 * getPlaces()} €
+                          {getTotal() + fees } €
                           </Text>
                           </View>
                           <View
@@ -977,6 +1083,7 @@ const ShoppingCart = ({ navigation }) => {
                           }}
                           >
                           <TouchableOpacity
+                          
                           // onPress={() => (total != 0 ? checkOut() : null)}
                           onPress={() => validateCart()}
                           style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
@@ -989,11 +1096,56 @@ const ShoppingCart = ({ navigation }) => {
                           <Text
                           style={styles.textBigButton}
                           >
-                          Valider mon panier (€ {getTotal() + fees * getPlaces()} )
+                          Valider mon panier (€ {getTotal() + fees } )
                           </Text>
                           </TouchableOpacity>
                           </View>
+
+
+
+       { ModalPanierVisible && <Overlay
+       // isVisible={ModalPanierVisible}
+        onBackdropPress={toggleOverlay}
+        animationType={"slide"}
+        hardwareAccelerated={true}
+        style={{ padding: 0, margin: 0 }}
+ 
+      >
+       <Text>Panier distant existant</Text>
+       
+       <Text>Montant total du panier : {totalDistant /100 } Euro</Text>
+       <TouchableOpacity
+                          
+                          // onPress={() => (total != 0 ? checkOut() : null)}
+                          onPress={() => 
+                          
+                            navigation.navigate(
+                              "CartPay",
+                              {tko_id: tko_idDistant, 
+                                total: totalDistant
+                              },
+                              
+                              )
+                          
+                          }
+                          style={[styles.labelCard, styles.btnBig, styles.labelAchat]}
+                         
+                          >
+                          <Text
+                          style={styles.textBigButton}
+                          >
+                         Payer mon panier distant
+                          </Text>
+                          </TouchableOpacity>
+      </Overlay> }
+
+
                           </View>
+
+
+
+
+
                           ) : (
                             <View
                             style={{

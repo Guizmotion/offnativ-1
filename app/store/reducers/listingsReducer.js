@@ -203,6 +203,7 @@ function addToCart(state = INITIAL_STATE, action) {
           cartItems: state.cartItems.map((item, index) => {
             if (index === dateIndex) {
               item.date = action.payload.date;
+              item.date_string = action.payload.date_string;
             }
             return item;
           }),

@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import { View, Text, Image, Dimensions, Pressable, Alert } from "react-native";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -17,6 +18,7 @@ import CarteAbonnementWebview from "../screens/CarteAbonnementWebview";
 import Photo from "../screens/Photo";
 import Login from "../screens/Login";
 import RechercheModal from "../screens/RechercheModal";
+import RechercheAuteurs from "../screens/RechercheAuteurs";
 import ListStyleSpectacle from "../screens/recherche/ListStyleSpectacle";
 import ListDateSpectacle from "../screens/recherche/ListDateSpectacle";
 import ListAuteurSpectacle from "../screens/recherche/ListAuteurSpectacle";
@@ -37,6 +39,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "../config/styles/StyleGeneral";
 import ShoppingCart from "../screens/ShoppingCart";
 import CartPay from "../screens/CartPay";
+
 const Drawer = createDrawerNavigator();
 
 
@@ -96,10 +99,13 @@ const state = useSelector((state) => state);
     if(route.name=="CartesAbonnement"){
       titre ='Mes cartes d\'abonnement';
     }
+    
+    if(route.name=="CreerCarteAbonnement"){
+      titre ='Créer ma carte d\'abonnement';
+    }
     if(route.name=="Factures"){
       titre ='Mes factures';
     }
-
 
 
     if(route.name=="ListDateSpectacle"){
@@ -111,7 +117,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -147,7 +153,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -182,7 +188,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -217,7 +223,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -251,7 +257,7 @@ const state = useSelector((state) => state);
         <Text style={{   
           fontSize: 20,
      fontWeight: "bold",
-     width: '97%',textAlign: 'center'
+     width: '90%',textAlign: 'center'
 
      }}>
         Rechercher
@@ -259,7 +265,7 @@ const state = useSelector((state) => state);
        
         
         <View
-        style={{ }}
+        style={{position: 'absolute', right: 0 }}
       >
         <Pressable
           
@@ -281,8 +287,8 @@ const state = useSelector((state) => state);
     
     
     return (
-      <View style={[styles.headView]}>
-      <Text style={[styles.titrePage, { alignSelf: "flex-start" }]}>
+      <View style={[styles.headView ]}>
+      <Text style={[styles.titrePage]}>
         {titre}
       </Text>
       <Pressable
@@ -301,20 +307,21 @@ const state = useSelector((state) => state);
               )
         }
         style={{
-          position: "absolute",
-          top: 100,
-          right: -40,
-          width: 60,
-          height: 60,
-          padding: 15,
+          position: 'absolute',
+          top: -10,
+          right: 0,
+          width: 40,
+          height: 40,
+          padding: 5,
           backgroundColor: '#221f1f',
-          borderRadius: 30
+          borderRadius: 30,
+          flex:2
         }}
       >
         <View
           style={{
             position: "absolute",
-            top: 10,
+            top: 0,
             borderRadius: 16,
             width: 20,
             height: 20,
@@ -322,7 +329,7 @@ const state = useSelector((state) => state);
             alignItems: "center",
             backgroundColor: "#f26522",
             zIndex: 1, 
-            marginLeft: 8,
+            marginLeft: -3,
           }}
         >
           <Text style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>
@@ -385,6 +392,33 @@ const state = useSelector((state) => state);
         </Pressable>
         </View>
         );
+
+
+        } else if  ((route.name=="CreerCarteAbonnement")) {
+
+          return (
+          <View style={[styles.headerLeft]}>
+          <Pressable onPress={() => navigation.navigate(("CartesAbonnement"))}
+          style={({pressed}) => [
+            {},
+            styles.buttonMenu,
+          ]}
+  
+          >
+          <Image
+              style={{
+                resizeMode: "cover",
+                height: 25,
+                width: 25,
+              }}
+              source={require("../assets/back.png")}
+            />
+          </Pressable>
+          </View>
+          );
+  
+
+
 
       } else if ((route.name=="Inscription")) {
 
@@ -509,31 +543,38 @@ const state = useSelector((state) => state);
           options={{ drawerLabel: () => null }}
           />
           
-          <Drawer.Screen name="Actualites" component={Actualites}   />
-          <Drawer.Screen name="Carte" component={Carte} />
-          <Drawer.Screen name="Annonces" component={Annonces} />
-          <Drawer.Screen name="Fondation" component={Fondation} />
-          <Drawer.Screen name="CarteAbonnementWebview" component={CarteAbonnementWebview} />
-          <Drawer.Screen name="Archives" component={Archives} />
-          <Drawer.Screen name="Partenaires" component={Partenaires} />
-          
-          <Drawer.Screen name="Login" component={Login} />
-          <Drawer.Screen name="Inscription" component={Inscription} />
-          <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
-          <Drawer.Screen name="Favoris" component={Favoris} />
-          <Drawer.Screen name="ModifierProfil" component={ModifierProfil} />
-          <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles} />
-          <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement} />
-          <Drawer.Screen name="CreerCarteAbonnement" component={CreerCarteAbonnement} />
-          <Drawer.Screen name="Factures" component={Factures} />
-          <Drawer.Screen name="Photo" component={Photo} />
-          <Drawer.Screen
+          <Drawer.Screen name="Actualites" component={Actualites} />
+      <Drawer.Screen name="Carte" component={Carte} />
+      <Drawer.Screen name="Annonces" component={Annonces} />
+      <Drawer.Screen name="Fondation" component={Fondation} />
+      <Drawer.Screen
+        name="CarteAbonnementWebview"
+        component={CarteAbonnementWebview}
+      />
+      <Drawer.Screen name="Archives" component={Archives} />
+      <Drawer.Screen name="Partenaires" component={Partenaires} />
+
+      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Inscription" component={Inscription} />
+      <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
+      <Drawer.Screen name="Favoris" component={Favoris} />
+      <Drawer.Screen name="ModifierProfil" component={ModifierProfil} />
+      <Drawer.Screen name="PlacesSpectacles" component={PlacesSpectacles} />
+      <Drawer.Screen name="CartesAbonnement" component={CartesAbonnement} />
+      <Drawer.Screen
+        name="CreerCarteAbonnement"
+        component={CreerCarteAbonnement}
+      />
+      <Drawer.Screen name="Factures" component={Factures} />
+      <Drawer.Screen name="Photo" component={Photo} />
+
+      <Drawer.Screen
         options={{ headerShown: false }}
         name="ShoppingCart"
         component={ShoppingCart}
       />
       <Drawer.Screen name="CartPay" component={CartPay} />
-          </Drawer.Navigator>
+    </Drawer.Navigator>
           );
         };
         
